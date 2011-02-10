@@ -1,0 +1,1122 @@
+-e option is necessary only when you supply more than one instruction on the command line.
+It tells sed to interpret the next argument as an instruction.When there is a single instruction,
+sed is able to make that determinations on its own.
+
+Substitution
+Syntax: [address]s/pattern/replacement/flags
+where the flags that modify the substitution are:
+n	A number (1 to 512) indicating that a replacement should be made for only the nth occurrence of the pattern.
+g	Make changes globally on all occurrences in the pattern space. Normally only the first occurrence is replaced.
+p	Print the contents of the pattern space.
+w file Write the contents of the pattern space to file.
+
+Unlike addresses, which require a slash(/) as a delimiter, the regular expression can be delimited by any character except a newline.
+Thus, if the pattern contained slashes, you could choose another character, such as an exclamation mark, as the delimiter.
+s!/usr/mail!/usr2/mail!
+
+There are three ways to specify multiple instructions on the command line:
+1. Separate instructions with a semicolon.
+	sed 's/MA/Massachusetts/;s/PA/Pennsylvania/' list
+2. Precede each instruction by -e.
+	sed -e 's/MA/Massachusetts/' -e 's/PA/Pennsylvania/' list
+3. Use the multiline entry capability of the Bourne shell. Press RETURN after entering a single quote and a secondary prompt(>)
+   will be displayed for multiline input.
+	$ sed '
+	> s/MA/Massachusetts/
+	> s/PA/Pennsylvania/
+	> s/CA/California/' list
+   This will not work in the C shell. Instead, use semicolons at the end of each instruction, and you can enter commands over multiple
+   lines by ending each line with a backslash.
+
+Script Files
+	sed -f scriptfile file
+
+The default operation of sed is to output every input line. The -n option suppresses the automatic output.
+When specifying this option, each instruction intended to produce output must contain a print command,p.
+$ sed -n -e 's/MA/Massachusetts/p' list
+Here, only the lines that were affected by the command were printed.
+
+the delete command:d.
+A script consisting of simply the d command and no address produces no output since it deletes all lines:d
+When a line number is supplied as an address, the command affects only that line.For instance, the following example deletes only
+the first line:1d
+The following example deletes the last line of input: $d
+When a regular expression is supplied as an address, the command affects only the lines matching that pattern. The regular expression
+must be enclosed by slashes(/).The following delete command:/^$/d  deletes only bland lines.
+You can mix a line address and a pattern address: 1,/^$/d
+The action will be applied to lines once the first match is made.The command will be applied to all subsequent lines until the second
+match is made.
+An exclamation mark(!) following an address reverses the sence of the match.
+
+Braces ({}) are used in sed to nest one address inside another or to apply multiple commands at the same address.
+You can apply multiple commands to the same range of lines by enclosing the editing commands within braces, as shown below:
+	/^\.TS/,/^\.TE/{  #¶ººÅÊÇµ½µÄÒâË¼,ÕâÀïµÄ·¶Î§²»ÊÇÁ½ĞĞ,¶øÊÇ´Ó...µ½...·¶Î§µÄËùÓĞĞĞ,Èç¹ûºóÃæµÄÄ£Ê½Ã»ÓĞÆ¥ÅäµÄ,ÔòÒ»Ö±µ½ÎÄ¼ş×îºóÒ»Ìõ¼ÇÂ¼
+		/^$/d
+		s/^\.ps 10/.ps 8/
+		s/^\.vs 12/.vs 10/
+	}
+This example not only deletes blank lines in tbl input but it also uses the substitute command, s, to change several troff requests.
+The first command can be placed on the same line with the opening brace but the closing brace must appear on its own line.
+
+Here's the getmac script:
+#! /bin/sh
+# getmac--print mm macro definition for $1
+ sed -n "/^\.de$1/,/^\.\.$/p" /usr/lib/macros/mmt
+
+The first line of the shell script forces interpretation of the script by the Bourne shell,
+using the "#!" executable interpreter mechanism available on all modern UNIX systems. 
+The second line is a comment that describes the name and purpose of the script. The sed command, on the third line,
+is identical to the previous example, except that "BL" is replaced by "$1", a variable representing the first command-line
+argument. Note that the double quotes surrounding the sed script are necessary. Single quotes not allow interpretation of 
+"$1" by the shell.
+This script, getmac, can be executed as follows:
+$ getmac BL
+where "BL" is the first command-line argument.
+
+1.The ampersand(&)
+As a metacharacter,the ampersand(&) represents the extent of the pattern match,not the line that was matched.
+For instance,you might use it to match a word and surround it with troff requests.
+The following example surrounds a word with point-size requests:
+        s/UNIX/\\s-2&\\s0/g
+Because backslashes are also replacement metacharacters,two backslashes are necessary to output a single backslash.
+The & in the replacement string refers to the string which was originally matched UNIX.IF the input line is:
+        on the UNIX Operating System
+The substitute command produces:
+        on the \s-2UNIX\s0 Operating System
+Any reference such as See Section 1.4 or See Section 12.9 should appear in parentheses,as (See Section 12.9).
+A regular expression can match the different combination of numbers,so we use & in the replacement string and surround 
+whatever was matched:
+        s/See Section [1-9][0-9]*\.[1-9][0-9]*/(&)/
+        
+2.Referencing Portions of a Search String
+       s/\([sS]ee \)\(Section \)\([1-9][0-9]*\)\.\([1-9][0-9]*\)/
+           \1<a href="#SEC-\3_\4">\2\3.\4<\/a>/
+  (See Section 1.2 ±ØĞëÊÇÆ¥ÅäµÄ£¬¼´ÊÇËµÈç¹ûÆ¥ÅäÄ£Ê½Ğ´³É\([sS]ee\)\(Section\)\Ã¿¸öµ¥´ÊºóÃ»ÓĞ¿Õ¸ñµÄ»°£¬Ôò²»ÄÜÖ´ĞĞ³É¹¦)
+  Four pairs of escaped parentheses are specified.String 1 captures the word see with an upper- or lowercase s.
+  String 2 captures the section number(because this is a fixed string,it could have been simply retyped in the replacement string.)
+  String 3 captures the part of the section number before the decimal point.
+  String 4 captures the part of the section number after the decimal point.
+  The replacement string recalls the first saved substring as \1.Next starts a link where the two parts of the section number,
+  \3 and \4,are separeted by an underscore(_) and have the string SEC- before them.Finally the link text replays the section 
+  number again-this time with a decimal point between its parts.Note that although a dot(.) is special in the search pattern
+  and has to be quoted with a backslash there,it's not special on the replacement side and can be typed literally.
+          See Section 1.2 for details.
+      ------------------------------------
+          See <a href="#SEC-1_2">Section1.2</a> for details.
+          
+          
+          Be sure to see Section 23.16!
+      -------------------------------------
+          Be sure to see<a href="#SEC-23_16">Section23.16</a>!
+          
+We can use a similar technique to match parts of a line and swap them.
+For instance,let's say there are two parts of a line separated by a colon.
+We can match each part,putting them within escaped parentheses and swapping them in the replacement:
+sed 's/\(.*\):\(.*\)/\2:\1/' file
+      first:second
+      one:two
+     --------------------------------------
+     second:first
+     two:one 
+
+We can go a step further and provide a shell script that creates a list of index entries prepared for editing as a series of sed 
+subsitutute commands.
+#! /bin/sh
+# index.edit -- compile list of index entries for editing.
+grep "^\.XX" $* | sort -u |
+sed '
+s/^\.XX \(.*\)$/\/^\\.XX \/s\/\1\/\1\//'
+The index.edit shell script uses grep to extract all lines containing index entries from any number of files specified on the command line.
+It passes this list through sort which, with the -u option, sorts and removes duplicate entries. The list is then piped to sed, and the 
+one-line sed script builds a substitution command.
+Let's look at it more closely. Here's just the regular expression:
+	^\.XX \(.*\)$
+It matches the entire line, saving the index entry for recall. Here's just the replacement string:
+	\/^\\.XX \/s\/\1\/\1\/
+It generates a substitute command beginning with an address: a slash, followed by two backslashes-to output one backslash to protect the
+dot in the ".XX" that follows-then comes a space, then another slash to complete the address. Next we output an "s" followed by a slash,
+and then recall the saved portion to be used as a regular expression. That is followed by another slash and again we recall the saved
+substring as the replacement string. A slash finnally ends the command.     
+          
+ÄÇĞ©¼«ºÃµÄ´ø·´Ğ±¸ÜµÄÔ²À¨ºÅ
+'s///' ÃüÁîÉõÖÁ±È '&' ¸üºÃ£¬ËüÔÊĞíÎÒÃÇÔÚ¹æÔò±í´ïÊ½ÖĞ¶¨ÒåÇøÓò£¬È»ºó¿ÉÒÔÔÚÌæ»»×Ö·û´®ÖĞÒıÓÃÕâĞ©ÌØ¶¨ÇøÓò¡£
+×÷ÎªÊ¾Àı£¬ÏÖÔÚ¼ÙÉèÒª±àĞ´Ò»¸ö sed ½Å±¾£¬¸Ã½Å±¾½«°Ñ "eeny meeny miny" Ìæ»»³É "Victor eeny-meeny Von miny" µÈµÈ¡£
+ÒªÕâÑù×ö£¬Ê×ÏÈÒª±àĞ´Ò»¸öÓÉ¿Õ¸ñ·Ö¸ô²¢ÓëÈı¸ö×Ö·û´®Æ¥ÅäµÄ¹æÔò±í´ïÊ½¡£
+'.* .* .*' 
+ÏÖÔÚ£¬½«ÔÚÆäÖĞÃ¿¸ö¸ĞĞËÈ¤µÄÇøÓòÁ½±ß²åÈë´ø·´Ğ±¸ÜµÄÔ²À¨ºÅÀ´¶¨ÒåÇøÓò£º
+'\(.*\) \(.*\) \(.*\)' 
+³ıÁËÒª¶¨ÒåÈı¸ö¿ÉÔÚÌæ»»×Ö·û´®ÖĞÒıÓÃµÄÂß¼­ÇøÓòÒÔÍâ£¬¸Ã¹æÔò±í´ïÊ½µÄ¹¤×÷Ô­Àí½«ÓëµÚÒ»¸ö¹æÔò±í´ïÊ½ÏàÍ¬¡£ÏÂÃæÊÇ×îÖÕ½Å±¾£º
+sed -e 's/\(.*\) \(.*\) \(.*\)/Victor \1-\2 Von \3/' myfile.txt 
+Í¨¹ıÊäÈë '\x'£¨ÆäÖĞ£¬x ÊÇ´Ó 1 ¿ªÊ¼µÄÇøÓòºÅ£©À´ÒıÓÃÃ¿¸öÓÉÔ²À¨ºÅ¶¨½çµÄÇøÓò¡£Êä³öÈçÏÂ£º
+Victor eeny-meeny Von miny
+              
+3.Search and replacement:One Match among Many
+ A line might contain multiple tab characters,and you'd like to replace the second tab with >.
+ The following substitute command would do it:
+         s/TAB/>/2
+ TAB represents an actual tab character,which is otherwise invisible on the screen.If the input is a one-line file such as:
+         Column1TABColumn2TABColumn3TABColumn4
+         ----------------------------------------
+         Column1TABColumn2>Column3TABColumn4
+ Without the numeric flag,the substitute command would replace only the first tab.
+ 
+ 4.Ê¹ÓÃs e dÃüÁîĞĞ¸ñÊ½Îª£º
+ sed [Ñ¡Ïî] s e dÃüÁîÊäÈëÎÄ¼ş¡£
+ Ê¹ÓÃs e d½Å±¾ÎÄ¼ş£¬¸ñÊ½Îª£º
+sed [Ñ¡Ïî] -f sed½Å±¾ÎÄ¼şÊäÈëÎÄ¼ş
+
+Ê¹ÓÃsedÔÚÎÄ¼şÖĞ²éÑ¯ÎÄ±¾µÄ·½Ê½
+s e dä¯ÀÀÊäÈëÎÄ¼şÊ±£¬È±Ê¡´ÓµÚÒ»ĞĞ¿ªÊ¼£¬ÓĞÁ½ÖÖ·½Ê½¶¨Î»ÎÄ±¾£º
+1) Ê¹ÓÃĞĞºÅ£¬¿ÉÒÔÊÇÒ»¸ö¼òµ¥Êı×Ö£¬»òÊÇÒ»¸öĞĞºÅ·¶Î§¡£
+2 ) Ê¹ÓÃÕıÔò±í´ïÊ½
+
+ÏÂÃæÊÇÊ¹ÓÃs e d¶¨Î»ÎÄ±¾µÄÒ»Ğ©·½Ê½(Ä£Ê½):
+x :xÎªÒ»ĞĞºÅ£¬Èç1
+x , y :±íÊ¾ĞĞºÅ·¶Î§´Óxµ½y£¬Èç2£¬5±íÊ¾´ÓµÚ2ĞĞµ½µÚ5ĞĞ
+/ p a t t e r n / :²éÑ¯°üº¬Ä£Ê½µÄĞĞ¡£ÀıÈç/ d i s k /»ò/[a-z]/
+/ p a t t e r n / p a t t e r n / :²éÑ¯°üº¬Á½¸öÄ£Ê½µÄĞĞ¡£ÀıÈç/ d i s k / d i s k s /
+p a t t e r n / , x :ÔÚ¸ø¶¨ĞĞºÅÉÏ²éÑ¯°üº¬Ä£Ê½µÄĞĞ¡£Èç/ r i b b o n / , 3
+x , / p a t t e r n / :Í¨¹ıĞĞºÅºÍÄ£Ê½²éÑ¯Æ¥ÅäĞĞ¡£3 , / v d u /
+x , y ! :²éÑ¯²»°üº¬Ö¸¶¨ĞĞºÅxºÍyµÄĞĞ¡£1 , 2 !
+
+sed±à¼­ÃüÁî
+p ´òÓ¡Æ¥ÅäĞĞ
+= ÏÔÊ¾ÎÄ¼şĞĞºÅ
+a \ ÔÚ¶¨Î»ĞĞºÅºó¸½¼ÓĞÂÎÄ±¾ĞÅÏ¢
+i \ ÔÚ¶¨Î»ĞĞºÅÇ°²åÈëĞÂÎÄ±¾ĞÅÏ¢
+d É¾³ı¶¨Î»ĞĞ£¨É¾³ıÄ£Ê½¿Õ¼äµÄÄÚÈİ£¬²¢×¼±¸¶Á½øÏÂÒ»ĞĞ£©
+D É¾³ıÄ£Ê½¿Õ¼äµÚÒ»ĞĞÄÚÈİ£¨\nÎª»»ĞĞ·Ö¸ô·ûÅĞ¶¨£©£¬ÆäÓàÄÚÈİ±£ÁôÔÚÄ£Ê½¿Õ¼ä²¢¼ÌĞø¶Á½øÏÂÒ»ĞĞ£¬ÔÙÖ´ĞĞÃüÁî¡£
+c \ ÓÃĞÂÎÄ±¾Ìæ»»¶¨Î»ÎÄ±¾
+s Ê¹ÓÃÌæ»»Ä£Ê½Ìæ»»ÏàÓ¦Ä£Ê½
+r ´ÓÁíÒ»¸öÎÄ¼şÖĞ¶ÁÎÄ±¾
+w Ğ´ÎÄ±¾µ½Ò»¸öÎÄ¼ş
+q µÚÒ»¸öÄ£Ê½Æ¥ÅäÍê³ÉºóÍÆ³ö»òÁ¢¼´ÍÆ³ö
+l ÏÔÊ¾Óë°Ë½øÖÆA S C I I´úÂëµÈ¼ÛµÄ¿ØÖÆ×Ö·û
+{ } ÔÚ¶¨Î»ĞĞÖ´ĞĞµÄÃüÁî×é
+n ´ÓÁíÒ»¸öÎÄ¼şÖĞ¶ÁÎÄ±¾ÏÂÒ»ĞĞ£¬²¢¸½¼ÓÔÚÏÂÒ»ĞĞ
+g ½«Ä£Ê½2Õ³Ìùµ½/pattern n/
+y ´«ËÍ×Ö·û
+n ÑÓĞøµ½ÏÂÒ»ÊäÈëĞĞ£»ÔÊĞí¿çĞĞµÄÄ£Ê½Æ¥ÅäÓï¾ä
+
+Òª´òÓ¡Õû¸öÎÄ¼ş£¬Ö»Ğè½«ĞĞ·¶Î§ÉèÎªµÚÒ»ĞĞµ½×îºóÒ»ĞĞ1 , $¡£$ÒâÎª×îºóÒ»ĞĞ¡£
+sed -n '1,$p' file(ÏÈÄ£Ê½£ºx,y;ºóÃüÁî:p)
+
+sed "/company/a\Then suddenly it happened." file   ÕÒµ½°üº¬"company"µÄĞĞ£¬²¢ÔÚÆäÏÂÃæÒ»ĞĞ¸½¼Ó"Then suddenly it happened." 
+£¨ÕâÀïµÄa\ i\ d¶¼ÊÇĞĞ²Ù×÷£¬Èç¹ûÒªÔÚĞĞÀïÔö¼Ó»òÉ¾³ıÄ³¸ö×Ö¶Î£¬µÃÓÃÌæ»»ÃüÁî£©
+
+Èç¹ûÒªÔÚµ±Ç°ĞĞÖ®Ç°²åÈë¶àĞĞ£¬¿ÉÒÔÍ¨¹ıÔÚÇ°Ò»ĞĞÖ®ºó¸½¼ÓÒ»¸ö·´Ğ±¸ÜÀ´Ìí¼Ó¸½¼ÓĞĞ£¬ÈçÏÂËùÊ¾£º
+i\ insert this line\ and this one\ and this one\ and, uh, this one too. 
+
+ÒòÎª¸½¼Ó¡¢²åÈëºÍ¸ü¸ÄĞĞÃüÁîĞèÒªÔÚ¶àĞĞÊäÈë£¬ËùÒÔ½«°ÑËüÃÇÊäÈëµ½Ò»¸öÎÄ±¾ sed ½Å±¾ÖĞ£¬È»ºóÍ¨¹ıÊ¹ÓÃ '-f' Ñ¡Ïî¸æËß sed Ö´ĞĞËüÃÇ¡£
+Ê¹ÓÃÆäËü·½·¨½«ÃüÁî´«µİ¸ø sed »á³öÏÖÎÊÌâ¡£
+
+
+5.Ìæ»»ÎÄ±¾
+Ìæ»»ÃüÁîÓÃÌæ»»Ä£Ê½Ìæ»»Ö¸¶¨Ä£Ê½£¬¸ñÊ½Îª£º
+[ a d d r e s s [£¬address]] s/ pattern-to-find /replacement-pattern/[g p w n]
+sÑ¡ÏîÍ¨Öªs e dÕâÊÇÒ»¸öÌæ»»²Ù×÷£¬²¢²éÑ¯p a t t e r n - t o - f i n d£¬³É¹¦ºóÓÃr e p l a c e m e n t - p a t t e r nÌæ»»Ëü¡£
+Ìæ»»Ñ¡ÏîÈçÏÂ£º
+g È±Ê¡Çé¿öÏÂÖ»Ìæ»»µÚÒ»´Î³öÏÖÄ£Ê½£¬Ê¹ÓÃgÑ¡ÏîÌæ»»È«¾ÖËùÓĞ³öÏÖÄ£Ê½¡£
+p È±Ê¡s e d½«ËùÓĞ±»Ìæ»»ĞĞĞ´Èë±ê×¼Êä³ö£¬¼ÓpÑ¡Ïî½«Ê¹- nÑ¡ÏîÎŞĞ§¡£- nÑ¡Ïî²»´òÓ¡Êä³ö½á¹û¡£
+w ÎÄ¼şÃûÊ¹ÓÃ´ËÑ¡Ïî½«Êä³ö¶¨Ïòµ½Ò»¸öÎÄ¼ş¡£
+
+Ìæ»»ÃüÁî»¹¿ÉÒÔÓëµØÖ·Ò»ÆğÊ¹ÓÃÀ´¿ØÖÆÒª½«ÃüÁîÓ¦ÓÃµ½ÄÄĞ©ĞĞ£¬ÈçÏÂËùÊ¾£º
+sed -e '1,10s/enchantment/entrapment/g' myfile2.txt 
+ÉÏÀı½«µ¼ÖÂÓÃ¶ÌÓï 'entrapment' Ìæ»»ËùÓĞ³öÏÖµÄ¶ÌÓï 'enchantment'£¬µ«ÊÇÖ»ÔÚµÚÒ»µ½µÚÊ®ĞĞ£¨°üÀ¨ÕâÁ½ĞĞ£©ÉÏÕâÑù×ö¡£
+sed -e '/^$/,/^END/s/hills/mountains/g' myfile3.txt 
+¸ÃÀı½«ÓÃ 'mountains' Ìæ»» 'hills'£¬µ«ÊÇ£¬Ö»´Ó¿ÕĞĞ¿ªÊ¼£¬µ½ÒÔÈı¸ö×Ö·û 'END' ¿ªÊ¼µÄĞĞ½áÊø£¨°üÀ¨ÕâÁ½ĞĞ£©µÄÎÄ±¾¿éÉÏÕâÑù×ö¡£
+
+¹ØÓÚ 's///' ÃüÁîµÄÁíÒ»¸öÃî´¦ÊÇ '/' ·Ö¸ô·ûÓĞĞí¶àÌæ»»Ñ¡Ïî¡£Èç¹ûÕıÔÚÖ´ĞĞ×Ö·û´®Ìæ»»£¬²¢ÇÒ¹æÔò±í´ïÊ½»òÌæ»»×Ö·û´®ÖĞÓĞĞí¶àĞ±¸Ü£¬
+Ôò¿ÉÒÔÍ¨¹ıÔÚ 's' Ö®ºóÖ¸¶¨Ò»¸ö²»Í¬µÄ×Ö·ûÀ´¸ü¸Ä·Ö¸ô·û¡£ÀıÈç£¬ÏÂÀı½«°ÑËùÓĞ³öÏÖµÄ /usr/local Ìæ»»³É /usr£º
+sed -e 's:/usr/local:/usr:g' mylist.txt 
+ÔÚ¸ÃÀıÖĞ£¬Ê¹ÓÃÃ°ºÅ×÷Îª·Ö¸ô·û¡£
+
+sed ÃüÁî½«Æ¥Åä´Ó '<' ¿ªÊ¼¡¢µ½ '>' ½áÊø¡¢²¢ÇÒÔÚÆäÖĞ°üº¬ÈÎÒâÊıÁ¿×Ö·ûµÄ¶ÌÓï¡£ÏÂÀı½«É¾³ı¸Ã¶ÌÓï£¨ÓÃ¿Õ×Ö·û´®Ìæ»»£©£º
+sed -e 's/<.*>//g' myfile.html 
+ÕâÊÇÒª´ÓÎÄ¼ş³ıÈ¥ HTML ±ê¼ÇµÄµÚÒ»¸öºÜºÃµÄ sed ½Å±¾³¢ÊÔ¡£µ«ÊÇÓÉÓÚ¹æÔò±í´ïÊ½µÄÌØÓĞ¹æÔò£¬Ëü²»»áºÜºÃµØ¹¤×÷¡£Ô­ÒòºÎÔÚ£¿
+µ± sed ÊÔÍ¼ÔÚĞĞÖĞÆ¥Åä¹æÔò±í´ïÊ½Ê±£¬ËüÒªÔÚĞĞÖĞ²éÕÒ×î³¤µÄÆ¥Åä¡£ÔÚÎÒµÄÇ°Ò»Æª sed ÎÄÕÂÖĞ£¬Õâ²»³ÉÎÊÌâ£¬
+ÒòÎªÎÒÃÇÊ¹ÓÃµÄÊÇ 'd' ºÍ 'p' ÃüÁî£¬ÕâĞ©ÃüÁî×ÜÒªÉ¾³ı»ò´òÓ¡ÕûĞĞ¡£µ«ÊÇ£¬ÔÚÊ¹ÓÃ 's///' ÃüÁîÊ±£¬È·ÊµÓĞºÜ´ó²»Í¬£¬
+ÒòÎª¹æÔò±í´ïÊ½Æ¥ÅäµÄÕû¸ö²¿·Ö½«±»Ä¿±ê×Ö·û´®Ìæ»»£¬»òÕß£¬ÔÚ±¾ÀıÖĞ£¬±»É¾³ı¡£ÕâÒâÎ¶×Å£¬ÉÏÀı½«°ÑÏÂĞĞ£º
+<b>This</b> is what <b>I</b> meant. 
+±ä³É£º
+meant. 
+ÎÒÃÇÒªµÄ²»ÊÇÕâ¸ö£¬¶øÊÇ£º
+This is what I meant.
+ĞÒÔËµÄÊÇ£¬ÓĞÒ»ÖÖ¼ò±ã·½·¨À´¾ÀÕı¸ÃÎÊÌâ¡£ÎÒÃÇ²»ÊäÈë¡°'<' ×Ö·ûºóÃæ¸úÓĞÒ»Ğ©×Ö·û²¢ÒÔ '>' ×Ö·û½áÊø¡±µÄ¹æÔò±í´ïÊ½£¬
+¶øÖ»ĞèÊäÈëÒ»¸ö¡°'<' ×Ö·û£¬ºóÃæ¸úÓĞÈÎÒâÊıÁ¿·Ç '>' ×Ö·û£¬²¢ÒÔ '>' ×Ö·û½áÊø¡±µÄ¹æÔò±í´ïÊ½¡£Õâ½«Óë×î¶Ì¡¢¶ø²»ÊÇ×î³¤µÄ¿ÉÄÜĞÔÆ¥Åä¡£
+ĞÂÃüÁîÈçÏÂ£º
+sed -e 's/<[^>]*>//g' myfile.html 
+ÔÚÉÏÀıÖĞ£¬'[^>]' Ö¸¶¨¡°·Ç '>'¡±×Ö·û£¬ÆäºóµÄ '*' Íê³É¸Ã±í´ïÊ½ÒÔ±íÊ¾¡°Áã»ò¶à¸ö·Ç '>' ×Ö·û¡±¡£¶Ô¼¸¸ö html ÎÄ¼ş²âÊÔ¸ÃÃüÁî£¬
+½«ËüÃÇ¹ÜµÀÊä³ö "more"£¬È»ºó×ĞÏ¸²é¿´Æä½á¹û¡£
+
+sed 's/##//g;s/^0*//g;s/^M//g' dos.txt
+É¾³ıËùÓĞµÄ#×Ö·û£¬^ 0 *±íÊ¾ĞĞÊ×ÈÎÒâ¸ö0¡£Ä£Ê½s / ^ 0 * / / gÉèÖÃÌæ»»²¿·ÖÎª¿Õ£¬¼´ÎªÉ¾³ıÄ£Ê½£¬×îºóÈ¥³ıĞĞÎ²^ M·ûºÅ¡£
+
+6.´ÓÎÄ¼şÖĞ¶ÁÎÄ±¾
+´¦ÀíÎÄ¼şÊ±£¬ s e dÔÊĞí´ÓÁíÒ»¸öÎÄ¼şÖĞ¶ÁÎÄ±¾£¬²¢½«ÆäÎÄ±¾¸½¼ÓÔÚµ±Ç°ÎÄ¼ş¡£´ËÃüÁî·ÅÔÚÄ£Ê½Æ¥ÅäĞĞºó£¬¸ñÊ½Îª£º
+address r filename
+ÕâÀïrÍ¨Öªs e d½«´ÓÁíÒ»¸öÎÄ¼şÔ´ÖĞ¶ÁÎÄ±¾¡£f i l e n a m eÊÇÆäÎÄ¼şÃû¡£
+
+ÏÖÔÚ´´½¨Ò»¸öĞ¡ÎÄ¼şs e d e x . t x t£¬ÄÚÈİÈçÏÂ£º
+[sam@chenwy sam]$ echo "Boom boom went the music" >sedex.txt
+[sam@chenwy sam]$ cat sedex.txt
+Boom boom went the music
+
+½«s e d e x . t x tÄÚÈİ¸½¼Óµ½ÎÄ¼şq u o t e . t x tµÄ¿½±´¡£ÔÚÄ£Ê½Æ¥ÅäĞĞ/ c o m p a n y /ºó·ÅÖÃ¸½¼ÓÎÄ±¾¡£±¾ÀıÎªµÚÈıĞĞ¡£×¢ÒâËù¶ÁµÄÎÄ¼şÃûĞèÒªÓÃµ¥ÒıºÅÀ¨ÆğÀ´¡£
+[sam@chenwy sam]$ sed '/company./r sedex.txt' quote.txt
+The honeysuckle band played all night long for only $90.
+It was an evening of splendid music and company.
+Boom boom went the music                             £¨´Ósedex.txtÎÄ¼şÖĞ¸½¼Ó¹ıÀ´µÄÄÚÈİ£©
+Too bad the disco floor fell through at 23:00.
+The local nurse Miss P.Neave was in attendance.
+ 
+7.´ÓshellÏòsed´«Öµ
+Òª´ÓÃüÁîĞĞÖĞÏòs e d´«Öµ£¬ÖµµÃ×¢ÒâµÄÊÇÓÃË«ÒıºÅ£¬·ñÔò¹¦ÄÜ²»Ö´ĞĞ¡£
+[sam@chenwy sam]$ NAME="It's a go situation"
+[sam@chenwy sam]$ REPLACE="GO"
+[sam@chenwy sam]$ echo $NAME | sed "s/go/$REPLACE/g"
+It's a GO situation 
+
+8.Ò»Ğ©³£ÓÃµÄÃüÁî¼¯
+¡®s / \ . $ / / g¡¯ É¾³ıÒÔ¾äµã½áÎ²ĞĞ
+¡®-e /abcd/d¡¯ É¾³ı°üº¬a b c dµÄĞĞ
+¡®s / [ ] [ ] [ ] * / [ ] / g¡¯ É¾³ıÒ»¸öÒÔÉÏ¿Õ¸ñ£¬ÓÃÒ»¸ö¿Õ¸ñ´úÌæ
+¡®s / ^ [ ] [ ] * / / g¡¯ É¾³ıĞĞÊ×¿Õ¸ñ
+¡®s / \ . [ ] [ ] * / [ ] / g¡¯ É¾³ı¾äµãºó¸úÁ½¸ö»ò¸ü¶à¿Õ¸ñ£¬´úÖ®ÒÔÒ»¸ö¿Õ¸ñ
+¡®/ ^ $ / d¡¯ É¾³ı¿ÕĞĞ
+¡®s / ^ . / / g¡¯ É¾³ıµÚÒ»¸ö×Ö·û
+¡®s /CO L \ ( . . . \ ) / / g¡¯ É¾³ı½ô¸úC O LµÄºóÈı¸ö×ÖÄ¸
+¡®s / ^ \ / / / g¡¯ ´ÓÂ·¾¶ÖĞÉ¾³ıµÚÒ»¸ö\
+¡®s / [ ] / [ ] / / g¡¯ É¾³ıËùÓĞ¿Õ¸ñ²¢ÓÃt a b¼üÌæ´ú
+¡®S / ^ [ ] / / g¡¯ É¾³ıĞĞÊ×ËùÓĞt a b¼ü
+¡®s / [ ] * / / g¡¯ É¾³ıËùÓĞt a b¼ü
+
+9.¹æÔò±í´ïÊ½
+/./ ½«Óë°üº¬ÖÁÉÙÒ»¸ö×Ö·ûµÄÈÎºÎĞĞÆ¥Åä 
+/../ ½«Óë°üº¬ÖÁÉÙÁ½¸ö×Ö·ûµÄÈÎºÎĞĞÆ¥Åä 
+/^#/ ½«ÓëÒÔ '#' ¿ªÊ¼µÄÈÎºÎĞĞÆ¥Åä 
+/^$/ ½«ÓëËùÓĞ¿ÕĞĞÆ¥Åä
+/^[ tab]*$/ ¿ÕĞĞ»ò°üº¬¿Õ¸ñ»òTABSµÄĞĞ  
+/}^/ ½«ÓëÒÔ '}'£¨ÎŞ¿Õ¸ñ£©½áÊøµÄÈÎºÎĞĞÆ¥Åä 
+/} *^/ ½«ÓëÒÔ '}' ºóÃæ¸úÓĞÁã»ò¶à¸ö¿Õ¸ñ½áÊøµÄÈÎºÎĞĞÆ¥Åä 
+/[abc]/ ½«Óë°üº¬Ğ¡Ğ´ 'a'¡¢'b' »ò 'c' µÄÈÎºÎĞĞÆ¥Åä 
+/^[abc]/ ½«ÓëÒÔ 'a'¡¢'b' »ò 'c'¿ªÊ¼µÄÈÎºÎĞĞÆ¥Åä 
+/.*/ ÕûĞĞ¼ÇÂ¼
+ÌØÊâ×Ö·ûĞÇºÅ* Ëü±íÊ¾ËüÇ°ÃæµÄÕıÔò±í´ïÊ½¿ÉÒÔ³öÏÖÁã´Î»ò¶à´Î¡£²¢ÇÒÆ¥ÅäÈÎÒâÒ»¸ö£¨°üÀ¨Áã¸ö£©ÔÚËüÇ°ÃæµÄ×Ö·û¡£
+
+
+ÎÒÃÇ¿ÉÒÔÖ¸¶¨Á½¸öÓÃ¶ººÅ·Ö¿ªµÄ¹æÔò±í´ïÊ½£¬sed ½«ÓëËùÓĞ´ÓÆ¥ÅäµÚÒ»¸ö¹æÔò±í´ïÊ½µÄµÚÒ»ĞĞ¿ªÊ¼£¬
+µ½Æ¥ÅäµÚ¶ş¸ö¹æÔò±í´ïÊ½µÄĞĞ½áÊø£¨°üÀ¨¸ÃĞĞ£©µÄËùÓĞĞĞÆ¥Åä¡£ÀıÈç£¬ÒÔÏÂÃüÁî½«´òÓ¡´Ó°üº¬ "BEGIN" µÄĞĞ¿ªÊ¼£¬
+²¢ÇÒÒÔ°üº¬ "END" µÄĞĞ½áÊøµÄÎÄ±¾¿é£º
+sed -n -e '/BEGIN/,/^END/p' file
+Èç¹ûÃ»·¢ÏÖ "BEGIN"£¬ÄÇÃ´½«²»´òÓ¡Êı¾İ¡£Èç¹û·¢ÏÖÁË "BEGIN"£¬µ«ÊÇÔÚÕâÖ®ºóµÄËùÓĞĞĞÖĞ¶¼Ã»·¢ÏÖ "END"£¬ÄÇÃ´½«´òÓ¡ËùÓĞºóĞøĞĞ¡£
+·¢ÉúÕâÖÖÇé¿öÊÇÒòÎª sed ÃæÏòÁ÷µÄÌØĞÔ -- Ëü²»ÖªµÀÊÇ·ñ»á³öÏÖ "END"¡£
+
+9.×éºÏÊ¹ÓÃ
+ÔÚ¿ªÊ¼´´½¨¸ü¸´ÔÓµÄ sed ½Å±¾Ê±£¬ĞèÒªÓĞÊäÈë¶à¸öÃüÁîµÄÄÜÁ¦¡£ÓĞ¼¸ÖÖ·½·¨ÕâÑù×ö¡£
+Ê×ÏÈ£¬¿ÉÒÔÔÚÃüÁîÖ®¼äÊ¹ÓÃ·ÖºÅ¡£ÀıÈç£¬ÒÔÏÂÃüÁîÏµÁĞÊ¹ÓÃ '=' ÃüÁîºÍ 'p' ÃüÁî£¬'=' ÃüÁî¸æËß sed ´òÓ¡ĞĞºÅ£¬
+'p' ÃüÁîÃ÷È·¸æËß sed ´òÓ¡¸ÃĞĞ£¨ÒòÎª´¦ÓÚ '-n' Ä£Ê½£©¡£
+sed -n -e '=;p' myfile.txt 
+sed 'N;s/\n//'   °ÑÁ½ĞĞºÏ²¢³ÉÎªÒ»ĞĞ(The multiline Next command 'N' creates a multiline pattern space by reading a new line
+of input and appending it to the contents of the pattern space.)
+
+ÎŞÂÛÊ²Ã´Ê±ºòÖ¸¶¨ÁËÁ½¸ö»ò¸ü¶àÃüÁî£¬¶¼°´Ë³Ğò½«Ã¿¸öÃüÁîÓ¦ÓÃµ½ÎÄ¼şµÄÃ¿Ò»ĞĞ¡£
+ÔÚÉÏÀıÖĞ£¬Ê×ÏÈ½« '=' ÃüÁîÓ¦ÓÃµ½µÚ 1 ĞĞ£¬È»ºóÓ¦ÓÃ 'p' ÃüÁî¡£½Ó×Å£¬sed ¼ÌĞø´¦ÀíµÚ 2 ĞĞ£¬²¢ÖØ¸´¸Ã¹ı³Ì¡£
+ËäÈ»·ÖºÅºÜ·½±ã£¬µ«ÊÇÔÚÄ³Ğ©³¡ºÏÏÂ£¬Ëü²»ÄÜÕı³£¹¤×÷¡£ÁíÒ»ÖÖÌæ»»·½·¨ÊÇÊ¹ÓÃÁ½¸ö -e Ñ¡ÏîÀ´Ö¸¶¨Á½¸ö²»Í¬µÄÃüÁî£º
+sed -n -e '=' -e 'p' myfile.txt 
+
+È»¶ø£¬ÔÚÊ¹ÓÃ¸üÎª¸´ÔÓµÄ¸½¼ÓºÍ²åÈëÃüÁîÊ±£¬ÉõÖÁ¶à¸ö '-e' Ñ¡ÏîÒ²²»ÄÜ°ïÎÒÃÇµÄÃ¦¡£
+¶ÔÓÚ¸´ÔÓµÄ¶àĞĞ½Å±¾£¬×îºÃµÄ·½·¨ÊÇ½«ÃüÁî·ÅÈëÒ»¸öµ¥¶ÀµÄÎÄ¼şÖĞ¡£È»ºó£¬ÓÃ -f Ñ¡ÏîÒıÓÃ¸Ã½Å±¾ÎÄ¼ş£º
+sed -n -f mycommands.sed myfile.txt 
+
+10.Ò»¸öµØÖ·µÄ¶à¸öÃüÁî
+ÓĞÊ±£¬¿ÉÄÜÒªÖ¸¶¨Ó¦ÓÃµ½Ò»¸öµØÖ·µÄ¶à¸öÃüÁî¡£ÕâÔÚÖ´ĞĞĞí¶à 's///' ÒÔ±ä»»Ô´ÎÄ¼şÖĞµÄ×ÖºÍÓï·¨Ê±ÌØ±ğ·½±ã¡£
+Òª¶ÔÒ»¸öµØÖ·Ö´ĞĞ¶à¸öÃüÁî£¬¿ÉÔÚÎÄ¼şÖĞÊäÈë sed ÃüÁî£¬È»ºóÊ¹ÓÃ '{ }' ×Ö·û½«ÕâĞ©ÃüÁî·Ö×é£¬ÈçÏÂËùÊ¾£º
+1,20{         s/[Ll]inux/GNU\/Linux/g         s/samba/Samba/g         s/posix/POSIX/g } 
+ÉÏÀı½«°ÑÈı¸öÌæ»»ÃüÁîÓ¦ÓÃµ½µÚ 1 ĞĞµ½µÚ 20 ĞĞ£¨°üÀ¨ÕâÁ½ĞĞ£©¡£»¹¿ÉÒÔÊ¹ÓÃ¹æÔò±í´ïÊ½µØÖ·»òÕß¶şÕßµÄ×éºÏ£º
+
+1,/^END/{         s/[Ll]inux/GNU\/Linux/g         s/samba/Samba/g         s/posix/POSIX/g         p } 
+¸ÃÀı½«°Ñ '{ }' Ö®¼äµÄËùÓĞÃüÁîÓ¦ÓÃµ½´ÓµÚ 1 ĞĞ¿ªÊ¼£¬µ½ÒÔ×ÖÄ¸ "END" ¿ªÊ¼µÄĞĞ½áÊø£¨Èç¹ûÔÚÔ´ÎÄ¼şÖĞÃ»·¢ÏÖ "END"£¬Ôòµ½ÎÄ¼ş½áÊø£©
+µÄËùÓĞĞĞ¡£
+
+11.ÎÄ±¾×ª»»
+»ùÓÚ DOS/Windows µÄÎÄ±¾ÎÄ¼şÔÚÃ¿Ò»ĞĞÄ©Î²ÓĞÒ»¸ö CR£¨»Ø³µ£©ºÍ LF£¨»»ĞĞ£©£¬¶ø UNIX ÎÄ±¾Ö»ÓĞÒ»¸ö»»ĞĞ¡£
+ÒÔÏÂ sed µ÷ÓÃ½«°Ñ DOS/Windows ¸ñÊ½µÄÎÄ±¾×ª»»³É¿ÉĞÅÀµµÄ UNIX ¸ñÊ½£º
+$ sed -e 's/.$//' mydos.txt > myunix.txt 
+¸Ã½Å±¾µÄ¹¤×÷Ô­ÀíºÜ¼òµ¥£ºÌæ´ú¹æÔò±í´ïÊ½ÓëÒ»ĞĞµÄ×îÄ©×Ö·ûÆ¥Åä£¬¶ø¸Ã×Ö·ûÇ¡ºÃ¾ÍÊÇ»Ø³µ¡£
+ÎÒÃÇÓÃ¿Õ×Ö·ûÌæ»»Ëü£¬´Ó¶ø½«Æä´ÓÊä³öÖĞ³¹µ×É¾³ı¡£Èç¹ûÊ¹ÓÃ¸Ã½Å±¾²¢×¢Òâµ½ÒÑ¾­É¾³ıÁËÊä³öÖĞÃ¿ĞĞµÄ×îÄ©×Ö·û£¬
+ÄÇÃ´£¬Äú¾ÍÖ¸¶¨ÁËÒÑ¾­ÊÇ UNIX ¸ñÊ½µÄÎÄ±¾ÎÄ¼ş¡£Ò²¾ÍÃ»±ØÒªÄÇÑù×öÁË£¡
+
+12.·´×ªĞĞ
+½«
+foo 
+bar 
+oni 
+±ä³É
+oni 
+bar 
+foo 
+¿ÉÒÔÓÃÒÔÏÂ sed ½Å±¾´ïµ½Ä¿µÄ£º 
+$ sed -e '1!G;h;$!d' file
+·´×ª½âÊÍ
+Ê×ÏÈ£¬¸Ã½Å±¾°üº¬Èı¸öÓÉ·ÖºÅ¸ô¿ªµÄµ¥¶À sed ÃüÁî£º'1!G'¡¢'h' ºÍ '$!d'¡£ÏÖÔÚ£¬ĞèÒªºÃºÃÀí½âÓÃÓÚµÚÒ»¸öºÍµÚÈı¸öÃüÁîµÄµØÖ·¡£
+Èç¹ûµÚÒ»¸öÃüÁîÊÇ '1G'£¬Ôò 'G' ÃüÁî½«Ö»Ó¦ÓÃµÚÒ»ĞĞ¡£È»¶ø£¬»¹ÓĞÒ»¸ö '!' ×Ö·û -- ¸Ã '!' ×Ö·ûºöÂÔ¸ÃµØÖ·£¬
+¼´£¬'G' ÃüÁî½«Ó¦ÓÃµ½³ıµÚÒ»ĞĞÖ®ÍâµÄËùÓĞĞĞ¡£'$!d' ÃüÁîÓëÖ®ÀàËÆ¡£Èç¹ûÃüÁîÊÇ '$d'£¬
+Ôò½«Ö»°Ñ 'd' ÃüÁîÓ¦ÓÃµ½ÎÄ¼şÖĞµÄ×îºóÒ»ĞĞ£¨'$' µØÖ·ÊÇÖ¸¶¨×îºóÒ»ĞĞµÄ¼òµ¥·½Ê½£©¡£
+È»¶ø£¬ÓĞÁË '!' Ö®ºó£¬'$!d' ½«°Ñ 'd' ÃüÁîÓ¦ÓÃµ½³ı×îºóÒ»ĞĞÖ®ÍâµÄËùÓĞĞĞ¡£ÏÖÔÚ£¬ÎÒÃÇËùÒªÀí½âµÄÊÇÕâĞ©ÃüÁî±¾Éí×öÊ²Ã´¡£
+
+µ±¶ÔÉÏÃæµÄÎÄ±¾ÎÄ¼şÖ´ĞĞ·´×ª½Å±¾Ê±£¬Ê×ÏÈÖ´ĞĞµÄÃüÁîÊÇ 'h'¡£
+¸ÃÃüÁî¸æËß sed ½«Ä£Ê½¿Õ¼ä£¨±£´æÕıÔÚ´¦ÀíµÄµ±Ç°ĞĞµÄ»º³åÇø£©µÄÄÚÈİ¸´ÖÆµ½±£Áô¿Õ¼ä£¨ÁÙÊ±»º³åÇø£©¡£
+È»ºó£¬Ö´ĞĞ 'd' ÃüÁî£¬¸ÃÃüÁî´ÓÄ£Ê½¿Õ¼äÖĞÉ¾³ı "foo"£¬ÒÔ±ãÔÚ¶ÔÕâÒ»ĞĞÖ´ĞĞÍêËùÓĞÃüÁîÖ®ºó²»´òÓ¡Ëü¡£
+
+ÏÖÔÚ£¬µÚ¶şĞĞ¡£ÔÚ½« "bar" ¶ÁÈëÄ£Ê½¿Õ¼äÖ®ºó£¬Ö´ĞĞ 'G' ÃüÁî£¬¸ÃÃüÁî½«±£Áô¿Õ¼äµÄÄÚÈİ ("foo\n") ¸½¼Óµ½Ä£Ê½¿Õ¼ä ("bar\n")£¬
+Ê¹Ä£Ê½¿Õ¼äµÄÄÚÈİÎª "bar\n\foo\n"¡£'h' ÃüÁî½«¸ÃÄÚÈİ·Å»Ø±£Áô¿Õ¼ä±£»¤ÆğÀ´£¬È»ºó£¬'d' ´ÓÄ£Ê½¿Õ¼äÉ¾³ı¸ÃĞĞ£¬ÒÔ±ã²»´òÓ¡Ëü¡£
+
+¶ÔÓÚ×îºóµÄ "oni" ĞĞ£¬³ıÁË²»É¾³ıÄ£Ê½¿Õ¼äµÄÄÚÈİ£¨ÓÉÓÚ 'd' Ö®Ç°µÄ '$!'£©ÒÔ¼°½«Ä£Ê½¿Õ¼äµÄÄÚÈİ£¨ÈıĞĞ£©´òÓ¡µ½±ê×¼Êä³öÖ®Íâ£¬
+ÖØ¸´Í¬ÑùµÄ²½Öè¡£
+
+Ä£Ê½¿Õ¼äºÍ±£Áô¿Õ¼ä£º
+Hold    h  Copy contents of pattern space to hold space,replacing previous.
+        H  Append newline,then append contents of pattern space,to hold space.
+Get     g  Copy contents of hold space to pattern space,replacing previous.
+        G  Append newline,then append contents of hold space,to pattern space.
+Exchange x Swap contents of hold space and pattern space.
+The difference between the lowercase and uppercase versions of the same command is that the lowercase command overwrites
+the contents of the target buffer,while the uppercase command appends to the existing contents after adding a newline.
+
+Script example:
+            /^<h[12]>/H                                 $ sed -ne '{/^<h[12]>/H                             
+            /^<\/body>/{                                /^<\/body>/{             
+               i\                                       i\                       
+            <strong>Summary:</strong>                   <strong>Summary:</strong>
+               x                                        x                        
+               G                                        G                        
+               s/<\/*h[12]>//g                          s/<\/*h[12]>//gp         
+               }                                        }                        
+                                                        }' 2.txt                 
+Any line matching <h1>or<h2>is added to the hold space.(All those lines are also printed;that's the default in sed unless
+lines have been deleted)The last part of the script watches for the </body> tag.When it's reached,sed inserts the Summary:
+heading.Then the script uses x to exchange the pattern space(while has the </body> tag) with the saved headers from the 
+hold space.Now the pattern space has the saved headers.Next, G adds the </body> tag to the end of the head-ers in the pattern
+space.Finally,a substitute command strips the <h1>,</h1>,<h2>,</h2> tags.At the end of the script,the pattern space is
+printed by default.
+The result of running the script on the sample file:
+           <body>
+           <h1>Introduction</h1>
+           The blah blah blah
+           <h1>Background of the Project</h1>
+               ...
+           <h2>The First Year</h2>
+               ...
+           <h2>The Second Year</h2>   
+           <strong>Summary:</strong>
+           </body>
+           
+           Introduction
+           Background of the Project
+           The First Year
+           The Second Year
+           </body>                   
+               
+13.Transforming Part of a Line
+Script example:
+          #capitalize statement names
+          /the .* statement/{
+             h
+             s/.*the \(.*\) statement.*/\1/
+             y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/
+             G
+             s/\(.*\)\n\(.*the \).*\( statement.*\)/\2\1\3/
+             }
+Let's look at what each command does:
+
+h:The hold command copies the current input line into the hold space.Using the sample line 'find the Match statement',
+  we'll show what the contents of the pattern space and hold space contain.After the h command,the pattern space and hold
+  space are identical:
+  Pattern space  find the Match statement
+  Hold space     find the Match statement
+  
+s/.*the \(.*\) statement.*/\1/:The substitute command extracts the name of the statement from the line and replaces the
+                               entire line with it.
+                               Pattern space  Match
+                               Hold space     find the Match statement
+                               
+y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/:The transform command changes each lowercase letter to an uppercase
+                                                         letter.
+                               Pattern space  MATCH
+                               Hold space     find the Match statement
+                               
+G:The Get command appends the line saved in the hold space to the pattern space.The embedded newline from the Get command
+  is shown as \n.
+                               Pattern space  MATCH\nfind the Match statement
+                               Hold space     find the Match statement  
+
+s/\(.*\)\n\(.*the \).*\( statement.*\)/\2\1\3/:
+  The substitute command matches three different parts of the pattern space:
+  (1)all characters up to the embedded newline,(2)all characters following the embedded newline and up to and including 'the'
+     followed by a space,and (3)all characters beginning with a space and followed by 'statement' up to the end of the pattern
+     space.The name of the statement as it appeared in the original line is matched but not saved.The replacement section of
+     this command recalls the saved portions and reassembles them in a different orders,putting the capitalized name of the 
+     command in between 'the' and  'statement'.
+                               Pattern space  find the MATCH statement
+                               Hold space     find the Match statement 
+                               
+14.¶àÄ£Ê½Æ¥Åä
+If two pattern are specified,the actions described in the procedure are performed on the first matching line and all 
+succeeding lines until a line matches the second pattern.
+Script Example:
+                              s/Owner and Operator Guide/Installation Guide/
+                              /Owner/{
+                              N                     #N:°ÑÏÂÒ»ĞĞ¶ÁÈëÄ£Ê½¿Õ¼ä
+                              s/ *\n/ /
+                              s/Owner and Operator Guide */Installation Guide\
+                              /}
+                              
+                             Consult Section 3.1 in the Owner and Operator
+                             Guide for a description of the tape drives
+                             available on your system.
+
+                             Look in the Owner and Operator Guide shipped with your system.#Á©Ä£Ê½¶¼Âú×ã£¬Ö»Ö´ĞĞµÚÒ»¸ö
+
+                             Two manuals are provided,including the Owner and
+                             Operator Guide and the User Guide.
+
+                             The Owner and Operator Guide is shipped with your system.
+                             ...........................................................
+                             Consult Section 3.1 in the Installation Guide
+                             for a description of the tape drives
+                             available on your system.
+
+                             Look in the Installation Guide shipped with your system.
+
+                             Two manuals are provided,including Installation Guide 
+                             and the User Guide.
+
+                             The Installation Guide is shipped with your system.
+
+15.dºÍDµÄÇø±ğ£º
+Script Example 1:
+                            /^$/{
+                            N
+                            /^\n$/d
+                            }
+                            
+Script Example 2:
+                            /^$/{
+                            N
+                            /^\n$/D
+                            }
+                            
+Original File:
+This line is follow by 1 blank line.
+
+This line is follow by 2 blank line.
+
+
+This line is follow by 3 blank line.
+
+
+
+This line is follow by 4 blank line.
+
+
+
+
+This is the end.
+...........................................
+Script 1:(½á¹ûÊÇÅ¼Êı¿ÕĞĞÃ»ÓĞÁË£¬ÆæÊı¿ÕĞĞÊ£Ò»¸ö)
+This line is follow by 1 blank line.
+
+This line is follow by 2 blank line.
+This line is follow by 3 blank line.
+
+This line is follow by 4 blank line.
+This is the end.
+...........................................
+Script 2:
+This line is follow by 1 blank line.
+
+This line is follow by 2 blank line.
+
+This line is follow by 3 blank line.
+
+This line is follow by 4 blank line.
+
+This is the end.
+
+For Script 1,once the first blank line is encountered,the next line is read in,and both are deleted.
+If a third blank line is encounted,and the next line is not blank,the delete command is not applied,
+and thus a blank line is output.
+For Script 2,the Delete command removes only the first of the two.The next time through the script,
+the blank line will cause another line to be read into the pattern space.If that line is not blank,
+both lines are output,thus ensuring that a single blank line will be output.In other words,when there
+are two blank lines in the pattern space,only the first is deleted.When a blank line is followed by 
+text,the pattern space is output normally.
+
+16.Óï¾ä¿ØÖÆÃüÁî
+b command:to skip over portions of the editing script.
+t command:branches to a label(or the end of the script) if a successful substitution has been made on the currently addressed line.
+(Èç¹ûÃ»ÓĞ¶¨Òålabel£¬Ä¬ÈÏÌø×ªµ½½Å±¾×îºó)
+
+Script Example:
+              h
+              s/seperate/separate/g
+              s/compooter/computer/g
+              s/said editor/sed editor/g
+              s/lable/label/g
+              t changed
+              b 
+              : changed              #: label  Label for b and t commands.
+              p
+              g
+              s/.*/[WAS:&]/
+              
+First,h holds a copy of the current input line.Then,if any of the four substitution succeed,the command t changed
+branches to the corresponding label(: changed) at the end of the script.Otherwise,if no s succeeded,the b command
+restarts the script on the next line(as always in sed,the input line is printed before the script restarts).
+After the label,the script prints the current input line(the line with a spelling error-which,by now,has been corrected)
+Then g gets original uncorrected line.An s command brackets that line [WAS:xxx].
+
+Original file:
+              This is a seperate test.
+              I put a lable on my compooter!
+              This is a correct line.
+              ................................
+              This is a separate test.
+              [WAS:This is a seperate test.]
+              I put a label on my computer!
+              [WAS:I put a lable on my compooter!]
+              This is a correct line.
+                                       
+
+Append, Insert, and Change
+append [line-address]a\
+	text
+insert [line-address]i\
+	text                          
+change [address]c\
+	text
+The insert command places the supplies text before the current line in the pattern space. The append command places it 
+after the current line.The change command replaces the contents of the pattern space with the supplied text.
+The text must begin on the next line. To input multiple lines of text, each successive line must end with a backslash, 
+with the exception of the very last line.
+The append and insert commands can be applied only to a single line address, not a range of lines. The change command, 
+however, can address a range of lines. In this case, it replaces all addressed lines with a single copy of the text. 
+In other words, it deletes each line in the range but the supplied text is output only once.For example, the following 
+script, when run on a file containing a mail message:
+	/^From /,/^$/c\
+	<Mail Header Removed>
+removes the entire mail-message header and replaces it with the line "<Mail Header Removed>." 
+The following script:
+	/^From /,/^$/{
+		s/^From //p
+		c\
+	<Mail Header Removed>
+	}
+will output "<Mail Header Removed>" for each line in the range.
+
+The change command clears the pattern space, having the same effect on the pattern space as the delete command. 
+No command following the change command in the script is applied.
+The insert and append commands do not affect the contents of the pattern space. The supplied text will not match any 
+address in subsequent commands in the script, nor can those commands affect the text.
+
+Transform
+This command transforms each character by position in string abc to its equivalent in string xyz. Its syntax follows:
+	[address]y/abc/xyz/
+
+Print Line Number
+An equal sign following an address prints the line number of the matched line.
+	[line-address]=
+This command cannot operate on a range of lines.
+
+The following script prints the line number followed by the line itself for each line containing a tab followed by the string "if":
+#n print line number and line with if statement
+/	if/{
+=
+p
+}
+
+Next
+The next command outputs the contents of the pattern space and then reads the next line of input without returning to the top of the script.
+	[address]n
+Delete a blank line only when it follows a pattern matched on the previous line:
+Sample file:
+.H1 "On Egypt"
+
+Napoleon, pointing to the Pyramids, said to his troops:
+"Soldiers, forty centuries have their eyes upon you."
+
+The following script removes that blank line:
+	/^\.H1/{
+	n
+	/^$/d
+	}
+
+Reading and Writing Files
+The read and write commands allow you to work directly with files. Both take a single argument, the name of a file.The syntax follows:
+	[line-address]r file
+	[address]w file
+The read command reads the contents of file into the pattern space after the addressed line. It cannot operate on a range of lines. 
+The write command writes the contents of the pattern space to the file.
+
+Quit
+The quit command causes sed to stop reading new input lines(and stop sending then to the output).
+	[line-address]q
+The following one-liner uses the quit command to print the first 100 lines from a file:
+	$sed '100q' test
+Another possible use of quit is to quit the script after you've extracted what you want from a file. 
+For example, we could revise the sed script in the getmac shell script as follows:
+	sed -n "
+		/^\.de *$mac/,/^\.\.$/{
+		p
+		/^\.\.$/q
+		}" $file
+The sed program quits on the sqot, and doesn't continue through the rest of the file looking for other possible matches.
+
+The following simple program prints out the top 10 lines of a file and then quits:
+	for file
+	do
+		sed 10q $file
+	done
+The next example also prints the first 10 lines using  the print command and suppressing default output:
+	for file
+	do
+		sed -n 1,10p $file
+	done
+The first one performs better than the second.
+
+Advanced sed Commands
+The advanced commands fall into three groupings:
+1. Working with a multiline pattern space (N,D,P).
+2. Using the hold space to preserve the contents of the pattern space and make it available for subsequent commands
+   (H, h, G, g, x)
+3. Writing scripts that use branching and conditional instructions to change the flow of control (:, b, t)
+
+If the advanced scripts have one thing in common, it is that they alter the sequential flow of execution or control.
+Normally, a line is read into the pattern space and each command in the script, one right after the other, is applied
+to that line. When the bottom of the script is reached, the line is output and the pattern space is cleared. Then a new
+line is read into the pattern space and control passes back to the top of the script. That is the normal flow of control
+in a sed script.
+
+The advanced commands interrupt or break the normal flow of control for various reasons. They might want to prevent 
+commands in the script from executing except under certain circumstances, or to prevent the contents of the pattern
+space from being cleared out. Altering the flow of control makes a script much more difficult to read and understand.
+In fact, the scripts may be easier to write than they are to read.
+
+The Delete(D) command is a multiline version of the delete command(d). The difference is that while d deletes the contents
+of the pattern space, D deletes only the first line of a multiline pattern space.
+
+The multiline Next(N) command creates a multiline pattern space by reading a new line of input and appending it to the
+contents of the pattern space. The original contents of pattern space and the new input line are separated by a newline.
+The embedded newline character can be matched in patterns by the escape sequence "\n". In a multiline pattern space, the
+metacharacter "^" matches the very first character of the pattern space, and not the character(s) following any embedded
+newline(s). Similarly, "$" matches only the final newline in the pattern space, and not any embedded newline(s). After
+the Next command is executed, control is then passed to subsequent commands in the script.
+The Next command differs from the next command, which outputs the contents of the pattern space and then reads a new line
+of input. The next command does not create a multiline pattern space.
+
+Append Next Line
+For our first example, let's suppose that we wanted to change "Owner and Operator Guide" to "Installation Guide" but we
+found that it appears in the file on two lines, splitting between "Operator" and "Guide".
+Sample Text:
+	Consult Section 3.1 in the Owner and Operator 
+	Guide for a description of the tape drives
+	available on your system.
+The following script looks for "Operator" at the end of a line, reads the next line of input and then makes the replacement:
+	/operator$/{
+	N
+	s/Owner and Operator\nGuide/Instllation Guide/
+	}
+When the script is run on the sample file, it produces the two lines of output, one of which combines the first and second
+lines and is too long to show here. This happens because the substitute command matches the embedded newline but does
+not replace it. Unfortunately, you cannot use "\n" to insert a newline in the replacement string. You must use a backslash
+to escape the newline, as follows:
+	s/Owner and Operator\nGuide/Instllation Guide\
+	/
+	
+What if there are other occurrences of "Owner and Operator Guide" that break over multiple lines in differnet places?
+You could modify the regular expression to look for a space or a newline between words, as shown below:
+	/Owner/{
+	N
+	s/Owner *\n*and *\n*Operator *\n*Guide/Instllation Guide/
+	}
+The asterisk indicates that the space or newline is optional. 
+
+We can read the newline into the pattern space and then use a subsitute command to remove the embedded newline, 
+wherever it is.
+	s/Owner and Operator Guide/Instllation Guide/
+	/Owner/ {
+	N
+	s/ *\n/ /
+	s/Owner and Operator Guide */Instllation Guide\
+	/
+	}
+The first line matches "Owner and Operator Guide" when it appears on a line by itself. If we match the string "Owner,"
+we read the next line into the pattern space, and replace the embedded newline with a space. Then we attempt to match
+the whole pattern and make the replacement followed by a newline. This script will match "Owner and Operator Guide"
+regardless of how it is broken across two lines.
+Sample Text:
+	Consult Section 3.1 in the Owner and Operator 
+	Guide for a description of the tape drives
+	available on your system.
+
+  Look in the Owner and Operator Guide shipped with your system.
+  
+  Two manuals are provided including the Owner and 
+  Operator Guide and the User Guide.
+  
+  The Owner and Operator Guide is shipped with your system.
+  
+$ sed -f sedscr sample
+	Consult Section 3.1 in the Instllation Guide
+	for a description of the tape drives
+	available on your system.
+
+  Look in the Instllation Guide shipped with your system.
+  
+  Two manuals are provided including the Instllation Guide
+  and the User Guide.
+  
+  The Instllation Guide is shipped with your system.
+   
+If the first one command is removed(s/Owner and Operator Guide/Instllation Guide/), the result would be:
+	Consult Section 3.1 in the Instllation Guide
+	for a description of the tape drives
+	available on your system.
+
+  Look in the Instllation Guide 
+  shipped with your system.
+  Two manuals are provided including the Instllation Guide
+  and the User Guide.
+  
+The last line did not print. The last line matches "Owner" and when N is executed, there is not another input line to
+read, so sed quits(immediately, without even outputting the line). Also, the occurrence of "Owner and Operator Guide"
+in the second paragraph, the blank line has in effect vanished(If the line were not blank, the newline would still be 
+removed but the text would appear on the same line with "shipped with your system.") The best solution seems to be to
+avoid reading the next line when the pattern can be matched on one line.          
+                                  
+test.interleaf:
+<para>
+
+This is a test paragraph in Interleaf style ASCII. Another line
+in a paragraph. Yet another.
+
+<Figure Begin>
+
+v.11111111111111111111100000000000000111111110000000000000000000
+1000100001001001010101010010100000000000000000000000000000000000
+0000000
+
+<Figure End>
+
+<para>
+
+More lines of text to be found after the figure.
+These lines should print.
+----------------------------------------------------------------------
+sed.interleaf:
+/<para>/{
+	N
+	c\
+.LP
+}
+/<Figure Begin>/,/<Figure End>/{
+	w fig.interleaf
+	/<Figure End>/i\
+.FG\
+<insert figure here>\
+.FE
+	d
+}
+/^$/d
+
+The address matches lines with the paragraph tag. The Next command appends the next line, which should be blank, to the
+pattern space. We use the Next command instead of next because we don't want to output the contents of the pattern space.
+The change command overwrites the previous contents ("<para>" followed by a newline) of the pattern space, even when it
+contains multiple lines.Then, match the lines between "<Figure Begin>" and "<Figure End>" and writes them to the file
+named fig.interleaf. Each time this instruction is matched, the delete command will be executed, deleting the lines that
+have been written to file. When "<Figure End>" is matched, a pair of macros are inserted in place of the figure in the 
+output. Notice that the subsequent delete command does not affect the text output by the insert command. It does, however,
+delete "<Figure End>" from the pattern space.
+
+The result of running this script on the rest file:
+$ sed -f sed.interleaf test.interleaf
+.LP
+This is a test paragraph in Interleaf style ASCII. Another line
+in a paragraph. Yet another.
+.FG
+<insert figure here>
+.FE
+.LP
+More lines of text to be found after the figure.
+These lines should print.      
+               
+Multiline Delete
+The delete command deletes the contents of the pattern space and causes a newline of input to be read with editing
+resuming at the top of the script. The Delete command works slightly differently: it deletes a portion of the pattern
+space, up to the first embedded newline. It does not cause a new line of input to be read; instead, it returns to the
+top of the script, applying these instructions to what remains in the pattern space.
+
+test.blank:
+This line is followed by 1 blank line.
+
+This line is followed by 2 blank line.
+
+
+This line is followed by 3 blank line.
+
+
+
+This line is followed by 4 blank line.
+
+
+
+
+End
+-----------------------------------------
+sed.blank:
+/^$/{
+	N
+	/^\n$/d
+}
+
+When a blank line is encountered, the next line is appended to the pattern space. Then we try to match the embedded
+newline. Note that the positional metacharacters, ^ and $, match the beginning and the end of the pattern space, 
+respectively.
+
+$ sed -f sed.blank test.blank
+This line is followed by 1 blank line.
+
+This line is followed by 2 blank line.
+This line is followed by 3 blank line.
+
+This line is followed by 4 blank line.
+End
+
+Where there was an even number of blank lines, all the blank lines were removed. Only when there was an odd number was
+a single blank line preserved. That is because the delete command clears the entire pattern space. Once the first blank
+line is encountered, the next line is read in, and both are deleted. If a third blank line is encountered, and the next
+line is not blank, the delete command is not applied, and thus a blank line is output. If we use the multiline Delete
+command, we can get the result we want. The reason is that when we encounter two blank lines, the D command removes only
+the first of the two. The next time through the script, the blank line will cause another line to be read into the pattern
+space. If that line is not blank, then both lines are output, thus ensuring that a single blank line will be output. In
+other words, when there are two blank lines in the pattern space, only the first one is deleted. When there is a blank
+line followed by text, the pattern space is output normally.
+
+Multiline Print
+The multiline Print command differs slightly from its lowercase cousin. This command outputs the first portion of a
+multiline pattern space, up to the first embedded newline. After the last command in a script is executed, the contents
+of the pattern space are automatically output. (The -n option or #n suppressesthis default action.) The Print command
+frequently appears after the Next command and before the Delete command. These three commands can set up an input/output
+loop that maintains a two-line pattern space yet outputs only one line at a time. The purpose of this loop is to output 
+only the first line in the pattern space, then return to the top of the script to apply all commands to what had been 
+the second line in the pattern space. Without this loop, when the last command in the script was executed, both lines 
+in the pattern space would be output. The flow through a script that sets up an input/output loop using the Next, Print,
+and Delete commands is illustrated:
+(UNIX POWER TOOLS WORD DOCUMENT)
+
+test.Print:
+Here are examples of the UNIX
+System. Where UNIX
+System appears, it should be the UNIX
+Operating System.
+
+sed.Print:
+/UNIX$/{
+	N
+	/\nSystem/{
+	s// Operating &/
+	P
+	D
+	}
+}
+
+
+test:
+I want to see @f1(what will happen) if we put the
+font change commands @f1(on a set of lines). If I understand
+things (correctly), the @f1(third) line causes problems. (No?).
+Is this really the case, or is it (maybe) just something else?
+
+Let's test having two on a line @f1(here) and @f1(there) as
+well as one that begins on one line and ends @f1(somewhere
+on another line). What if @f1(it is here) on the line?
+Another @f1(one).
+
+sed.len
+s/@f1(\(.*\))/\\fB\1\\fR/g
+
+$ sed -f sed.len test
+I want to see \fBwhat will happen\fR if we put the
+font change commands \fBon a set of lines\fR. If I understand
+things (correctly), the \fBthird) line causes problems. (No?\fR.
+Is this really the case, or is it (maybe) just something else?
+
+Let's test having two on a line \fBhere) and @f1(there\fR as
+well as one that begins on one line and ends @f1(somewhere
+on another line). What if \fBit is here\fR on the line?
+Another \fBone\fR.
+
+The substitute command works properly in the first two lines. It fails on the third line. It also fails in the first 
+line of the second paragraph where there are multiple occurrences on the same line. Because a regular expression always
+makes the longest match possible, ".*" matches all the characters from "@f1(" to the last closing parenthesis on the line.
+In other words, the span indicated by ".*" ends with the last close parenthesis it finds, not the first.
+We can fix this problem by modifying the regular expression ".*" to zero or more occurrences of any character except ")".
+	[^)]*
+In a character class, the caret (^) reverses the sense of the operation so it matches all characters except those specified
+in the brackets. Here's how the revised command looks:
+	s/@f1(\([^)]*\))/\\fB\1\\fR/g 
+result:
+I want to see \fBwhat will happen\fR if we put the
+font change commands \fBon a set of lines\fR. If I understand
+things (correctly), the \fBthird\fR line causes problems. (No?).
+Is this really the case, or is it (maybe) just something else?
+
+Let's test having two on a line \fBhere\fR and \fBthere\fR as
+well as one that begins on one line and ends @f1(somewhere
+on another line). What if \fBit is here\fR on the line?
+Another \fBone\fR.
+
+This command gets all instances except the one in the second paragraph that extends over two lines. 
+This revised script matches all occurrences in the sample file:
+	s/@f1(\([^)]*\))/\\fB\1\\fR/g 
+	/@f1(.*/{
+		N
+		s/@f1(\([^)]*\))/\\fB\1\\fR/g 
+		P
+		D
+	}
+result:
+I want to see \fBwhat will happen\fR if we put the
+font change commands \fBon a set of lines\fR. If I understand
+things (correctly), the \fBthird\fR line causes problems. (No?).
+Is this really the case, or is it (maybe) just something else?
+
+Let's test having two on a line \fBhere\fR and \fBthere\fR as
+well as one that begins on one line and ends \fBsomewhere
+on another line\fR. What if \fBit is here\fR on the line?
+Another \fBone\fR.ÿÿ
+
+Hold That Line
+The pattern space is a buffer that contains the current input line. There is also a set-aside buffer called the hold
+space. The contents of the pattern space can be copied to the hold space and the contents of the hold space can be copied
+to the pattern space. A group of commands allows you to move data between the hold space and the pattern space. The hold
+space is used for temporary storage, and that's it. Individual commands can't address the hold space or alter its contents.
+
+Command		Abbreviation	Function
+Hold			h or H				Copy or append contents of pattern space to hold space.
+Get				g or G				Copy or append contents of hold space to pattern space.
+Exchangeÿxÿÿÿÿÿÿ Swap contents of hold space and pattern space.ÿÿÿÿÿÿÿ
+
+Each of these commands can take an address that specifies a single line or a range of lines.
+The difference between the lowercase and uppercase versions of the same command is that the lowercase command overwrites
+the contents of the target buffer, while the uppercase command appends to the buffer's existing contents.
+
+test.flip:
+1
+2
+11
+22
+111
+222
+
+sed.flip:ÿ
+/1/ {
+h
+d
+}
+/2/{
+G
+}
+Any line matching a "1" is copied to the hold space and deleted from the pattern space. Control passes to the top of the
+script and the line is not printed. When the next line is read, it matches the pattern "2" and the line that had been
+copied to the hold space is now appended to the pattern space. Then both lines are printed. In other words, we save the
+first line of the pair and don't output it until we match the second line.
+The hold command followed by the delete command is a fairly common pairing. Without the delete command, control would
+reach the bottom of the script and the contents of the pattern space would be output. If the script used the next(n)
+command instead of the delete command, the contents of the pattern space would also be output. You can experiment with
+this script by removing the delete command altogether or by putting a next command in its place. You could also see 
+what happens if you use g instead of G.
+Note that if a line matches the first instruction and the next line fails to match the second instruction, the first
+line will not be output. This is a hole down which lines disappear.ÿÿ
+
+Building Blocks of Text
+test.block:
+<p>My wife won't let me buy a power saw. She is afraid of an
+accident if I use one.
+So I rely on a hand saw for a variery of weekend projects like
+building shelves.
+However, if I made my livingÿas a carpenter, I would
+have to use a power
+saw. The speed and efficiency provided by power tools
+would be essential to being productive.</p>
+
+<p>For people who create and modify text files,
+sed and awk are power tools for editing.</p>
+
+<p>Most of the things that you can do with these programs
+can be done interactively with a text editor. However,
+using these programs can save many hours of repetitive
+work in achieving the same result.</p>
+
+sed.block:
+${
+/^$/!{
+	H
+	s/.*//
+	}
+}
+/^$/!{
+	H
+	d
+	}
+/^$/{
+	x
+	s/^\n/<p>/
+	s/$/<\/p>/
+	G
+	}
+If the input line is not blank, it is appended to the hold space(with H), and then deleted from the pattern space.
+The delete command prevents the line from being output and clears the pattern space. Control passes back to the top 
+of the script and a new line is read. The general idea is that we don't output any line of text; it is collected in
+the hold space.
+If the input line is blank, we process the contents of the hold space. To illustrate what the second procedure does,
+let's use the second paragraph in the previous sample file and show what happens. After a blank line has been read, the
+pattern space and the hold space have the following contents:
+P: ^$
+H: \nFor people who create and 
+   modify text files, \nsed and
+   awk are power tools  for
+   editing.
+A blank line in the pattern space is represented as "^$", the regular expression that matches it. The embedded newlines
+are represented in the hold space by "\n". Note that the Hold command puts a newline in the hold space and then appends
+the current line to the hold space. Even when the hold space is empty, the Hold command places a newline before the
+contents of the pattern space.
+
+The exchange command(x) swaps the contents of the hold space and the pattern space. The blank line is saved in the hold
+space so we can retrieve it at the end of the procedure.
+P: ÿ\nFor people who create and 
+   modify text files, \nsed and
+   awk are power tools  for
+   editing.
+H:	^$
+
+Now we make two substitutions: placing "<p>" at the beginning of the pattern space and "</p>" at the end. The first
+substitute command matches "^\n" because a newline is at the beginning of the line as a consequence of the Hold command.
+The second substitute command matches the end of the pattern space("$" does not match any embedded newlines but only 
+the terminal newline.)
+P: <p>For people who create and 
+   modify text files, \nsed and
+   awk are power tools  for
+   editing.</p>
+H:	^$
+
+Note that the embedded newline is preserved in the pattern space. The last command, G, appends the blank line in the
+hold space to the pattern space. Upon reaching the bottom of the script, sed outputs the paragraph we had collected in
+the hold space and coded in the pattern space.
+
+This script illustrates the mechanics of collecting input and holding on to it until another pattern is matched. It's
+important to pay attention to flow control in the script. The first procedure in the script does not reach bottom 
+because we don't want any output yet. The second precedure does reach bottom, clearing the pattern space and the hold
+space before we begin collecting lines for the next paragraph. 
+ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ  ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ  

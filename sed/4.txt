@@ -1,0 +1,16 @@
+<p>My wife won't let me buy a power saw. She is afraid of an
+accident if I use one.
+So I rely on a hand saw for a variery of weekend projects like
+building shelves.
+However, if I made my livingÿas a carpenter, I would
+have to use a power
+saw. The speed and efficiency provided by power tools
+would be essential to being productive.</p>
+
+<p>For people who create and modify text files,
+sed and awk are power tools for editing.</p>
+
+<p>Most of the things that you can do with these programs
+can be done interactively with a text editor. However,
+using these programs can save many hours of repetitive
+work in achieving the same result.</p>

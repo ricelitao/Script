@@ -1,0 +1,8 @@
+.XX "append command(a)"
+.XX "change command"
+.XX "change command(c)"
+.XX "commands:sed, summary of"
+.XX "delete command(d)"
+.XX "insert command(i)"
+.XX "line numbers:printing"
+.XX "list command(l)"
