@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="utf-8">
+  <head>
+    <title>shell内置的变量 | I am Wang Bin</title>
+    
+    <link rel="stylesheet" href="http://static.wangbin1979.com/static/css/d749445/reset-fonts-grids.css" type="text/css" />
+    <link rel="stylesheet" href="http://static.wangbin1979.com/static/css/d749445/style.css" type="text/css" />
+    <link rel="alternate" type="application/atom+xml" href="http://feeds.feedburner.com/iwangbin" title="Blog Atom1.0 Feed" />
+    <link rel="pingback" href="/xmlrpc/" />
+    <link rel="shortcut icon" href="http://static.wangbin1979.com/static/images/d749445/favicon.ico" type="image/x-icon" />
+    
+<link rel="stylesheet" href="http://static.wangbin1979.com/static/css/d749445/pygments.css" type="text/css" />
+
+    <meta http-equiv="Content-Type" content="text/HTML; charset=utf-8" />
+    
+    </head>
+    <body>
+      <div id="doc3" class="yui-t6 blog post_detail">
+        <div id="hd">
+          <div class="doc2 branding">
+            <div id="blog-title">
+              <span>
+                <a rel="home" href="/" title="I am Wang Bin">I am Wang Bin</a>
+              </span>
+            </div>
+            <div id="blog-description">Personal website of my own.</div>
+          </div>
+          <div id="access">
+            <div class="doc2 menu">
+              <ul class="sf-menu">
+                <li><a id="menu-home" href="/">Home</a></li>
+                <li><a id="menu-about" href="/about/me/">About Me</a></li>
+                <li><a id="menu-blog" href="/blog/">Blog</a></li>
+		
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div id="bd" class="doc2">
+          <div id="breadcrum"></div>
+          
+          <div id="yui-main">
+            <div class="yui-b">
+              <div class="yui-g" id="container">
+<h1>shell内置的变量</h1>
+<div class="content">
+  <div class="entry-meta">
+    <span class="author vcard">By <a href="" title="View profile of wangbin">wangbin</a></span>
+    <span class="meta-sep"> | </span>
+    <span class="entry-data">Published: <abbr title="三月 15, 2007, 12:12 p.m." >三月 15, 2007, 12:12 p.m.</abbr></span>
+  </div>
+  <div class="entry-content">
+    <dl>
+<dt><strong>$#</strong></dt><dd>
+表示参数的数量。</dd>
+<dt><strong>$*和$@</strong></dt><dd>
+这两个变量都表示所有的参数。</dd>
+<dt><strong>$-</strong></dt><dd>
+Option supplied to shell，shell运行时的选项</dd>
+<dt><strong>$$</strong></dt><dd>
+shell的PID</dd>
+<dt><strong>$!</strong></dt><dd>
+最后一个在后台运行的进程的PID(即命令后加 &amp;)</dd>
+<dt><strong>$?</strong></dt><dd>
+命令的退出状态</dd>
+</dl>
+
+  </div>
+  <div class="entry-utility">
+    
+	  
+          <span class="tag-links">Tagged <a href="/blog/tag/linux/">linux</a>, <a href="/blog/tag/shell/">shell</a></span>
+          <span class="meta-sep"> | </span>
+	  
+	  
+    
+<span class="pv-links">94 Views</span>
+<span class="meta-sep"> | </span>
+
+
+    <span class="comment-links"><a href="">Leave a comment</a></span>
+    
+    
+  </div>
+  
+  
+
+  
+  
+  
+  
+
+  <div id="comment-form">
+    
+
+<h2>Post your comment</h2>
+<form action="/comments/post/" method="post"><div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='6df7451e3476893c641a2fc34a3b9d0d' /></div>
+<fieldset>
+  <input type="hidden" name="next" value="/blog/2007/3/15/shell_builtin_variable/" />
+  
+    
+      <input type="hidden" name="content_type" value="blog.post" id="id_content_type" />
+    
+  
+    
+      <input type="hidden" name="object_pk" value="120" id="id_object_pk" />
+    
+  
+    
+      <input type="hidden" name="timestamp" value="1296888409" id="id_timestamp" />
+    
+  
+    
+      <input type="hidden" name="security_hash" value="9be4122c12855d97533a86aaf654eb3a4810f7a6" id="id_security_hash" />
+    
+  
+    
+      <div class="form-section">
+        
+        <div class="form-label">
+          <label for="id_name">名称</label><span class="required">*</span>
+        </div>
+        <div class="form-field">
+          <input id="id_name" type="text" name="name" maxlength="50" />
+        </div>
+      </div>
+    
+  
+    
+      <div class="form-section">
+        
+        <div class="form-label">
+          <label for="id_email">Email 地址</label><span class="required">*</span>
+        </div>
+        <div class="form-field">
+          <input type="text" name="email" id="id_email" />
+        </div>
+      </div>
+    
+  
+    
+      <div class="form-section">
+        
+        <div class="form-label">
+          <label for="id_url">URL</label>
+        </div>
+        <div class="form-field">
+          <input type="text" name="url" id="id_url" />
+        </div>
+      </div>
+    
+  
+    
+      <div class="form-section">
+        
+        <div class="form-label">
+          <label for="id_comment">评论</label><span class="required">*</span>
+        </div>
+        <div class="form-field">
+          <textarea id="id_comment" rows="10" cols="40" name="comment"></textarea>
+        </div>
+      </div>
+    
+  
+    
+      <div class="form-section" style="display:none;">
+        
+        <div class="form-label">
+          <label for="id_honeypot">如果你在该字段中输入任何内容，那么你的评论就会被视为垃圾评论。</label>
+        </div>
+        <div class="form-field">
+          <input type="text" name="honeypot" id="id_honeypot" />
+        </div>
+      </div>
+    
+  
+    
+      <div class="form-section">
+        
+        <div class="form-label" style="display:none;">
+          <label for="id_captcha_0">Captcha</label><span class="required">*</span>
+        </div>
+        <div class="form-field">
+          <img src="/captcha/image/b598c0e5e90a1c7e2ff2aca3fbd78a977c501aa7/" alt="captcha" class="captcha" /> <input type="hidden" name="captcha_0" value="b598c0e5e90a1c7e2ff2aca3fbd78a977c501aa7" id="id_captcha_0" /> <input type="text" name="captcha_1" id="id_captcha_1" />
+        </div>
+      </div>
+    
+  
+  <p class="submit">
+    <input type="submit" name="post" class="submit-post" value="Post" />
+  </p>
+</fieldset>
+</form>
+
+  </div>
+</div>
+</div>
+            </div>
+          </div>
+          <div id="sidebar" class="yui-b">
+
+<div class="tag_cloud">
+  <h3>Tag Cloud</h3>
+    
+    <a class="smallestTag" href="/blog/tag/Diigo/">Diigo (3)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/English/">English (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/IE9/">IE9 (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/Scrapy/">Scrapy (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/Ubiquity/">Ubiquity (3)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/XP/">XP (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/Xterm/">Xterm (2)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/amule/">amule (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/analytics/">analytics (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/apache/">apache (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/atop/">atop (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/autossh/">autossh (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/avi/">avi (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/bash/">bash (4)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/blog/">blog (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/blosxom/">blosxom (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/book/">book (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/cdn/">cdn (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/cheatsheet/">cheatsheet (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/chrome/">chrome (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/chromium/">chromium (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/cli/">cli (8)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/codehilite/">codehilite (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/computer/">computer (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/css/">css (2)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/csv/">csv (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/curl/">curl (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/cvs/">cvs (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/debian/">debian (9)</a>&nbsp;
+    
+    <a class="smallTag" href="/blog/tag/django/">django (14)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/docbook/">docbook (2)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/domain/">domain (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/douban/">douban (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/dualmonitor/">dualmonitor (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/ebuild/">ebuild (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/eeepc/">eeepc (1)</a>&nbsp;
+    
+    <a class="smallTag" href="/blog/tag/emacs/">emacs (14)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/emacs23/">emacs23 (2)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/exim/">exim (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/ext4/">ext4 (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/fastcgi/">fastcgi (2)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/fcitx/">fcitx (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/feed/">feed (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/find/">find (2)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/firefox/">firefox (4)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/flash/">flash (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/flup/">flup (2)</a>&nbsp;
+    
+    <a class="biggestTag" href="/blog/tag/gentoo/">gentoo (41)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/git/">git (5)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/gmail/">gmail (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/gnome-do/">gnome-do (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/google/">google (3)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/harddisk/">harddisk (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/hdparm/">hdparm (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/health/">health (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/html/">html (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/ibus/">ibus (2)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/icewm/">icewm (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/ie6/">ie6 (3)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/iphone4/">iphone4 (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/ipython/">ipython (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/irc/">irc (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/javascript/">javascript (7)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/job/">job (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/jquery/">jquery (2)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/json/">json (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/kernel/">kernel (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/life/">life (9)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/lighttpd/">lighttpd (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/linode/">linode (1)</a>&nbsp;
+    
+    <a class="hugeTag" href="/blog/tag/linux/">linux (61)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/linuxsir/">linuxsir (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/logrotate/">logrotate (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/loongson/">loongson (4)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/mac/">mac (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/markdown/">markdown (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/memcached/">memcached (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/mencoder/">mencoder (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/mldonkey/">mldonkey (2)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/mod_python/">mod_python (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/mozilla/">mozilla (3)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/msmtp/">msmtp (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/mt-daapd/">mt-daapd (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/munin/">munin (2)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/muse/">muse (2)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/mysql/">mysql (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/netsta/">netsta (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/nginx/">nginx (6)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/ntfs-3g/">ntfs-3g (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/openbox/">openbox (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/openrc/">openrc (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/opera/">opera (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/performance/">performance (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/perl/">perl (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/pgbouncer/">pgbouncer (4)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/pgpool/">pgpool (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/photo/">photo (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/pingback/">pingback (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/pinyin/">pinyin (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/postgresql/">postgresql (10)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/pubsubhubbub/">pubsubhubbub (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/pyblosxom/">pyblosxom (4)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/pygments/">pygments (1)</a>&nbsp;
+    
+    <a class="mediumTag" href="/blog/tag/python/">python (28)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/regexp/">regexp (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/rsyslog/">rsyslog (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/rtorrent/">rtorrent (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/runit/">runit (2)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/rxvt/">rxvt (2)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/screen/">screen (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/sed/">sed (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/seo/">seo (2)</a>&nbsp;
+    
+    <a class="smallTag" href="/blog/tag/shell/">shell (13)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/slackware/">slackware (2)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/slicehost/">slicehost (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/squid/">squid (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/ssh/">ssh (3)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/suervisord/">suervisord (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/supervisor/">supervisor (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/suspend/">suspend (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/svn/">svn (3)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/swfobject/">swfobject (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/synaptics/">synaptics (2)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/syslog-ng/">syslog-ng (2)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/tips/">tips (2)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/trac/">trac (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/twitter/">twitter (2)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/ubiquity/">ubiquity (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/ubuntu/">ubuntu (3)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/useragent/">useragent (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/uwsgi/">uwsgi (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/video/">video (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/virtualbox/">virtualbox (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/virtualenv/">virtualenv (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/vixie-cron/">vixie-cron (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/vps/">vps (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/vsftpd/">vsftpd (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/webdev/">webdev (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/webpy/">webpy (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/wicd/">wicd (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/xhtml/">xhtml (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/xianguo/">xianguo (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/xinerama/">xinerama (1)</a>&nbsp;
+    
+    <a class="smallestTag" href="/blog/tag/xorg-server/">xorg-server (1)</a>&nbsp;
+    
+</div>
+
+
+
+<div class="archieves">
+  <h3>Archieves</h3>
+  <ul>
+  
+  <li><a href="/blog/2011/1/">2011年1月 (2)</a></li>
+  
+  <li><a href="/blog/2010/12/">2010年12月 (7)</a></li>
+  
+  <li><a href="/blog/2010/11/">2010年11月 (4)</a></li>
+  
+  <li><a href="/blog/2010/10/">2010年10月 (6)</a></li>
+  
+  <li><a href="/blog/2010/9/">2010年9月 (5)</a></li>
+  
+  <li><a href="/blog/2010/8/">2010年8月 (2)</a></li>
+  
+  <li><a href="/blog/2010/7/">2010年7月 (4)</a></li>
+  
+  <li><a href="/blog/2010/6/">2010年6月 (2)</a></li>
+  
+  <li><a href="/blog/2010/5/">2010年5月 (1)</a></li>
+  
+  <li><a href="/blog/2010/4/">2010年4月 (1)</a></li>
+  
+  <li><a href="/blog/2010/3/">2010年3月 (6)</a></li>
+  
+  <li><a href="/blog/2010/2/">2010年2月 (7)</a></li>
+  
+  <li><a href="/blog/2009/10/">2009年10月 (5)</a></li>
+  
+  <li><a href="/blog/2009/9/">2009年9月 (6)</a></li>
+  
+  <li><a href="/blog/2009/8/">2009年8月 (9)</a></li>
+  
+  <li><a href="/blog/2009/7/">2009年7月 (5)</a></li>
+  
+  <li><a href="/blog/2009/6/">2009年6月 (5)</a></li>
+  
+  <li><a href="/blog/2009/5/">2009年5月 (2)</a></li>
+  
+  <li><a href="/blog/2009/4/">2009年4月 (8)</a></li>
+  
+  <li><a href="/blog/2009/3/">2009年3月 (10)</a></li>
+  
+  <li><a href="/blog/2009/2/">2009年2月 (7)</a></li>
+  
+  <li><a href="/blog/2009/1/">2009年1月 (1)</a></li>
+  
+  <li><a href="/blog/2008/12/">2008年12月 (1)</a></li>
+  
+  <li><a href="/blog/2008/10/">2008年10月 (4)</a></li>
+  
+  <li><a href="/blog/2008/8/">2008年8月 (1)</a></li>
+  
+  <li><a href="/blog/2008/7/">2008年7月 (6)</a></li>
+  
+  <li><a href="/blog/2008/6/">2008年6月 (2)</a></li>
+  
+  <li><a href="/blog/2008/5/">2008年5月 (4)</a></li>
+  
+  <li><a href="/blog/2008/2/">2008年2月 (2)</a></li>
+  
+  <li><a href="/blog/2007/11/">2007年11月 (1)</a></li>
+  
+  <li><a href="/blog/2007/7/">2007年7月 (10)</a></li>
+  
+  <li><a href="/blog/2007/6/">2007年6月 (3)</a></li>
+  
+  <li><a href="/blog/2007/5/">2007年5月 (2)</a></li>
+  
+  <li><a href="/blog/2007/4/">2007年4月 (2)</a></li>
+  
+  <li><a href="/blog/2007/3/">2007年3月 (12)</a></li>
+  
+  <li><a href="/blog/2007/2/">2007年2月 (1)</a></li>
+  
+  <li><a href="/blog/2007/1/">2007年1月 (1)</a></li>
+  
+  <li><a href="/blog/2006/12/">2006年12月 (4)</a></li>
+  
+  <li><a href="/blog/2006/11/">2006年11月 (3)</a></li>
+  
+  <li><a href="/blog/2006/9/">2006年9月 (8)</a></li>
+  
+  <li><a href="/blog/2006/1/">2006年1月 (4)</a></li>
+  
+  <li><a href="/blog/2005/12/">2005年12月 (9)</a></li>
+  
+  <li><a href="/blog/2005/11/">2005年11月 (1)</a></li>
+  
+  <li><a href="/blog/2005/5/">2005年5月 (6)</a></li>
+  
+  <li><a href="/blog/2005/4/">2005年4月 (2)</a></li>
+  
+</ul>
+
+</div>
+
+</div>
+          
+        </div>
+        <div id="ft">
+          <div id="siteinfo" class="doc2">&copy; Copyright 2009 <a href="http://www.iwangbin.com/">iwangbin.com</a></div>
+        </div>
+      </div>
+      
+      
+      <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+        try {
+          var pageTracker = _gat._getTracker("UA-12851499-1");
+          pageTracker._trackPageview();
+        } catch(err) {}
+      </script>
+      
+      
+    </body>
+</html>

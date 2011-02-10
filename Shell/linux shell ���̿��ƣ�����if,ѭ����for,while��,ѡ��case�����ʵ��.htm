@@ -1,0 +1,912 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>linux shell 流程控制（条件if,循环【for,while】,选择【case】语句实例 - 沉于思考，默默学习！ - 博客园</title>
+<meta name="keywords" content="linux,shell,流程控制,条件if,循环,for,while,选择,case,语句实例" />
+<link type="text/css" rel="stylesheet" href="http://www.cnblogs.com/css/common.css"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="http://www.cnblogs.com/Skins/Cogitation/style.css"/>
+<link type="text/css" rel="stylesheet" href="http://www.cnblogs.com/css/common2.css"/>
+<link type="text/css" rel="stylesheet" href="http://common.cnblogs.com/css/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="http://common.cnblogs.com/css/shThemeDefault.css"/>
+<link type="text/css" rel="stylesheet" href="http://www.cnblogs.com/chengmo/customcss.aspx?id=71819"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/chengmo/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/chengmo/rsd.xml"/> 
+<script src="http://common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script src="/script/common.js" type="text/javascript"></script>
+<script src="http://common.cnblogs.com/script/jquery.json-2.2.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://common.cnblogs.com/script/shCore.js"></script>
+<script type="text/javascript" src="http://common.cnblogs.com/script/shLanguage.js"></script>
+</head>
+<body>
+    <form name="Form1" method="post" action="1851434.html" id="Form1">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="
+__VIEWSTATE" value="" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+        
+<div id="top">
+	
+<div>
+	<table>
+		<tr>
+			<td class="HeaderTitles">
+				<h1 class="HeaderTitle"><a id="Header1_HeaderTitle" class="HeaderMainTitle" href="http://www.cnblogs.com/chengmo/">沉于思考，默默学习！</a></h1>
+				<p id="tagline">你不能预知明天，但你可以利用今天。你不能样样顺利，但你可以事事尽力!</p>
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="HeaderBar">
+	<table id="HeaderBar" class="HeaderBar" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="HeaderBarTab" nowrap>
+&nbsp;
+<a id="Header1_MyLinks1_HomeLink" href="http://www.cnblogs.com/">博客园</a>&nbsp;::
+<a id="Header1_MyLinks1_MyHomeLink" href="http://www.cnblogs.com/chengmo/">首页</a>&nbsp;::
+<a id="Header1_MyLinks1_NewPostLink" rel="nofollow" href="http://www.cnblogs.com/chengmo/admin/EditPosts.aspx?opt=1">新随笔</a>&nbsp;::
+<a id="Header1_MyLinks1_ContactLink" accesskey="9" rel="nofollow" href="http://space.cnblogs.com/msg/send/%e7%a8%8b%e9%bb%98">联系</a>&nbsp;::
+<a id="Header1_MyLinks1_Syndication" href="http://www.cnblogs.com/chengmo/rss">订阅</a>
+<a id="Header1_MyLinks1_XMLLink" class="XMLLink" href="http://www.cnblogs.com/chengmo/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" style="border-width:0px;" /></a>&nbsp;::
+<a id="Header1_MyLinks1_Admin" rel="nofollow" href="http://www.cnblogs.com/chengmo/admin/EditPosts.aspx">管理</a>&nbsp;::
+
+</td>
+			<td><img id="Header1_BlueTab" src="/skins/Cogitation/Images/BlueTabRight.gif" align="absmiddle" style="border-width:0px;" /></td>
+			<td class="HeaderBarTabBack" nowrap width="100%">
+				
+<div class="BlogStatsBar">
+	<table class="BlogStatsBar">
+		<tr>
+			<td width="100%">
+			</td>
+			<td class="BlogStatsBar" nowrap>
+				&nbsp;
+				54 
+				随笔&nbsp;::
+				0 文章
+				::
+				68 评论
+				::
+				0 引用
+			</td>
+		</tr>
+	</table>
+</div>
+
+			</td>
+		</tr>
+	</table>
+</div>
+
+</div>
+<div id="leftmenu">	
+</div>
+<div id="main">
+	
+					
+<div class="post">
+	<div class="postTitle">
+		<a id="ctl02_TitleUrl" href="http://www.cnblogs.com/chengmo/archive/2010/10/14/1851434.html">linux shell 流程控制（条件if,循环【for,while】,选择【case】语句实例</a>
+	</div>
+	
+	<div class="postText">
+		<div id="cnblogs_post_body"><p>linux shell有一套自己的流程控制语句，其中包括条件语句(if)，循环语句(for,while)，选择语句(case)。下面我将通过例子介绍下，各个语句使用方法。</p>
+<p>&nbsp;</p>
+<p><strong>一、shell条件语句（if用法）</strong></p>
+<blockquote>
+<p><strong>if语句结构[if/then/elif/else/fi]</strong></p>
+<p><strong></strong>&nbsp;</p>
+<p>if 条件测试语句 </p>
+<p>then</p>
+<p>action</p>
+<p>[elif 条件</p>
+<p>action</p>
+<p>else</p>
+<p>action</p>
+<p>]</p>
+<p>fi</p>
+<p>&nbsp;</p>
+<p>如果对于：条件测试语句不是很清楚，可以参考：<a href="http://www.cnblogs.com/chengmo/archive/2010/10/01/1839942.html">linux shell 逻辑运算符、逻辑表达式详解</a></p>
+<p><span style="color: #808000;">shell命令，可以按照分号分割，也可以按照换行符分割。如果想一行写入多个命令，可以通过&ldquo;';&rdquo;分割。</span></p>
+<p>如：</p>
+<p>[chengmo@centos5 ~]$ a=5;if [[ a -gt 4 ]] ;then echo 'ok';fi;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br />ok </p>
+<p>&nbsp; </p>
+<p><strong>实例：(test.sh)</strong> </p>
+<p>#!/bin/sh </p>
+<p>scores=40;<br />if [[ $scores -gt 90 ]]; then<br />&nbsp;&nbsp;&nbsp; echo "very good!";<br />elif [[ $scores -gt 80 ]]; then<br />&nbsp;&nbsp;&nbsp; echo "good!";<br />elif [[ $scores -gt 60 ]]; then<br />&nbsp;&nbsp;&nbsp; echo "pass!";<br />else<br />&nbsp;&nbsp;&nbsp; echo "no pass!";<br />fi; </p>
+<p>&nbsp;</p>
+<p><a href="http://images.cnblogs.com/cnblogs_com/chengmo/WindowsLiveWriter/linuxshellifforwhilecase_979A/image_2.png"><img style="display: inline; border: 0px;" title="image" src="http://images.cnblogs.com/cnblogs_com/chengmo/WindowsLiveWriter/linuxshellifforwhilecase_979A/image_thumb.png" border="0" alt="image" width="406" height="262" /></a> </p>
+<p><span style="color: #808000;">条件测试有：[[]],[],test 这几种，注意：[[]] 与变量之间用空格分开。</span></p>
+</blockquote>
+<p>&nbsp; </p>
+<p><strong>二、循环语句(for,while,until用法）：</strong></p>
+<ul>
+<li><strong>for循环使用方法(for/do/done)</strong></li>
+</ul>
+<blockquote>
+<p><strong><span style="color: #000000; background-color: #ffffff;">语法结构：</span></strong></p>
+<p><strong>&nbsp;<em>1.for &hellip; in 语句</em></strong></p>
+<p>for 变量 in seq字符串</p>
+<p>do</p>
+<p>action</p>
+<p>done</p>
+<p>说明：seq字符串 只要用空格字符分割，每次for&hellip;in 读取时候，就会按顺序将读到值，给前面的变量。</p>
+<p><strong>实例(testfor.sh)：</strong></p>
+<p>#!/bin/sh </p>
+<p>for i in $(seq 10); do<br />&nbsp;&nbsp;&nbsp; echo $i;<br />done; </p>
+<p><a href="http://images.cnblogs.com/cnblogs_com/chengmo/WindowsLiveWriter/linuxshellifforwhilecase_979A/image_4.png"><img style="display: inline; border: 0px;" title="image" src="http://images.cnblogs.com/cnblogs_com/chengmo/WindowsLiveWriter/linuxshellifforwhilecase_979A/image_thumb_1.png" border="0" alt="image" width="488" height="380" /></a> </p>
+<p>seq 10 产生 1 2 3 。。。。10空格分隔字符串。 </p>
+<p><strong>2.for((赋值；条件；运算语句))</strong> </p>
+<p>for((赋值；条件；运算语句)) </p>
+<p>do </p>
+<p>action </p>
+<p>done; </p>
+<p><strong>实例(testfor2.sh)：</strong> </p>
+<p>#!/bin/sh </p>
+<p>for((i=1;i&lt;=10;i++));do<br />&nbsp;&nbsp;&nbsp; echo $i;<br />done; </p>
+<p><a href="http://images.cnblogs.com/cnblogs_com/chengmo/WindowsLiveWriter/linuxshellifforwhilecase_979A/image_6.png"><img style="display: inline; border: 0px;" title="image" src="http://images.cnblogs.com/cnblogs_com/chengmo/WindowsLiveWriter/linuxshellifforwhilecase_979A/image_thumb_2.png" border="0" alt="image" width="435" height="401" /></a> </p>
+<p>&nbsp;</p>
+</blockquote>
+<p>&nbsp; </p>
+<ul>
+<li><strong>while循环使用（while/do/done)</strong></li>
+</ul>
+<blockquote>
+<p><strong><span style="color: #000000; background-color: #ffffff;">while语句结构</span></strong></p>
+<p>while 条件语句</p>
+<p>do</p>
+<p>action</p>
+<p>done;</p>
+<p><strong>实例1:</strong></p>
+<p>#!/bin/sh<br />i=10;<br />while [[ $i -gt 5 ]];do<br />&nbsp;&nbsp;&nbsp; echo $i;<br />&nbsp;&nbsp;&nbsp; ((i--));<br />done; </p>
+<p>运行结果：========================</p>
+<p>sh testwhile1.sh<br />10<br />9<br />8<br />7<br />6</p>
+<p><strong>实例2：(循环读取文件内容：)</strong></p>
+<p>#!/bin/sh </p>
+<p>while read line;do<br />&nbsp;&nbsp;&nbsp; echo $line;<br />done &lt; /etc/hosts; </p>
+<p>&nbsp;</p>
+<p>运行结果：===================</p>
+<p>sh testwhile2.sh</p>
+<p><br /># Do not remove the following line, or various programs<br /># that require network functionality will fail.<br />127.0.0.1 centos5 localhost.localdomain localhost</p>
+</blockquote>
+<ul>
+<li><strong>until循环语句</strong></li>
+</ul>
+<blockquote>
+<p><strong>语法结构：</strong></p>
+<p>until 条件</p>
+<p>do </p>
+<p>action</p>
+<p>done</p>
+<p><span style="color: #808000;">意思是：直到满足条件，就退出。否则执行action.</span></p>
+<p><strong>实例(testuntil.sh)：</strong></p>
+<p>#!/bin/sh</p>
+<p>a=10;</p>
+<p>until [[ $a -lt 0 ]];do</p>
+<p>echo $a;</p>
+<p>((a&mdash;));</p>
+<p>done; </p>
+<p>结果：</p>
+<p>sh testuntil.sh</p>
+<p>10<br />9<br />8<br />7<br />6<br />5<br />4<br />3<br />2<br />1<br />0</p>
+</blockquote>
+<p><strong>三、shell选择语句（case、select用法）</strong></p>
+<ul>
+<li><strong>case选择语句使用（case/esac)</strong></li>
+</ul>
+<blockquote>
+<p><strong><span style="color: #000000; background-color: #ffffff;">语法结构</span></strong></p>
+<p>case $arg in&nbsp; <br />&nbsp;&nbsp;&nbsp; pattern | sample) # arg in pattern or sample&nbsp; <br />&nbsp;&nbsp;&nbsp; ;;&nbsp; <br />&nbsp;&nbsp;&nbsp; pattern1) # arg in pattern1&nbsp; <br />&nbsp;&nbsp;&nbsp; ;;&nbsp; <br />&nbsp;&nbsp;&nbsp; *) #default&nbsp; <br />&nbsp;&nbsp;&nbsp; ;;&nbsp; <br />esac&nbsp; </p>
+<p>说明：pattern1 是正则表达式,可以用下面字符：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 任意字串<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 任意字元<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [abc]&nbsp;&nbsp; a, b, 或c三字元其中之一<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [a-n]&nbsp;&nbsp; 从a到n的任一字元<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 多重选择 </p>
+<p>&nbsp; </p>
+<p><strong><span style="color: #000000; background-color: #ffffff;">实例：</span></strong></p>
+<p>#!/bin/sh&nbsp; </p>
+<p>case $1 in<br />start | begin)<br />&nbsp;&nbsp;&nbsp; echo "start something"&nbsp; <br />&nbsp;&nbsp;&nbsp; ;;<br />stop | end)<br />&nbsp;&nbsp;&nbsp; echo "stop something"&nbsp; <br />&nbsp;&nbsp;&nbsp; ;;<br />*)<br />&nbsp;&nbsp;&nbsp; echo "Ignorant"&nbsp; <br />&nbsp;&nbsp;&nbsp; ;;<br />esac </p>
+<p>运行结果：====================== </p>
+<p>&nbsp; </p>
+<p>testcase.sh start<br />start something</p>
+</blockquote>
+<ul>
+<li><strong>select语句使用方法（产生菜单选择）</strong></li>
+</ul>
+<blockquote>
+<p><strong><span style="color: #000000; background-color: #ffffff;">语法：</span></strong></p>
+<p>select 变量name&nbsp; in seq变量 </p>
+<p>do </p>
+<p>&nbsp;&nbsp;&nbsp; action </p>
+<p>done</p>
+<p><strong>实例：</strong></p>
+<p>#!/bin/sh&nbsp; </p>
+<p>select ch in "begin" "end" "exit"<br />do<br />case $ch in<br />"begin")<br />&nbsp;&nbsp;&nbsp; echo "start something"&nbsp; <br />&nbsp;&nbsp;&nbsp; ;;<br />"end")<br />&nbsp;&nbsp;&nbsp; echo "stop something"&nbsp; <br />&nbsp;&nbsp;&nbsp; ;;<br />"exit")<br />&nbsp;&nbsp;&nbsp; echo "exit"&nbsp; <br />&nbsp;&nbsp;&nbsp; break;<br />&nbsp;&nbsp;&nbsp; ;;<br />*)<br />&nbsp;&nbsp;&nbsp; echo "Ignorant"&nbsp; <br />&nbsp;&nbsp;&nbsp; ;;<br />esac<br />done; </p>
+<p>运行结果：</p>
+<p><a href="http://images.cnblogs.com/cnblogs_com/chengmo/WindowsLiveWriter/linuxshellifforwhilecase_979A/image_8.png"><img style="display: inline; border: 0px;" title="image" src="http://images.cnblogs.com/cnblogs_com/chengmo/WindowsLiveWriter/linuxshellifforwhilecase_979A/image_thumb_3.png" border="0" alt="image" width="413" height="267" /></a> </p>
+<p><span style="color: #808000;">说明：select是循环选择，一般与case语句使用。</span></p>
+</blockquote>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>以上是shell的流程控制语句，条件，循环，选择。 欢迎讨论交流！</p></div>
+<script type="text/javascript">
+if ($ != jQuery) {
+	$ = jQuery.noConflict();
+}
+var isLogined = false;
+var cb_blogId = 71819;
+var cb_entryId = 1851434;
+var cb_blogApp = "chengmo";
+var cb_blogUserGuid = "eee985f0-5b74-df11-ba8f-001cf0cd104b";
+var cb_entryCreatedDate = '2010/10/14 16:07:00';
+</script>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="green_channel" style="display:none;">
+绿色通道：<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a><a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a><a id="green_channel_favorite" onclick="AddToWz(0);return false;" href="javascript:void(0);" >收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/%e7%a8%8b%e9%bb%98" target="_blank">与我联系</a>
+</div>
+<div id="digg_block">
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<div id="author_profile_detail" class="author_profile_info">
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow"></div>
+</div>
+<div id="div_digg" style="display:none;">										
+	<div class="diggit" onclick="DiggIt(cb_entryId,cb_blogId,1)"> 
+		<span class="diggnum" id="digg_count"></span>
+	</div>
+	<div class="buryit" onclick="DiggIt(cb_entryId,cb_blogId,2)"> 
+		<span class="burynum" id="bury_count"></span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips"></div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev">
+</div>
+</div>
+<script type="text/javascript">
+LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+GetPrevNextPost(cb_blogId, cb_entryCreatedDate);
+</script>
+<script type="text/javascript">
+    var blog_ad_has_shown = false;
+    try {
+        if (!$.browser.msie) {
+            if (new Date(cb_entryCreatedDate) < (new Date()).setFullYear(2009, 9, 21)) {
+                $('#cnblogs_post_body div img').each(function (i) { change_onclick(this, fix_code_collapse(this.getAttributeNode('onclick'))); });
+            }
+        } 
+    }
+    catch (e) { }
+</script>
+
+
+
+
+	</div>
+	
+	<div class="postfoot">
+		posted on 2010-10-14 16:07 <a href='http://www.cnblogs.com/chengmo/'>程默</a> 阅读(1270) <a href='#commentform'>评论(0)</a>  <a href ="#" onclick="open_link('http://www.cnblogs.com/chengmo/admin/EditPosts.aspx?postid=1851434')" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(1851434);return false;">收藏</a>
+	</div>
+</div>
+<img src ="http://www.cnblogs.com/chengmo/aggbug/1851434.html?type=1&webview=1" width="1px" height="1px" alt=""/>
+
+
+<script type="text/javascript">
+    var commentAuthorHasChecked = false;
+    var commentAuthorIsValid = false;
+    var commentUrlIsValid = true;
+    var commentEmailIsValid = true;
+    var authenCodeHasChecked = false;
+    var authenCodeIsValid = true;
+    var hasLogined = false;
+    
+    function PostComment() {    
+        
+        var isValid = true;
+        
+        if($("#wrapAuthenCode").css("display")=="none"){
+            ShowAuthenCode();
+            $("#tip_AuthenCode").css("color","red");
+            $("#tip_AuthenCode").html("请输入验证码！");
+            isValid = false;
+        }
+        
+        if(!hasLogined && !commentAuthorHasChecked){
+            CheckAuthor();        
+        }                
+        if(!hasLogined && !commentAuthorIsValid){
+            isValid = false;
+        }
+                       
+        if(!authenCodeHasChecked){
+            CheckAuthenCode();            
+        }
+        if(!authenCodeIsValid){
+            isValid = false;
+        }
+        
+        if(!hasLogined && !commentUrlIsValid){            
+            isValid = false;
+        }        
+        if(!commentEmailIsValid){            
+            isValid = false;
+        }        
+        if(!CheckCommentContent()){
+            isValid = false;
+        }    
+        if(!isValid){
+            return;
+        }
+
+        var content = $("#tbCommentBody").val();
+        if(content.length>2000){
+            alert("评论内容过长！不允许发布！");
+            return;
+        }     
+        
+        if(content.indexOf("　Ｅ　　　　　　　　　Ｅ　　　　　　　　　　Ｅ　　　　　　")>=0){
+            alert("该内容不允许布！");
+            return;
+        }   
+        
+       if ($("#span_comment_posted").html()!='' && $("#span_comment_posted").html()==content){
+            alert("该评论已发表过!");
+            return;
+        }
+        
+        $("#tip_comment").html("评论提交中...");
+        $("#span_comment_posted").html(content);
+        //content = content.replace("'", "\\'");
+        var email = $("#tbCommentEmail").val();
+        var authenNum = $("#tbAuthenCode").val();
+        var authenId = $("#span_comment_test").html();
+        var comment = {};
+        comment.authenNum = authenNum;
+        comment.authenId= authenId;
+        comment.parentId = 1851434;
+        comment.blogId = 71819;
+        comment.sourceUrl = 'http://www.cnblogs.com/chengmo/archive/2010/10/14/1851434.html';
+        comment.author = $("#tbCommentAuthor").val();
+        comment.url = $("#tbCommentAuthorUrl").val();
+        comment.authenCode = $("#tbAuthenCode").val();
+        comment.email = email;
+        comment.title = 'linux shell 流程控制（条件if,循环【for,while】,选择【case】语句实例';
+        comment.content = content;
+        comment.parentCommentId = $("#span_parentcomment_id").html();
+        $.ajax({
+            url: '/ws/CommentService.asmx/AddAnonymousComment',
+            data: $.toJSON(comment),
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf8",
+            success: function(data) {
+               if (data.d["IsSuccess"]) {
+                    ShowCommentMsg("感谢您的回复:)");
+                    //RereshComments2(comment.parentId);
+                    $("#tbCommentBody").val('');
+                    //$("#divCommentShow").html(data.d["ReturnData"]+content.replace(/\n/g,"<br/>")+"<br/><br/>");
+                    $("#divCommentShow").html($("#divCommentShow").html()+data.d["ReturnData"]); 
+                    $("#tip_AuthenCode").html('');
+                    RefreshAuthenCode();
+                    $("#tbAuthenCode").val("");                    
+                    CommentNotify(data.d["CommentID"]);
+                }
+                else {
+                    ShowCommentMsg(data.d["ReturnData"]);//"抱歉！评论提交失败！请与管理员联系。");
+                    $("#span_comment_posted").html(''); 
+                }
+            },
+            error: function(xhr) {
+                ShowCommentMsg("抱歉！评论提交失败！请与管理员联系。");
+                $("#span_comment_posted").html('');  
+                //alert(xhr.responseText);
+            }
+        }
+        );
+    }
+    
+    function RefreshAuthenCode(){
+        AjaxPost("/ws/CommentService.asmx/RefreshAuthenCode","{}",RefreshImg); 
+        $("#lnkRereshAuthenCode").html("<span style='color:red'>刷新中...</span>");
+        return false;
+    }
+    
+    function RefreshImg(response){
+       $("#imgAuthenCode").attr("src","/Modules/CaptchaImage/ValidCodeImage.aspx?id="+encodeURIComponent(response));
+       $("#span_comment_test").html(response);
+       $("#lnkRereshAuthenCode").html("看不清，换一个");
+    }
+    
+    function ShowAuthenCode(){
+        //if($("#wrapAuthenCode").css("display")=="none"){    
+        //    AjaxPost("/ws/CommentService.asmx/RefreshAuthenCode","{}",ShowAuthenCodeOk);
+        //}
+        $("#wrapAuthenCode").show();      
+    }
+    
+    function ShowAuthenCodeOk(response){
+         UpdateAuthenCode();
+         $("#tbAuthenCode").val("");
+         $("#wrapAuthenCode").show();
+         $("#tip_AuthenCode").html('');
+    }  
+ 
+    
+    function CheckAuthor(isOnblur){
+        commentAuthorHasChecked = true;
+        var maxLength = 30;
+        if($("#tbCommentAuthor").val().length == 0){
+            $("#tip_author").html("请输入您的昵称！");
+            commentAuthorIsValid = false;
+            return false;
+        }     
+        else if($("#tbCommentAuthor").val().length > maxLength){
+            $("#tip_author").html("昵称不允许超过" + maxLength + "个字符！");
+            commentAuthorIsValid = false;
+            return false;
+        }
+        else{
+            //if(isOnblur){
+                AjaxPost("/ws/CommentService.asmx/IsAuthorExist","{author:'"+$("#tbCommentAuthor").val()+"'}" ,OnCheckAuthorExist);
+            //}
+            //else{
+            //    $("#tip_author").html("");
+            //    commentAuthorIsValid = true;
+            //}
+            return true;
+        }
+   }
+   
+    function OnCheckAuthorExist(response){        
+        if(!response){
+            $("#tip_author").html("");
+            commentAuthorIsValid = true;
+        }
+        else{
+            $("#tip_author").html("该昵称已被使用，请更换昵称");
+            commentAuthorIsValid = false;
+        }
+   }
+   
+    function CheckUrl(){
+        var maxLength = 50;
+        var url = $("#tbCommentAuthorUrl").val();
+        
+        if(url.length == 0){
+            commentUrlIsValid = true;
+            return true;
+        }
+        else if(url.length > maxLength){
+            $("#tip_url").html("主页地址不允许超过" + maxLength + "个字符！");
+            commentUrlIsValid = false;
+            return false;
+        }
+        else if(url.indexOf("http://")!=0 || url.indexOf(".") < 0){
+            $("#tip_url").html("主页地址要以“http://”开头");
+            commentUrlIsValid = false;
+            return false;
+        }
+        else{
+            $("#tip_url").html("");
+            commentUrlIsValid = true;
+            return true;
+        }
+   }
+   
+   function CheckEmail(){
+        var email = $("#tbCommentEmail").val();
+        if(email.length>0){
+            var regExp = new RegExp("\\w+@((\\w|\-)+\\.)+[a-z]{2,3}");
+            if(!regExp.test(email)){
+                $("#tip_email").html("请输入正确的邮件地址!");
+                commentEmailIsValid = false;
+            }
+            else{
+                commentEmailIsValid = true;
+                 $("#tip_email").html("");
+            }
+        }
+        else{
+            commentEmailIsValid = true;
+            $("#tip_email").html("");  
+        }
+   }
+   
+   function CheckAuthenCode(){
+        authenCodeHasChecked = true;
+        var num = $("#tbAuthenCode").val();
+        var id = $("#span_comment_test").html();
+        $("#tip_AuthenCode").css("color","red");
+        if(num.length==0){
+             authenCodeIsValid = false;
+             $("#tip_AuthenCode").html("请输入验证码！");
+             return;
+        }
+        else if(num.length!=4){
+            authenCodeIsValid = false;
+            $("#tip_AuthenCode").html("请输入四位数字！");
+             return;
+        }
+        else if(new RegExp("(\d+)").test(num)){
+            authenCodeIsValid = false;
+            $("#tip_AuthenCode").html("请输入四位数字！");
+             return;
+        }
+        else{
+            AjaxPost("/ws/CommentService.asmx/CheckAuthenCode","{number:"+num+",id:'"+id+"'}", OnCheckAuthenCode);
+        }
+   }
+   
+   function OnCheckAuthenCode(response){
+        if(response){
+            $("#tip_AuthenCode").css("color","green");
+            $("#tip_AuthenCode").html("验证码输入正确！");
+            authenCodeIsValid = true;            
+        }
+        else{
+            $("#tip_AuthenCode").css("color","red");
+            $("#tip_AuthenCode").html("验证码输错啦！");
+            RefreshAuthenCode();
+            authenCodeIsValid = false;           
+        }
+   }
+   
+   function CheckCommentContent(){
+    if($("#tbCommentBody").val().length==0){
+        alert("请输入评论内容！");
+        return false;
+    }
+    return true;
+   }
+    
+</script>
+<div id="ctl03_comment_form" class="commentform">
+
+<script type="text/javascript">
+    try {
+        SyntaxHighlighter.all();
+        isSyntaxHighlighted = true;
+    } catch (e) { }
+</script>
+
+<div id="ctl03_divCommentPannel">
+<div id="divCommentShow"></div>
+<div id="comment_nav" style="text-align:right"><span id="span_refresh_tips"></span><a href="###" onclick="return RefreshCommentList(1851434);" name="commentform" id="lnk_RefreshComments">刷新评论列表</a>&nbsp; <a href="###" onclick="return RefreshPage();">刷新页面</a>&nbsp; <a href="#top">返回页首</a></div>
+<div id="commentform_title">发表评论 <span class="ad_commentbox_up"><a href="http://www.cnblogs.com" target="_blank">博客园首页</a>&nbsp; <a href="http://news.cnblogs.com" target="_blank">IT新闻</a>&nbsp; <a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a>&nbsp; <a href="http://job.cnblogs.com/" target="_blank">招聘</a>&nbsp; <a href="http://a4.yeshj.com/rd/34143/" target="_blank">学英语</a></span></div>
+<span id="tip_comment" style="color:Red"></span>
+<p>
+昵称：<input id="tbCommentAuthor" type="text" class="author" onfocus="ShowAuthenCode()" onblur="CheckAuthor()" /> <span id="tip_author" style="color:red"></span><a href="http://passport.cnblogs.com/login.aspx?ReturnUrl=http%3a%2f%2fwww.cnblogs.com%2fchengmo%2farchive%2f2010%2f10%2f14%2f1851434.html%3flogin%3d1%23commentform">[登录]</a>
+<a href="http://passport.cnblogs.com/register.aspx?ReturnUrl=http%3a%2f%2fwww.cnblogs.com%2fchengmo%2farchive%2f2010%2f10%2f14%2f1851434.html%23Top">[注册]</a>
+</p>
+<p>
+主页：<input id="tbCommentAuthorUrl" type="text" class="url" onfocus="ShowAuthenCode()" onblur="CheckUrl()" /> <span id="tip_url" style="color:red"></span>
+</p>
+<p>
+邮箱：<input id="tbCommentEmail" type="text" class="email" onfocus="ShowAuthenCode()" onblur="CheckEmail()"/>(仅博主可见) <span id="tip_email" style="color:red"></span>
+</p>
+<p id="wrapAuthenCode" style="display:none">
+验证码：<input id="tbAuthenCode" type="text" onblur="CheckAuthenCode()"/> <span id="tip_AuthenCode"></span><img id="imgAuthenCode" src="/Modules/CaptchaImage/ValidCodeImage.aspx?id=GVcxVp30CzI=" alt="验证码" align="absmiddle"/> <a href="###" onclick="return RefreshAuthenCode();" id="lnkRereshAuthenCode">看不清，换一个</a>
+</p>
+<p>
+评论内容：<span id="tip_comment_content" style="color:Red"></span><br />
+<textarea id="tbCommentBody" class="comment_textarea" onkeydown="return clt_enter(event)" onfocus="ShowAuthenCode()">
+</textarea>
+<!--
+<br /><input id="cbRememberMe" type="checkbox" />记住我的昵称和主页
+-->
+</p>
+<p>
+<input id="btn_comment_submit" type="button" class="comment_btn" value="提交" onclick="PostComment();return false;"/>
+&nbsp;&nbsp;<a href="http://passport.cnblogs.com/login.aspx?ReturnUrl=http%3a%2f%2fwww.cnblogs.com%2fchengmo%2farchive%2f2010%2f10%2f14%2f1851434.html%3flogin%3d1%23commentform">登录</a>&nbsp;&nbsp;<a href="http://passport.cnblogs.com/register.aspx?ReturnUrl=http%3a%2f%2fwww.cnblogs.com%2fchengmo%2farchive%2f2010%2f10%2f14%2f1851434.html%23Bottom">注册</a>
+</p>
+<p>
+[使用Ctrl+Enter键快速提交评论]
+</p>
+<div style="display:none">
+<span id="comment_edit_id"></span><span id="span_parentcomment_id">0</span>
+<span id="span_parent_id">1851434</span>
+<span id="span_comment_replyto"></span>
+<span id="span_comment_posted"></span>
+<span id="span_comment_test">GVcxVp30CzI=</span>
+</div>
+</div>
+
+
+<div class="itnews c_ad_block">
+<b>最新IT新闻</b>:<br />
+
+          ·  <a href="http://news.cnblogs.com/n/90274/" target="_blank">新 Windows Phone 7 开发工具发布，为复制/粘贴等一月更新预热</a><br />
+	
+          ·  <a href="http://news.cnblogs.com/n/90273/" target="_blank">Facebook 7 年回顾</a><br />
+	
+          ·  <a href="http://news.cnblogs.com/n/90272/" target="_blank">iPad 如何转换人们的在线阅读时间</a><br />
+	
+          ·  <a href="http://news.cnblogs.com/n/90271/" target="_blank">甲骨文改组Java开源项目 IBM获领导权</a><br />
+	
+          ·  <a href="http://news.cnblogs.com/n/90270/" target="_blank">微软下周将发布12个安全补丁</a><br />
+	
+&raquo; <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a>
+</div>
+
+
+<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
+<script type="text/javascript">
+    var c_enable_dfp = true;
+    if (navigator.userAgent.indexOf("Chrome/6.0.401.1") > 0) {
+        c_enable_dfp = false;
+    }
+    if (c_enable_dfp) {
+        try {
+            GS_googleAddAdSenseService("ca-pub-4210569241504288");
+            GS_googleEnableAllServices();
+        }
+        catch (e) { }
+    }
+</script>
+<script type="text/javascript">
+    if (c_enable_dfp) {
+        try {
+            GA_googleAddSlot("ca-pub-4210569241504288", "cnblogs_blogpost_bottom");
+        }
+        catch (e) { }
+    }
+</script>
+<script type="text/javascript">
+    if (c_enable_dfp) {
+        try {
+            GA_googleFetchAds();
+        } catch (e) { }
+    }
+</script>
+<div class="c_ad_block">
+<script type="text/javascript">
+    try {
+        if (c_enable_dfp) {
+
+            GA_googleFillSlot("cnblogs_blogpost_bottom");
+        }
+    }
+    catch (e) { }
+</script>
+</div>
+
+
+<div class="itnews c_ad_block" id="kb_block">
+<a href="http://kb.cnblogs.com/" target="_blank" title="程序员知识库"><b>知识库最新文章</b></a>:<br />
+<div id="kb_recent">
+
+		<a href="http://kb.cnblogs.com/page/90257/" target="_blank">访谈Brad Fitzpatrick——《编程人生》精彩样章</a><br />
+	
+		<a href="http://kb.cnblogs.com/page/90237/" target="_blank">算法学习二三事</a><br />
+	
+		<a href="http://kb.cnblogs.com/page/90166/" target="_blank">程序员怎样学数学</a><br />
+	
+		<a href="http://kb.cnblogs.com/page/90136/" target="_blank">你是海盗吗？</a><br />
+	
+		<a href="http://kb.cnblogs.com/page/89855/" target="_blank">[前端优化] 使用Combres合并对js、css文件的请求</a><br />
+	
+</div>
+</div>
+<div id="HistoryToday" class="c_ad_block">
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    });
+</script>
+<div id="site_nav_under" class="c_ad_block">
+网站导航: <a href="http://www.cnblogs.com/" target="_blank">博客园首页</a> &nbsp;<a href="http://news.cnblogs.com/" target="_blank">IT新闻</a> &nbsp;<a href="http://home.cnblogs.com/" target="_blank">我的园子</a> &nbsp;<a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a> &nbsp;<a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a> &nbsp;<a href="http://home.cnblogs.com/q/" target="_blank">博问</a> 
+</div>
+<div id="ad_under_comment2" class="c_ad_block">
+<a href="http://www.china-pub.com/static07/0908/zh_pod_090825.asp" target="_blank"><img src="http://static.cnblogs.com/images/a4/china-pub_pod.jpg" alt="" style="border:0px;"/></a><br />
+<a href="http://www.china-pub.com/itbook/" target="_blank">China-pub 计算机图书网上专卖店！6.5万品种2-8折！</a><br />
+<a href="http://www.china-pub.com/static07/0901/zh_jueba_090121.asp" target="_blank">China-Pub 计算机绝版图书按需印刷服务</a><br />
+</div>
+<div id="clear_reader_link">
+<div id="kb_link">简洁版式：<a href="http://archive.cnblogs.com/a/1851434/">linux shell 流程控制（条件if,循环【for,while】,选择【case】语句实例</a></div>
+</div>
+
+
+
+
+
+</div>
+
+
+				
+</div>
+<div id="lefttemp" style="display:none">
+
+	    <table id="Calendar1_entryCal" class="Cal" cellspacing="0" cellpadding="0" title="Calendar" border="0" style="border-width:1px;border-style:solid;border-collapse:collapse;">
+	<tr><td colspan="7" style="background-color:Silver;"><table class="CalTitle" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
+		<tr><td class="CalNextPrev" style="width:15%;"><a href="javascript:__doPostBack('Calendar1$entryCal','V3896')" style="color:Black" title="Go to the previous month">&lt;</a></td><td align="center" style="width:70%;">2010年10月</td><td class="CalNextPrev" align="right" style="width:15%;"><a href="javascript:__doPostBack('Calendar1$entryCal','V3957')" style="color:Black" title="Go to the next month">&gt;</a></td></tr>
+	</table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center" style="width:14%;">26</td><td class="CalOtherMonthDay" align="center" style="width:14%;">27</td><td class="CalOtherMonthDay" align="center" style="width:14%;">28</td><td class="CalOtherMonthDay" align="center" style="width:14%;">29</td><td class="CalOtherMonthDay" align="center" style="width:14%;">30</td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/1.html"><u>1</u></a></td><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/2.html"><u>2</u></a></td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/3.html"><u>3</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/4.html"><u>4</u></a></td><td align="center" style="width:14%;">5</td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/6.html"><u>6</u></a></td><td align="center" style="width:14%;">7</td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/8.html"><u>8</u></a></td><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/9.html"><u>9</u></a></td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/10.html"><u>10</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/11.html"><u>11</u></a></td><td align="center" style="width:14%;">12</td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/13.html"><u>13</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/14.html"><u>14</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/15.html"><u>15</u></a></td><td class="CalWeekendDay" align="center" style="width:14%;">16</td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/17.html"><u>17</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/18.html"><u>18</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/19.html"><u>19</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/20.html"><u>20</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/21.html"><u>21</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/22.html"><u>22</u></a></td><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/23.html"><u>23</u></a></td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/24.html"><u>24</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/25.html"><u>25</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/26.html"><u>26</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/27.html"><u>27</u></a></td><td align="center" style="width:14%;">28</td><td align="center" style="width:14%;">29</td><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/30.html"><u>30</u></a></td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;">31</td><td class="CalOtherMonthDay" align="center" style="width:14%;">1</td><td class="CalOtherMonthDay" align="center" style="width:14%;">2</td><td class="CalOtherMonthDay" align="center" style="width:14%;">3</td><td class="CalOtherMonthDay" align="center" style="width:14%;">4</td><td class="CalOtherMonthDay" align="center" style="width:14%;">5</td><td class="CalOtherMonthDay" align="center" style="width:14%;">6</td></tr>
+</table>
+
+		
+<h3>公告</h3>
+<div class="News">
+	<p><font color="red">本博客文章如非注明均属原创，允许转载，请务必添加原文链接</font></p>
+<p>网名:程默</p>
+<p>地址:广东&#183;深圳</p>
+<p>行业:IT(linux,服务器，安全，架构）</p>
+<p>Q　Q:8292669</p>
+<!-- FEED自动发现标记结束 -->
+<a href="http://feed.feedsky.com/chengmo" target="_blank"><img src="http://img.feedsky.com/images/icon_sub_c1s16.gif" alt="feedsky" style="margin-bottom: 3px;" border="0" vspace="2" /></a>
+<!-- Feedsky FEED发布代码结束 -->
+<div id="profile_block"><a href="http://home.cnblogs.com/u/chengmo/followers/">粉丝 - 5</a><br/><a href="http://home.cnblogs.com/u/chengmo/followees/">关注 - 0</a><br/><a href="http://home.cnblogs.com/u/chengmo/" target="_blank">我的主页</a>&nbsp; <a href="http://home.cnblogs.com/u/chengmo/detail/" target="_blank">个人资料</a><br/><a href="http://home.cnblogs.com/chengmo/ing/" target="_blank">我的闪存</a>&nbsp; <a href="http://space.cnblogs.com/msg/send/%e7%a8%8b%e9%bb%98" target="_blank">发短消息</a></div>
+</div>
+
+		
+<script type="text/javascript">
+var blogapp = 'chengmo';
+</script>
+<div class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+
+<div class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk"/>&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索"  class="btn_my_zzk"/></div>
+
+</div>
+<h3>常用链接</h3>
+<ul>
+
+		<li><a id="SingleColumn1_ctl01_rptMainLinks_ctl00_lnkLinkItem" href="http://www.cnblogs.com/chengmo/MyPosts.html">我的随笔</a></li>
+	
+		<li><a id="SingleColumn1_ctl01_rptMainLinks_ctl01_lnkLinkItem" href="http://home.cnblogs.com/chengmo/">我的空间</a></li>
+	
+		<li><a id="SingleColumn1_ctl01_rptMainLinks_ctl02_lnkLinkItem" href="http://space.cnblogs.com/msg/recent">我的短信</a></li>
+	
+		<li><a id="SingleColumn1_ctl01_rptMainLinks_ctl03_lnkLinkItem" href="http://www.cnblogs.com/chengmo/MyComments.html">我的评论</a></li>
+	
+<li><a id="itemListLink" onclick="this.blur();WarpClass('itemListLink', 'itemListLin_con');return false;" href="#">更多链接</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+		<li><a id="SingleColumn1_ctl01_repeaterLinks_ctl01_lnkLinkItem" title="我发表过评论的随笔" href="http://www.cnblogs.com/chengmo/OtherPosts.html">我的参与</a></li>
+	
+		<li><a id="SingleColumn1_ctl01_repeaterLinks_ctl02_lnkLinkItem" href="http://www.cnblogs.com/chengmo/RecentComments.html">最新评论</a></li>
+	
+		<li><a id="SingleColumn1_ctl01_repeaterLinks_ctl03_lnkLinkItem" href="http://www.cnblogs.com/chengmo/tag/">我的标签</a></li>
+	</ul>
+</div>
+
+<h3 class="catListTitle">我的标签</h3>
+<div id="MyTag">
+<ul>
+<li><a href="http://www.cnblogs.com/chengmo/tag/linux/">linux</a>(36)</li><li><a href="http://www.cnblogs.com/chengmo/tag/shell/">shell</a>(26)</li><li><a href="http://www.cnblogs.com/chengmo/tag/awk/">awk</a>(13)</li><li><a href="http://www.cnblogs.com/chengmo/tag/php/">php</a>(9)</li><li><a href="http://www.cnblogs.com/chengmo/tag/%e5%ad%97%e7%ac%a6%e9%9b%86/">字符集</a>(3)</li><li><a href="http://www.cnblogs.com/chengmo/tag/nginx/">nginx</a>(2)</li><li><a href="http://www.cnblogs.com/chengmo/tag/regex/">regex</a>(1)</li><li><a href="http://www.cnblogs.com/chengmo/tag/python/">python</a>(1)</li><li><a href="http://www.cnblogs.com/chengmo/tag/mount/">mount</a>(1)</li>
+</ul>
+</div>
+		<h3>随笔分类</h3>
+		
+				<ul>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_Link" href="http://www.cnblogs.com/chengmo/category/251322.html">linux(35)</a> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_RssLink" href="#" onclick="return open_link('http://www.cnblogs.com/chengmo/category/251322.html/rss');">(rss)</a></li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_Link" href="http://www.cnblogs.com/chengmo/category/251320.html">nginx(3)</a> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_RssLink" href="#" onclick="return open_link('http://www.cnblogs.com/chengmo/category/251320.html/rss');">(rss)</a></li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl03_Link" href="http://www.cnblogs.com/chengmo/category/251321.html">php(8)</a> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl03_RssLink" href="#" onclick="return open_link('http://www.cnblogs.com/chengmo/category/251321.html/rss');">(rss)</a></li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl04_Link" href="http://www.cnblogs.com/chengmo/category/263774.html">python(1)</a> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl04_RssLink" href="#" onclick="return open_link('http://www.cnblogs.com/chengmo/category/263774.html/rss');">(rss)</a></li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl05_Link" href="http://www.cnblogs.com/chengmo/category/251594.html">web前端(1)</a> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl05_RssLink" href="#" onclick="return open_link('http://www.cnblogs.com/chengmo/category/251594.html/rss');">(rss)</a></li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl06_Link" href="http://www.cnblogs.com/chengmo/category/265900.html">字符集(3)</a> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl06_RssLink" href="#" onclick="return open_link('http://www.cnblogs.com/chengmo/category/265900.html/rss');">(rss)</a></li>
+			
+				</ul>
+			
+	
+		<h3>随笔档案</h3>
+		
+				<ul>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl01_Link" href="http://www.cnblogs.com/chengmo/archive/2011/01.html">2011年1月 (1)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl02_Link" href="http://www.cnblogs.com/chengmo/archive/2010/12.html">2010年12月 (1)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl03_Link" href="http://www.cnblogs.com/chengmo/archive/2010/10.html">2010年10月 (42)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl04_Link" href="http://www.cnblogs.com/chengmo/archive/2010/09.html">2010年9月 (3)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl05_Link" href="http://www.cnblogs.com/chengmo/archive/2010/07.html">2010年7月 (2)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl06_Link" href="http://www.cnblogs.com/chengmo/archive/2010/06.html">2010年6月 (4)</a> </li>
+			
+				</ul>
+			
+	
+
+<H3>积分与排名</H3>
+<ul>
+	<li>
+		积分 -
+		34491
+	<li>
+		排名 -
+		2736
+	</li>
+</ul>
+
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	
+			<ul style="word-break:break-all">
+		
+			<li>
+				<a id="SingleColumn1_ctl05_TopList_ctl01_Hyperlink1" href="http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html">1. linux shell 字符串操作（长度，查找，替换）详解(2196)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl05_TopList_ctl02_Hyperlink1" href="http://www.cnblogs.com/chengmo/archive/2010/10/30/1864004.html">2. 由web程序出现乱码开始挖掘(Bom头、字符集与乱码）(2119)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl05_TopList_ctl03_Hyperlink1" href="http://www.cnblogs.com/chengmo/archive/2010/10/20/1855805.html">3. linux shell数据重定向（输入重定向与输出重定向）详细分析(1993)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl05_TopList_ctl04_Hyperlink1" href="http://www.cnblogs.com/chengmo/archive/2010/10/22/1858302.html">4. linux shell 脚本实现tcp/upd协议通讯（重定向应用）(1630)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl05_TopList_ctl05_Hyperlink1" href="http://www.cnblogs.com/chengmo/archive/2010/10/23/1858879.html">5. linux shell实现随机数多种方法（date,random,uuid)(1517)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+
+		
+</div>
+<div class="footer">
+
+<p id="footer">
+	Powered by: 
+	<br />
+	
+	<a id="Footer1_Hyperlink3" NAME="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br />
+	Copyright &copy; 程默
+</p>
+</div>
+<!--PageEndHtml Block Begin-->
+<script language="javascript" type="text/javascript" src="http://js.users.51.la/4193882.js"></script>
+<noscript><a href="http://www.51.la/?4193882" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/4193882.asp" style="border:none" /></a></noscript>
+<!--PageEndHtml Block End-->
+
+    </form> 
+    <script type="text/javascript">
+        if (!isSyntaxHighlighted) {
+            try {
+                SyntaxHighlighter.all();
+            } catch (e) { }
+        }
+    </script>
+    <script type="text/javascript" src="http://www.cnblogs.com/script/ShowHidden.js"></script>
+    
+</body>
+</html>

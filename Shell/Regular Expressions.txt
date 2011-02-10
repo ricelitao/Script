@@ -1,0 +1,100 @@
+1.Rugular Expressions:Exceptions in a Character Set
+  You can easily search for all characters except those in square brackerts by putting a caret (^) as the first character
+  after the left square bracket ([).To match all characters except lowercase vowels,use [^aeiou].
+  Like the anchors in places that can't be considered an anchor,the right square bracket (]) and dash (-) do not have a
+  special meaning if they directly follow a [.
+  
+  [0-9]       Any digit
+  [^0-9]      Any character other than a digit
+  [-0-9]      Any digit or a -
+  [0-9-]      Any digit or a -
+  [^-0-9]     Any character except a digit or a -
+  []0-9]      Any digit or a ]
+  [0-9]]      Any digit followed by a ]
+  [0-99-z]    Any digit or any character between 9 and z
+  []0-9-]     Any digit,a-,or a ]
+  
+2.Rugular Expressions:Matching a Specific Number of Sets with \{ and \}
+  *                 Any line with a *
+  \*                Any line with a *
+  \\                Any line with a \
+  ^*                Any line starting with a *
+  ^A*               Any line
+  ^A\*              Any line starting with a A*
+  ^AA*              Any line starting with one A
+  ^AA*B             Any line starting with one or more A's followed by a B
+  ^A\{4,8\}B        Any line starting with four,five,six,seven,or eight A's followed by a B
+  ^A\{4,\}B         Any line starting with four or more A's followed by a B(the second number may be omitted which removes the upper limit)
+  ^A\{4\}B          Any line starting with an AAAAb(the comma and the second number are omitted the pattern is duplicated the exact number of times specified by the first number)
+  \{4,8\}           Any line with a {4,8}
+  A{4,8}            Any line with an A{4,8}
+  [a-z]\{4,8\}      Any line with four,five,six,seven,or eight lowercase letters
+  
+3.Rugular Expressions:Matching Words with \< and \>
+  The characters \< and \> are similar to the ^ and $ anchors,as they don't occupy a position of a character.
+  They anchor the expression between to match only if it is on a word boundary.
+  For example:
+  \<[tT]he\>
+  The character before the t or T must be either a newline character or anything except a letter,digit,or underscore(_).
+  The character after the e must also be a character other than a digit,letter,or underscore,or it could be the end-of-line
+  character.
+  
+4.Rugular Expressions:Remembering Patterns with \(,\),and \1
+  ÏêÏ¸¿É¼ûsed 2.Referencing Portions of a Search String
+  
+5.Special characters in search patterns
+.       Match any single character except newline.
+*       Match any number (including none) of the single characters that immediately precede it.
+        The preceding character can also be a regular expression.For example,since .(dot) means any character,.* means
+        "match any number of any character."
+.*	 When preceded by a dot metacharacter, the asterisk metacharacter matches any number of any character. It can be used to
+	 identify a span of characters between two fixed strings. If you wanted to match any string inside of quotation marks, you
+	 could specify: ".*"
+^       Match the following regular expression at the beginning of the line.
+$       Match the preceding regular expression at the end of the line.
+[]      Match any one of the enclosed characters.
+        A hyphen(-) indicates a range of consecutive characters.A caret(^) as the first character in the brackets reverses
+        the sense:it matches any one character not in the list.A hyphen or a right square bracket(]) as the first character
+        is treated as a member of the list.All other metacharacters are treated as members of the list.
+\{n,m\} Match a range of occurrences of the single character that immediately precedes it.The preceding character can also
+        be a regular expression.\{n} will match exactly n occurrences,\{n,} will match at least n occurrences,and \{n,m\}
+        will match any number of occurrences between n and m. For example, the following expression will match "1001","10001"
+	 and "100001" but not "101" or "1000001": 10\{2,4\}1
+\       Turn off the special meaning of the character that follows(except for \{ and \(,etc.,where it turns on the special
+        meaning of the character that follows.)
+\( \)   Save the pattern enclosed between \( and \) into a special holding space.Up to nine patterns can be saved on a 
+        single line.They can be "replayed" in substitutions by the escape sequences \1 to \9.
+\< \>   Match characters at beginning (\<) or end (\>) of a word.
++       Match one or more instances of preceding regular expression.
+?       Match zero or one instances of preceding regular expression.
+|       Match the regular expression specified before or after.
+(, )    Apply a match to the enclosed group of regular expression.
+\<the   Words like theater or the.
+the\>   Words like breathe or the.
+\<the\> The word the.
+
+6.Special characters in replacement patterns
+\       Turn off the special meaning of the character that followes.
+\n      Restore the nth pattern previously saved by \( and ).n is a number from 1 to 9,with 1 starting on the left.
+&       Reuse the string that matched the search pattern as part of the replacement pattern.
+\u      Convert first character of replacement pattern to uppercase.
+        (sed 's/\<./\u&/g' file:Uppercase first letter of each word on current line.)
+\U      Convert replacement pattern to uppercase.
+\l      Convert first character of replacement pattern to lowercase.
+\L      Convert replacement pattern to lowercase.
+
+Original file sample:
+I can do it
+I cannot do it
+I can not do it
+I can't do it
+I cant do it
+
+If we wanted to match each form of the negative statement, but not the positive statement, the following regular expression would do it:
+$ grep "can[ no']*t" sample
+I cannot do it
+I can not do it
+I can't do it
+I cant do 
+
+The regular expression tried to match any number of characters between the string "can" and "t"

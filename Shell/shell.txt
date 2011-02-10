@@ -1,0 +1,289 @@
+1.Pattern Matching in case Statements
+?) Matches a string with exactly one character like a,3,!,and so on.
+?*) Matches a string with one or more characters(a nonempty string).
+[yY]|[yY][eE][sS]) Matches y,Y or yes,YES,YeS,etc.The | means "or".
+/*/*[0-9]) Matches a file pathname,like /xxx/yyy/somedir/file2,that starts with a slash,contaims at least one more slash,
+            and ends with a digit.
+'What now?') Matches the pattern What now?.The quotes tell the shell to treat the string literally:not to break it at the
+             space and not to treat the ? as a wildcard.
+"$msgs") Matches the contents of the msgs variable.The double quotes let the shell substitute the variable's value;
+         the quotes also protect spaces and other special characters from the shell.For example,if msfs contains first next,
+         this would match the same string,first next.
+         
+2.read
+read -p "how old r u? " age
+echo $age
+
+read -p "some words? " -a words
+echo ${words[*]}
+
+read -p "Password: " -s passwd                                 
+echo $passwd 
+         
+
+数字1 -eq 数字2 两数相等为真 
+数字1 -ne 数字2 两数不等为真 
+数字1 -gt 数字2 数字1大于数字2为真 
+数字1 -ge 数字2 数字1大于等于数字2为真 
+数字1 -lt 数字2 数字1小于数字2为真 
+数字1 -le 数字2 数字1小于等于数字2为真 
+
+Shell数组
+bash只提供一维数组，并且没有限定数组的大小。类似与C语言，数组元素的下标由0开始编号。获取数组中的元素要利用下标。
+下标可以是整数或算术表达式，其值应大于或等于0。用户可以使用赋值语句对数组变量赋值。
+对数组元素赋值的一般形式是：数组名[下标]＝值例如： 
+$ city[0]=Beijing
+$ city[1]=Shanghai
+$ city[2]=Tianjin
+
+也可以用declare命令显式声明一个数组，一般形式是： 
+declare -a 数组名
+
+读取数组元素值的一般格式是： 
+${数组名[下标]}
+
+例如： 
+$ echo ${city[0]}
+Beijing
+
+一个数组的各个元素可以利用上述方式一个元素一个元素地赋值，也可以组合赋值。
+定义一个数组并为其赋初值的一般形式是：数组名=(值1 值2 ... 值n)，其中，各个值之间以空格分开。 
+例如： 
+$ A=(this is an example of shell script)
+$ echo ${A[0]} ${A[2]} ${A[3]} ${A[6]}
+this an example script 
+
+$ echo ${A[8]}
+
+由于值表中初值共有7个，所以A的元素个数也是7。A[8]超出了已赋值的数组A的范围，就认为它是一个新元素，由于预先没有赋值，
+所以它的值是空串。 
+
+若没有给出数组元素的下标，则数组名表示下标为0的数组元素，如city就等价于city[0]。 
+
+使用*或@做下标，则会以数组中所有元素取代
+或[@]。
+
+#/bin/bash  
+# author: <a title="" href="http://blog.csdn.net/ablo_zhou" target="_blank">周海汉</a>  
+# date :2010.3.25  
+# blog.csdn.net/ablo_zhou   
+arr=("a" "b" "c")   
+echo "arr is (${arr[@]})"  
+echo "item in array:"  
+for i in ${arr[@]}   
+do  
+ echo "$i"  
+done   
+echo "参数,\$*表示脚本输入的所有参数："  
+for i in $* ; do  
+echo $i   
+done   
+echo   
+echo '处理文件 /proc/sys/net/ipv4/conf/*/accept_redirects：'  
+for File in /proc/sys/net/ipv4/conf/*/accept_redirects; do  
+echo $File   
+done   
+echo "直接指定循环内容"  
+for i in f1 f2 f3 ;do  
+echo $i   
+done   
+echo    
+echo "C 语法for 循环:"  
+for (( i=0; i<10; i++)); do  
+echo $i   
+done   
+
+To display a list of all manual pages containing the keyword "date", what command would you type?
+man -k date
+man -f date
+
+Your cron job looks as follows for user jobs:
+* * * * * command to be executed
+- - - - -
+| | | | |
+| | | | ----- Day of week (0 - 7) (Sunday=0 or 7)
+| | | ------- Month (1 - 12)
+| | --------- Day of month (1 - 31)
+| ----------- Hour (0 - 23)
+------------- Minute (0 - 59)
+To mail output to particular email account let us say vivek@nixcraft.in you need to define 
+MAILTO variable to your cron job:
+MAILTO="vivek@nixcraft.in"
+0 3 * * * /root/backup.sh >/dev/null 2>&1
+
+List All Your crontab Jobs:
+# crontab -l
+# crontab -u username -l
+
+To edit your crontab file:
+# crontab -e
+
+How do you feel about `sudo`?
+sudo allows a permitted user to execute a command as the superuser or another user. 
+sudo is much better than su and you don't have to share root password with other users/admin.
+
+Is swap partition mandatory in any installation, and why it is necessary to define at the time of installation?
+Yes, it is used to improve performance. Most installer force to create swap partition. 
+You can install Linux w/o swap if you have tons of ram.
+
+Explain about Login shell?
+Login shell is very useful as it creates an environment which is very useful to create the default parameters. 
+It consists of two files they are profile files and shell rc files. These files initialize the login and non login files.
+Environment variables are created by Login shell.
+
+Explore about Environment variables?
+Environment variables are set at the login time and every shell that starts from this shell gets a copy of the variable. 
+When we export the variable it changes from an shell variable to an environment variable and these variables are 
+initiated at the start of the shell.
+
+查看linux版本: lsb_release -a   or   uname -a
+To find a user's UID or GID in Unix use the id command.
+To find a specific user's UID at the Unix prompt enter:id -u username
+To find a user's GID at the Unix prompt enter:id -g username
+If you wish to find out all the groups a user belongs to instead enter:id -G username
+If you wish to see the UID and all groups associated with a user enter id without any options as follows:id username
+exec用法: find . -atime 0 -type f -exec ls -lrt {} \; ({} \;是固定的格式)
+
+What is the difference between a 'thread' and a 'process'?
+Process is a program under execution,but thread is a light weight process which has seperate way of execution.
+Threads are part of process.Single process can contain number of threads at a time.
+
+The read Statement
+Use to get input (data from user) from keyboard and store (data) to variable.
+Syntax: 
+read variable1, variable2,...variableN
+Following script first ask user, name and then waits to enter name from the user via keyboard. 
+Then user enters name from keyboard (after giving name you have to press ENTER key) and entered name through keyboard 
+is stored (assigned) to variable fname.
+$ vi sayH
+#
+#Script to read your name from key-board
+#
+echo "Your first name please:"
+read fname
+echo "Hello $fname, Lets be friend!"
+
+shell脚本:一次读取文件的一行，并输出 
+写法一: 
+#!/bin/bash 
+while read line;do
+    echo $line;
+done < /etc/hosts; 
+
+
+写法二: 
+
+#!/bin/bash 
+cat urfile | while read line; 
+do 
+    echo $line;
+done; 
+
+if statement:
+#! /bin/bash
+scores=40;
+if [ $scores -gt 90 ]; then
+        echo "very good!";
+elif [ $scores -gt 80 ]; then
+        echo "good!";
+elif [ $scores -gt 60 ]; then
+        echo "pass!";
+else
+        echo "no pass!";
+fi;
+
+for statement:
+#! /bin/bash
+a=`ls -lrt|awk '{if(substr($1,1,1)~"-") print}'|wc|awk '{print $1}'`
+b=1
+for file in `ls -lrt|awk '{if(substr($1,1,1)~"-") print $8}'`;
+  do
+    mv $file $b.file;
+    b=`expr $b + 1`;
+  done;
+  
+#!/bin/bash
+for((i=1;i<=10;i++));do
+    echo $i;
+done;
+
+while statement:
+#!/bin/bash
+while read line;do
+        echo $line;
+done < /etc/passwd;
+
+#!/bin/bash
+i=10;
+while [[ $i -gt 5 ]];do
+    echo $i;
+    ((i--));
+done;
+
+until statement:
+#!/bin/bash
+a=10;
+until [[ $a -lt 0 ]];do
+	echo $a;
+	((a—));
+done;
+
+case statement:
+#!/bin/bash 
+case $1 in
+start | begin)
+    echo "start something"  
+    ;;
+stop | end)
+    echo "stop something"  
+    ;;
+*)
+    echo "Ignorant"  
+    ;;
+esac
+
+select statement:
+#!/bin/bash 
+select ch in "begin" "end" "exit"
+do
+case $ch in
+"begin")
+    echo "start something"  
+    ;;
+"end")
+    echo "stop something"  
+    ;;
+"exit")
+    echo "exit"  
+    break;
+    ;;
+*)
+    echo "Ignorant"  
+    ;;
+esac
+done;
+
+判断文件的属性
+格式：-操作符 filename 
+-e 文件存在返回1， 否则返回0 
+-r 文件可读返回1,否则返回0 
+-w 文件可写返回1,否则返回0 
+-x 文件可执行返回1,否则返回0 
+-o 文件属于用户本人返回1, 否则返回0 
+-z 文件长度为0返回1, 否则返回0. 
+-f 文件为普通文件返回1, 否则返回0 
+-d 文件为目录文件时返回1, 否则返回0 
+通常用" [ ] "来表示条件测试。注意这里的空格很重要。要确保方括号的空格。 
+[ -f "somefile" ] ：判断是否是一个文件
+[ -x "/bin/ls" ] ：判断/bin/ls是否存在并有可执行权限
+[ -n "$var" ] ：判断$var变量是否有值
+[ "$a" = "$b" ] ：判断$a和$b是否相等
+
+SCP: Secure Copy (remote file copy program)
+SYNOPSIS
+     scp [-1246BCpqrv] [-c cipher] [-F ssh_config] [-i identity_file]
+         [-l limit] [-o ssh_option] [-P port] [-S program]
+         [[user@]host1:]file1 ... [[user@]host2:]file2
+scp -r -P 567 $1 gaf@ddx24-1.getafreelancer.com:dev/files
+-r: Recursively copy entire directories.
+-P: port, Specifies the port to connect to on the remote host.

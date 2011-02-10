@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>linux下tar gz bz2 tgz z等众多压缩文件的解压方法 - 菜园子 - JavaEye技术网站</title>
+    <meta name="description" content="本文是为了方便而对http://hi.baidu.com/sillyboy/blog/item/3802b600174d768fe850cd66.html的收藏本人非常感谢原文作者.       对于刚刚接触Linux的人来说，一定会给Linux下一大堆各式各样的文件名给搞晕。别个不说，单单就压缩文件为例，我们知道在Windows下最常见的压缩文件就只有两种，一是,zip，另一个是.rar。可是Li ..." />
+    <meta name="keywords" content="  linux下tar gz bz2 tgz z等众多压缩文件的解压方法" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="search" type="application/opensearchdescription+xml" href="/open_search.xml" title="JavaEye" />
+    <link href="/rss" rel="alternate" title="菜园子" type="application/rss+xml" />
+    <link href="http://www.javaeye.com/stylesheets/blog.css?1296034715" media="screen" rel="stylesheet" type="text/css" />
+<link href="http://www.javaeye.com/stylesheets/themes/blog/green.css?1294639779" media="screen" rel="stylesheet" type="text/css" />
+    <script src="http://js.javaeye.com/javascripts/application.js?1294639779" type="text/javascript"></script>
+      
+  <link href="http://www.javaeye.com/javascripts/syntaxhighlighter/SyntaxHighlighter.css?1294639779" media="screen" rel="stylesheet" type="text/css" />
+  <script src="http://www.javaeye.com/javascripts/syntaxhighlighter/shCoreCommon.js?1294639779" type="text/javascript"></script>
+<script src="http://www.javaeye.com/javascripts/hotkey.js?1294639779" type="text/javascript"></script>
+  <style>
+    div#main {background-color: transparent; border: 0; padding: 0px; width: 740px;}
+  </style>
+  <link href="http://www.javaeye.com/javascripts/editor/css/ui.css?1294639779" media="screen" rel="stylesheet" type="text/css" />
+  <script src="http://www.javaeye.com/javascripts/editor/compress.js?1294639779" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div id="blog_site_nav">
+  <a href="http://www.javaeye.com/" class="homepage">首页</a>
+  <a href="http://www.javaeye.com/news">新闻</a>
+  <a href="http://www.javaeye.com/forums">论坛</a>
+  <a href="http://www.javaeye.com/ask">问答</a>
+  <a href="http://www.javaeye.com/blogs">博客</a>
+  <a href="http://www.javaeye.com/job">招聘</a>
+  <a href="#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="display:none;">
+    <a href="http://www.javaeye.com/wiki">专栏</a>
+    <!--<a href="http://www.javaeye.com/articles">文摘</a>//-->
+    <a href="http://www.javaeye.com/groups">圈子</a>
+    <a href="http://www.javaeye.com/search">搜索</a>
+  </div>
+</div>
+      <div id="user_nav">
+      <a href="/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="http://www.javaeye.com/all" style="color:red">我的应用</a>
+    <a href="/login">登录</a>
+    <a href="/signup" class="nobg">注册</a>
+  </div>
+    </div>
+
+    <div id="page">
+      <div id="branding" class="clearfix">
+        <div id="blog_name"><h1><a href="/">菜园子</a></h1></div>
+        <div id="blog_preview">
+          
+        </div>
+        <div id="blog_domain">永久域名 <a href="/">http://longxzq-126-com.javaeye.com</a></div>
+      </div>
+      
+      
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+          
+
+
+<div class="blog_main"> 
+  <div class="blog_nav">
+    
+    <div class="pre_next">
+      <a href="/blog/542373" class="next" title="SQL经典面试题集（一）">SQL经典面试题集（一）</a>
+      |
+      <a href="/blog/542369" class="pre" title="在Red hat linux enterprise 5 上安装 tomcat 6.x">在Red hat linux enterprise 5 上安装 tom ...</a>
+    </div>
+  </div>
+  <div class="blog_title">
+    <div class="date"><span class='year'>2009</span><span class='sep_year'>-</span><span class='month'>12</span><span class='sep_month'>-</span><span class='day'>05</span></div>
+    <h3><a href="/blog/542370">linux下tar gz bz2 tgz z等众多压缩文件的解压方法</a></h3>
+                    
+  </div>
+
+  <div class="blog_content">
+    <p>本文是为了方便而对http://hi.baidu.com/sillyboy/blog/item/3802b600174d768fe850cd66.html的收藏<br>本人非常感谢原文作者.<br>       对于刚刚接触Linux的人来说，一定会给Linux下一大堆各式各样的文件名给搞晕。别个不说，单单就压缩文件为例，我们知道在Windows下最常见的压缩文件就只有两种，一是,zip，另一个是.rar。可是Linux就不同了，它有.gz、.tar.gz、tgz、bz2、.Z、.tar等众多的压缩文件名，此外windows下的.zip和.rar也可以Linux下使用，不过在Linux使用.zip和.rar的人就太少了。本文就来对这些常见的压缩文件进行一<br>番小结，希望你下次遇到这些文件时不至于被搞晕icon_smile.gif<br>　　在具体总结各类压缩文件之前呢，首先要弄清两个概念：打包和压缩。打包是指将一大堆文件或目录什么的变成一个总的文件，压缩则是将一个大的文件通过一些压缩算法变成一个小文件。为什么要区分这两个概念呢？其实这源于Linux中的很多压缩程序只能针对一个文件进行压缩，这样当你想要压缩一大堆文时，你就得先借助另它的工具将这一大堆文件先打成一个包，然后再就原来的压缩程序进行压缩。<br>　　Linux下最常用的打包程序就是tar了，使用tar程序打出来的包我们常称为tar包，tar包文件的命令通常都是以.tar结尾的。生成tar包后，就可以用其它的程序来进行压缩了，所以首先就来讲讲tar命令的基本用法：<br>　　tar命令的选项有很多(用man tar可以查看到)，但常用的就那么几个选项，下面来举例说明一下：<br>       # tar -cf all.tar *.jpg<br>　　这条命令是将所有.jpg的文件打成一个名为all.tar的包。-c是表示产生新的包，-f指定包的文件名。<br>       # tar -rf all.tar *.gif<br>　　这条命令是将所有.gif的文件增加到all.tar的包里面去。-r是表示增加文件的意思。<br>       # tar -uf all.tar logo.gif<br>　　这条命令是#更新原来tar包all.tar中logo.gif文件，-u是表示更新文件的意思。<br>       # tar -tf all.tar<br>　　这条命令是列出all.tar包中所有文件，-t是列出文件的意思<br>       # tar -xf all.tar<br>　　这条命令是解出all.tar包中所有文件，-x是解开的意思<br>       以上就是tar的最基本的用法。为了方便用户在打包解包的同时可以压缩或解压文件，tar提供了一种特殊的功能。这就是tar可以在打包或解包的同时调用其它的压缩程序，比如调用gzip、bzip2等。<br>      1) tar调用gzip<br>       gzip是GNU组织开发的一个压缩程序，.gz结尾的文件就是gzip压缩的结果。与gzip相对的解压程序gunzip。tar中使用-z这个参数来调用gzip。下面来举例说明一下：<br>       # tar -czf all.tar.gz *.jpg<br>　　这条命令是将所有.jpg的文件打成一个tar包，并且将其用gzip压缩，生成一个gzip压缩过的包，包名all.tar.gz<br>       # tar -xzf all.tar.gz<br>　　这条命令是将上面产生的包解开。<br>       2) tar调用bzip2<br>       bzip2是一个压缩能力更强的压缩程序，.bz2结尾的文件就是bzip2压缩的结果。与bzip2相对的解压程序是bunzip2。tar中使用-j这个参数来调用gzip。下面来举例说明一下：<br>       # tar -cjf all.tar.bz2 *.jpg<br>　　这条命令是将所有.jpg的文件打成一个tar包，并且将其用bzip2压缩，生成一个bzip2压缩过的包，包名为all.tar.bz2<br>       # tar -xjf all.tar.bz2<br>　　这条命令是将上面产生的包解开。<br>       3)tar调用compress<br>       compress也是一个压缩程序，但是好象使用compress的人不如gzip和bzip2的人多。.Z结尾的文件就是bzip2压缩的结果。与 compress相对的解压程序是uncompress。tar中使用-Z这个参数来调用compress。下面来举例说明一下：<br>       # tar -cZf all.tar.Z *.jpg<br>　　这条命令是将所有.jpg的文件打成一个tar包，并且将其用compress压缩，生成一个uncompress压缩过的包，包名为all.tar.Z<br>       # tar -xZf all.tar.Z<br>　　这条命令是将上面产生的包解开<br>      有了上面的知识，你应该可以解开多种压缩文件了，下面对于tar系列的压缩文<br>件作一个小结：<br>       #1)对于.tar结尾的文件<br>       tar -xf all.tar<br>       2)对于.gz结尾的文件<br>       gzip -d all.gz<br>　　gunzip all.gz<br>      3)对于.tgz或.tar.gz结尾的文件<br>       tar -xzf all.tar.gz<br>　　tar -xzf all.tgz<br>       4)对于.bz2结尾的文件<br>       bzip2 -d all.bz2<br>　　bunzip2 all.bz2<br>       5)对于tar.bz2结尾的文件<br>       tar -xjf all.tar.bz2<br>       6)对于.Z结尾的文件<br>       uncompress all.Z<br>       7)对于.tar.Z结尾的文件<br>       tar -xZf all.tar.z<br>       另外对于Window下的常见压缩文件.zip和.rar，Linux也有相应的方法来解压它们：<br>       1)对于.zip<br>        linux下提供了zip和unzip程序，zip是压缩程序，unzip是解压程序。它们的参<br>数选项很多，这里只做简单介绍，依旧举例说明一下其用法：<br>       # zip all.zip *.jpg<br>　　这条命令是将所有.jpg的文件压缩成一个zip包<br>       # unzip all.zip<br>　　这条命令是将all.zip中的所有文件解压出来<br>      2)对于.rar<br>      要在linux下处理.rar文件，需要安装RAR for Linux，可以从网上下载，但要记住，RAR for Linux不是免费的；可从<a href="http://www.rarsoft.com/download.htm" target="_blank">http://www.rarsoft.com/download.htm</a>下载RARfor Linux 3.2.<br>0，然后安装：<br>       # tar -xzpvf rarlinux-3.2.0.tar.gz<br>　　# cd rar<br>　　# make<br>      这样就安装好了，安装后就有了rar和unrar这两个程序，rar是压缩程序，unrar是解压程序。它们的参数选项很多，这里只做简单介绍，依旧举例说明一下其用法：<br>       # rar a all *.jpg<br>　　这条命令是将所有.jpg的文件压缩成一个rar包，名为all.rar，该程序会将.rar扩展名将自动附加到包名后。<br>       # unrar e all.rar<br>　　这条命令是将all.rar中的所有文件解压出来<br>       到此为至，我们已经介绍过linux下的tar、gzip、gunzip、bzip2、bunzip2、compress、uncompress、 zip、unzip、rar、unrar等程式，你应该已经能够使用它们对.tar、.gz、.tar.gz、.tgz、.bz2、.tar.bz2、.Z、.tar.Z、.zip、.rar这10种压缩文件进行解压了，以后应该不需要为下载了一个软件而不知道如何在Linux下解开而烦恼了。而且以上方法对于Unix也基本有效。<br>      本文介绍了linux下的压缩程式tar、gzip、gunzip、bzip2、bunzip2、compress、uncompress、 zip、 unzip、rar、unrar等程式，以及如何使用它们对.tar、.gz、.tar.gz、.tgz、.bz2、.tar.bz2、.Z、. tar.Z、.zip、.rar这10种压缩文件进行操作。 </p>
+  </div>
+
+  
+
+  
+  
+  
+
+  <div class="blog_nav">
+    <div class="pre_next">
+      <a href="/blog/542373" class="next" title="SQL经典面试题集（一）">SQL经典面试题集（一）</a>
+      |
+      <a href="/blog/542369" class="pre" title="在Red hat linux enterprise 5 上安装 tomcat 6.x">在Red hat linux enterprise 5 上安装 tom ...</a>
+    </div>
+  </div>
+
+  <div class="blog_bottom">
+    <ul>
+      <li>19:07</li>
+      <li>浏览 (1712)</li>
+            <li><a href="#comments">评论</a> (0)</li>
+      <li>分类: <a href="/category/88631">Linux</a></li>
+      
+      
+      
+      <li class='last'><a href="http://www.javaeye.com/wiki/topic/542370" target="_blank" class="more">相关推荐</a></li>
+    </ul>
+  </div>
+
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    
+    
+    
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+          
+      
+        <form action="/blog/542370" id="comment_form" method="post" onsubmit="return false;">          
+
+
+  <input type="hidden" id="editor_bbcode_flag"/>
+
+
+
+<div id="editor_main"><textarea class="validate-richeditor bad-words min-length-5" cols="40" id="editor_body" name="comment[body]" rows="20" style="width: 500px; height: 350px;"></textarea></div>
+
+
+<script type="text/javascript">
+  var editor = new Control.TextArea.Editor("editor_body", "bbcode", false);
+</script>
+          <p style="text-align:right;padding-right:30px;">您还没有登录，请<a href='/login'>登录</a>后发表评论(快捷键 Alt+S / Ctrl+Enter) <input class="submit" id="quick_reply_button" name="commit" type="submit" value="提交" /></p>
+        </form>
+        <script type="text/javascript">
+          new HotKey("s",function() {$('quick_reply_button').click();},{altKey: true, ctrlKey: false});
+          new HotKey(new Number(13),function() {$('quick_reply_button').click();},{altKey: false, ctrlKey: true});
+
+          new Validation("comment_form", {immediate: false, onFormValidate: function(result, form){
+    
+            if(confirm('您需要登录以后才能执行这个操作，现在要登录吗？')) window.location.href = '/login';
+    
+        }});
+        </script>
+      
+      </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  fix_image_size($$('div.blog_content img'), 700);
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'Post'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);}
+    });
+  }
+</script>
+
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+            <div id="blog_owner_logo"><a href='http://longxzq-126-com.javaeye.com'><img alt="拓梦人的博客" class="logo" src="http://www.javaeye.com/upload/logo/user/285065/39d40e04-ee42-383d-9855-396956db3357.jpg?1280382151" title="拓梦人的博客: 菜园子" /></a></div>
+            <div id="blog_owner_name">拓梦人</div>
+          </div>
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 33169 次</li>
+              <li>性别: <img alt="Icon_minigender_1" src="http://www.javaeye.com/images/icon_minigender_1.gif?1294639779" title="男" /></li>
+              <li>来自: 北京</li>
+              <li><img src='/images/status/offline.gif'/></li>
+              <li>
+                <a href="/blog/profile" class="profile">详细资料</a>
+                <a href="/blog/guest_book" class="guest_book">留言簿</a>
+              </li>
+              
+            </ul>
+            <h5>搜索本博客</h5>
+            <form action="/blog/search" method="get">              <input class="text" id="query" name="query" style="margin-left: 10px;width: 110px;" type="text" />
+              <input class="submit" type="submit" value="搜索" />
+            </form>          </div>
+          
+            <div id="user_visits" class="clearfix">
+              <h5>最近访客 <span style='font-weight:normal;font-size:12px;padding-left:30px;'><a href="/blog/user_visits">&gt;&gt;更多访客</a></span></h5>
+              
+                <div class="user_visit">
+                  <div class="logo"><a href='http://xcg1688.javaeye.com' target='_blank'><img alt="xcg1688的博客" class="logo" src="http://www.javaeye.com/images/user-logo-thumb.gif?1294639779" title="xcg1688的博客: xcg1688" /></a></div>
+                  <div class="left"><a href='http://xcg1688.javaeye.com' target='_blank'>xcg1688</a></div>
+                </div>
+              
+                <div class="user_visit">
+                  <div class="logo"><a href='http://mefan.javaeye.com' target='_blank'><img alt="mefan的博客" class="logo" src="http://www.javaeye.com/images/user-logo-thumb.gif?1294639779" title="mefan的博客: " /></a></div>
+                  <div class="left"><a href='http://mefan.javaeye.com' target='_blank'>mefan</a></div>
+                </div>
+              
+                <div class="user_visit">
+                  <div class="logo"><a href='http://zwl12502.javaeye.com' target='_blank'><img alt="zwl12502的博客" class="logo" src="http://www.javaeye.com/images/user-logo-thumb.gif?1294639779" title="zwl12502的博客: zwl12502" /></a></div>
+                  <div class="left"><a href='http://zwl12502.javaeye.com' target='_blank'>zwl12502</a></div>
+                </div>
+              
+                <div class="user_visit">
+                  <div class="logo"><a href='http://sxpyrgz.javaeye.com' target='_blank'><img alt="sxpyrgz的博客" class="logo" src="http://www.javaeye.com/upload/logo/user/40121/8f85a7b9-4201-3638-90cd-a5b21dd4d493-thumb.jpg?1236834130" title="sxpyrgz的博客: sxpyrgz" /></a></div>
+                  <div class="left"><a href='http://sxpyrgz.javaeye.com' target='_blank'>sxpyrgz</a></div>
+                </div>
+              
+            </div>
+          
+                      <div id="blog_menu">
+              <h5>博客分类</h5>
+              <ul>
+                <li><a href="/">全部博客 (107)</a></li>
+                
+                  <li><a href="/category/74101">js (8)</a></li>
+                
+                  <li><a href="/category/74241">JQuery (2)</a></li>
+                
+                  <li><a href="/category/75053">Java (22)</a></li>
+                
+                  <li><a href="/category/75443">Oracle (3)</a></li>
+                
+                  <li><a href="/category/85305">mysql (11)</a></li>
+                
+                  <li><a href="/category/88590">ExtJs (3)</a></li>
+                
+                  <li><a href="/category/88630">Excel (1)</a></li>
+                
+                  <li><a href="/category/88631">Linux (5)</a></li>
+                
+                  <li><a href="/category/88632">Sql (6)</a></li>
+                
+                  <li><a href="/category/88633">Jsp (1)</a></li>
+                
+                  <li><a href="/category/91710">hibernate (6)</a></li>
+                
+                  <li><a href="/category/93164">jbpm (14)</a></li>
+                
+                  <li><a href="/category/96629">eclipse (5)</a></li>
+                
+                  <li><a href="/category/97726">famous blog (1)</a></li>
+                
+                  <li><a href="/category/97797">Junit (2)</a></li>
+                
+                  <li><a href="/category/97926">应用集成 (1)</a></li>
+                
+                  <li><a href="/category/97930">web (1)</a></li>
+                
+                  <li><a href="/category/99719">jboss (2)</a></li>
+                
+                  <li><a href="/category/101405">Rest (3)</a></li>
+                
+                  <li><a href="/category/103135">其它 (3)</a></li>
+                
+                  <li><a href="/category/142309">磁盘分区管理 (1)</a></li>
+                
+              </ul>
+            </div>
+            
+            
+              <div id="guest_books">
+                <h5>我的留言簿 <span style='font-weight:normal;font-size:12px;padding-left:20px;'><a href="/blog/guest_book">&gt;&gt;更多留言</a></span></h5>
+                <ul>
+                  
+                    <li>
+                       漂过<br/>
+                      -- by <a href="/blog/guest_book#13716">xindianshang</a>
+                    </li>
+                  
+                </ul>
+              </div>
+            
+            <div id="blog_others">
+              <h5>其他分类</h5>
+              <ul>
+                <li><a href="/blog/favorite">我的收藏</a> (0)</li>
+                                                <li><a href="/blog/topic">我的论坛主题贴</a> (0)</li>
+                <li><a href="/blog/post">我的所有论坛贴</a> (0)</li>
+                <li><a href="/blog/article">我的精华良好贴</a> (0)</li>
+                              </ul>
+            </div>
+            
+            <div id="recent_groups">
+              <h5>最近加入圈子</h5>
+              <ul>
+                
+              </ul>
+            </div>
+            
+                          <div id="month_blogs">
+                <h5>存档</h5>
+                <ul>
+                  
+                    <li><a href="/blog/monthblog/2011-02">2011-02</a> (1)</li>
+                  
+                    <li><a href="/blog/monthblog/2011-01">2011-01</a> (1)</li>
+                  
+                    <li><a href="/blog/monthblog/2010-12">2010-12</a> (2)</li>
+                  
+                  <li><a href="/blog/monthblog_more">更多存档...</a></li>
+                </ul>
+              </div>
+                        <div id="comments_top">
+              <h5>评论排行榜</h5>
+              <ul>
+                
+                  <li><a href="/blog/708621" title="JBPM4.3 ScriptManager">JBPM4.3 ScriptManager</a></li>
+                
+                  <li><a href="/blog/602112" title="JRE删除不干净">JRE删除不干净</a></li>
+                
+                  <li><a href="/blog/898055" title="java验证日期格式">java验证日期格式</a></li>
+                
+                  <li><a href="/blog/772879" title="Tomcat：IOException while loading persisted sessions: java.io">Tomcat：IOException while loading persis ...</a></li>
+                
+                  <li><a href="/blog/637718" title="Duplicate class/entity mapping 错误">Duplicate class/entity mapping 错误</a></li>
+                
+              </ul>
+            </div>
+            <div id="rss">
+              <ul>
+                <li><a href="/rss" target="_blank"><img alt="Rss" src="http://www.javaeye.com/images/rss.png?1294639779" /></a></li>
+                <li><a href="http://fusion.google.com/add?feedurl=http://longxzq-126-com.javaeye.com/rss" target="_blank"><img alt="Rss_google" src="http://www.javaeye.com/images/rss_google.gif?1294639779" /></a></li>
+              </ul>
+            </div>
+            <div class="local_bottom"></div>
+          
+        </div>
+      </div>
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr/>
+          声明：JavaEye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br />
+          &copy; 2003-2010 JavaEye.com.   All rights reserved. 上海炯耐计算机软件有限公司 [ 沪ICP备05023328号 ]
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.javaeye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&logged_in=no" + "' width='0' height='0' />");
+</script>
+    
+  </body>
+</html>

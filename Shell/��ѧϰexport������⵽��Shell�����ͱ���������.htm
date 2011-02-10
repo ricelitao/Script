@@ -1,0 +1,528 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+
+<title>从学习export命令理解到的Shell环境和变量生存期(转) - 技术文档 - 程序开发 Linux时代 - 开源、自由、共享 - 中国最大的Linux技术社区</title>
+<meta name="keywords" content="从学习export命令理解到的Shell环境和变量生存期(转) - 技术文档 - 程序开发 Linux时代 - 开源、自由、共享 - 中国最大的Linux技术社区">
+<meta name="description" content="从学习export命令理解到的Shell环境和变量生存期(转) - 技术文档 - 程序开发  程序开发 Linux 技术文档">
+
+<link href="/css/all.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+
+<!--
+
+.STYLE1 {color: #FF0000}
+
+.STYLE2 {font-size: 14px}
+
+-->
+
+</style>
+
+</head>
+
+
+
+<body>
+
+<table width="950" border="0" align="center" cellpadding="0" cellspacing="0">
+
+  <tr>
+
+    <td height="27">	<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" width="100%">
+	<tr><FORM name="login" action="http://linux.chinaunix.net/bbs/logging.php?action=login"  method=post>
+	<td><script language="javascript" src="http://linux.chinaunix.net/bbs/loginbox.php"></script></td>
+	</form>
+	<td align="right">
+	·<a href="http://www.chinaunix.net" class="list1">ChinaUnix首页</a>
+
+	·<a href="http://bbs.chinaunix.net" class="list1">论坛</a>
+	·<a href="http://blog.chinaunix.net" class="list1">博客</a>&nbsp;
+	</td>
+	</tr>
+	</table></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="1" bgcolor="#CCCCCC"></td>
+
+  </tr>
+
+  <tr>
+
+    <td><table width="100%" border="0" cellpadding="0" cellspacing="0">
+
+      <tr>
+
+        <td height="84"><img src="/images/logo.jpg" /></td>
+
+        <td align="right" ><IFRAME SRC="http://count.chinaunix.net/iframe.php?id=54" width="750" height="80" frameborder="0"  scrolling="no"></IFRAME>
+</td>
+
+      </tr>
+
+    </table></td>
+
+  </tr>
+
+  <tr>
+
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+      <tr>
+
+        <td width="3"><img src="/images/bgtop1.jpg" width="3" height="26" /></td>
+
+        <td width="944" background="/images/bgtop2.gif" class="whitetop">
+<a href="http://linux.chinaunix.net/" target="_blank">Linux首页</a> |
+<a href="http://linux.chinaunix.net/news/">Linux新闻</a> |
+<a target="_blank" href="http://linux.chinaunix.net/bbs" style=color:red><b>Linux论坛</b></a> |
+<a href="http://linux.chinaunix.net/techdoc/">Linux文档</a> |
+<a target="_blank" href="http://download.chinaunix.net/disc/linux/">Linux下载</a> |
+<a target="_blank" href="http://blog.chinaunix.net/techart.php?frmid=6">Linux博客</a> |
+<a target="_blank" href="http://search.chinaunix.net/">Linux搜索</a> |
+<a target="_blank" href="http://linux.chinaunix.net/bbs/index.php?gid=68">开源项目孵化平台</a>
+ |
+<a target="_blank" href="http://linux.chinaunix.net/ebook/"  style=color:red>《开源时代》</a></td>
+
+        <td width="3" align="right"><img src="/images/bgtop3.jpg" width="3" height="26" /></td>
+
+      </tr>
+
+    </table></td>
+
+  </tr>
+
+</table>
+
+<table width="950" border="0" align="center" cellpadding="0" cellspacing="0">
+
+<tr>
+
+    <td valign="bottom" class="BlkLightblue">
+<a target="_blank" href="http://linux.chinaunix.net/techdoc/beginner/">
+		新手入门</a> | <span lang="zh-cn">
+		<a target="_blank" href="http://linux.chinaunix.net/techdoc/install/">
+		安装启动</a> | </span>
+		<a target="_blank" href="http://linux.chinaunix.net/techdoc/system/">
+		管理员指南</a> | <a target="_blank" href="http://man.chinaunix.net/">开发手册</a> 
+		| <a target="_blank" href="http://linux.chinaunix.net/techdoc/desktop/">
+		桌面应用</a> |
+		<a target="_blank" href="http://linux.chinaunix.net/techdoc/develop/">
+		程序开发</a> |
+		<a target="_blank" href="http://linux.chinaunix.net/techdoc/database/">
+		数据库</a> | <span lang="zh-cn">
+		<a target="_blank" href="http://linux.chinaunix.net/techdoc/net/">网络技术</a>|
+<a target="_blank" href="http://linux.chinaunix.net/topics/2007-01-25/15/index.shtml">
+CentOS</a></span> |
+<a target="_blank" href="http://linux.chinaunix.net/search2.php?key=fedora&id=0">
+Fedora</a> <span lang="zh-cn">| </span>
+<a target="_blank" href="http://linux.chinaunix.net/search2.php?key=mysql&id=0">
+MySQL</a>
+
+<span lang="zh-cn">| </span>
+<a target="_blank" href="http://linux.chinaunix.net/search2.php?key=apache&id=0">
+Apache</a>
+
+<span lang="zh-cn">| </span>
+<a target="_blank" href="http://linux.chinaunix.net/search2.php?key=ubuntu&id=0">
+<font color="#FF0000">Ubuntu</font></a>
+
+<span lang="zh-cn">| </span>
+<a target="_blank" href="http://linux.chinaunix.net/topics/2008-07-10/18/index.shtml">
+<font color="#FF0000">Gentoo</font></a>| </span>
+<b>
+<a target="_blank" href="http://linux.chinaunix.net/topics/2008-07-30/19/index.shtml">
+<font color="#FF0000">OSCON08</font></a></b>
+</td>
+
+</tr>
+<tr><td>
+
+</td></tr>
+  <tr>
+
+    <td height="30" valign="bottom">&nbsp;&nbsp;<a href="http://linux.chinaunix.net">Linux时代</a> &gt;&gt;  <a href="http://linux.chinaunix.net/techdoc/" class='list1'>技术文档</a> >> <a href="http://linux.chinaunix.net/techdoc/develop/" class='list1'>程序开发</a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="1" bgcolor="#CCCCCC"></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="8"></td>
+
+  </tr>
+
+</table><table width="950" border="0" align="center" cellpadding="0" cellspacing="0">
+
+  <tr>
+
+    <td valign="top" class="BLKtext"><table width="660" border="0" align="center" cellpadding="0" cellspacing="0">
+
+      <tr>
+
+        <td height="8">&nbsp;</td>
+
+      </tr>
+
+      <tr>
+
+        <td height="30" class="Ftext1">从学习export命令理解到的Shell环境和变量生存期(转)</td>
+
+      </tr>
+
+      <tr>
+
+        <td><table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+          <tr>
+
+            <td height="1" bgcolor="#CCCCCC"></td>
+
+          </tr>
+
+        </table></td>
+
+      </tr>
+
+      <tr>
+
+        <td height="40" align="center">来源: 
+ ChinaUnix博客 　日期：
+2007.02.01 10:50　(共有<span class="STYLE1" id ="postcount"></span>条评论)  <a href="http://linux.chinaunix.net/bbs/thread-949542-1-1.html" target="_blank">我要评论</a></td>
+
+      </tr>
+
+      <tr>
+
+        <td>&nbsp;</td>
+
+      </tr>
+
+      <tr>
+
+        <td class="F14">
+从学习export命令理解到的Shell环境和变量生存期(转)- -<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<br />
+我自己也是一个菜鸟，接触linux没有多久，最近在学习BASH的export命令时碰到了一个难道（书上说export是将自定义变量变成系统环境变量）：我在一个脚本文件中定义一个了变量，然后export变量，按照我自己的想法，执行完这个脚本后，在提示符下一定可以用echo显示出它的值，可结果却不是这样，脚本执行完后用set根本看不到有这个变量存在。为什么呢？我百思不得其解，最后将问题贴出来，一位前辈告诉我说用source+脚本文件就可以了，我试了一下果然可以，但一个新的问题又出来了。我将脚本中export命令删除后，用source一样可以。那这个export好像没有什么用呀。<br />
+[root@hujunlinux root]# vi test.sh<br />
+[root@hujunlinux root]# source test.sh<br />
+[root@hujunlinux root]# echo $AAA<br />
+today<br />
+[root@hujunlinux root]# echo $BBB<br />
+tomorrow<br />
+[root@hujunlinux root]# cat test.sh<br />
+export AAA=today<br />
+BBB=tomorrow<br />
+&nbsp; &nbsp; 执行一个脚本时，会先开启一个子shell环境（不知道执行其它程序是不是这样），然后将父shell中的所有系统环境变量复制过来，这个脚本中的语句就在子shell中执行。（也就是说父shell的环境变量在子shell中可以调用，但反过来就不行，如果在子shell中定义了环境变量，只对该shell或者它的子 shell有效，当该子shell结束时，也可以理解为脚本执行完时，变量消失。）为了证明这一点，请看脚本内容：<br />
+test='value'<br />
+export test<br />
+这样的脚本执行完后，test实际上是不存在的。接着看下面的：<br />
+test='value'<br />
+export test<br />
+bash<br />
+这里在脚本最后一行再开一个子shell，该shell应该是脚本文件所在shell的子shell，这个脚本执行完后，是可以看到test这个变量的，因为现在是处于它的子shell中，当用exit退出子shell后，test变量消失。<br />
+&nbsp; &nbsp; 如果用source对脚本进行执行时，如果不加export，就不会在子shell中看到这个变量，因为它还不是一个系统环境变量呀，如脚本内容是：<br />
+test='value'<br />
+用source 执行后，在shell下是能看到这个变量，但再执行bash开一个子shell时，test是不会被复制到子shell中的，因为执行脚本文件其实也是在一个子shell中运行，所以我再建另一个脚本文件执行时，是不会输入任何东西的，内容如：echo $test。所以这点特别注意了，明明在提示符下可以用echo $test输出变量值，为什么把它放进脚本文件就不行了呢？<br />
+&nbsp; &nbsp; 所以得出的结论是：1、执行脚本时是在一个子shell环境运行的，脚本执行完后该子shell自动退出；2、一个shell中的系统环境变量才会被复制到子shell中（用export定义的变量）；3、一个 shell中的系统环境变量只对该shell或者它的子shell有效，该shell结束时变量消失（并不能返回到父shell中）。3、不用 export定义的变量只对该shell有效，对子shell也是无效的。<br />
+&nbsp; &nbsp; 后来根据版主的提示，整理了一下贴子：为什么一个脚本直接执行和用source执行不一行呢？这也是我自己碰到的一个问题。manual原文是这样的： Read and execute commands from filename in the current shell environment and return the exit status of the last command executed from filename. 明白了为什么不一样了吧？直接执行一个脚本文件是在一个子shell中运行的，而source则是在当前shell环境中运行的。根据前面的内容，你也已经明白其中的道理了吧。<br />
+【发表回复】【查看论坛原帖】【添加到收藏夹】【关闭】<br />
+ sakulagi 回复于：2004-05-11 12:49:03<br />
+http://bbs.chinaunix.net/forum/viewtopic.php?t=321207<br />
+可以参考一下这个。<br />
+如果一定要撤销一个已经export了的变量，那么有两种方法：<br />
+unset VAR_NAME<br />
+export VARNAME=<br />
+后一种就是在“＝”后边什么都不写。<br />
+ sakulagi 回复于：2004-05-11 12:51:21<br />
+感谢你写了这么长的文章，自己研究出来的东西印象深刻，有成就感；共享出来也是一件乐事，虽然不一定是很高深莫测的技术，可是一样值得鼓励。希望你再看一下source命令的说明，整理一下这个帖子，使之更完整。<br />
+ sakulagi 回复于：2004-05-11 12:57:10<br />
+至于source的行为为什么和直接执行一个script不一样：<br />
+bash 的manual里提到，使用source script_name的时候，实际上并没有产生一个新的子shell来执行这个脚本，而是直接在当前的 shell里执行的这个脚本。这样所有对环境变量的操作（就是export variable=value这样的操作），自然就是影响了当前的 shell,所以用echo $variable可以看到这个环境变量已经被设置了。<br />
+ sakulagi 回复于：2004-05-11 13:34:33<br />
+试验方法，作一个不会马上退出shell脚本，比如里面只写一个cat命令。然后试试用和不用source两种情况，用pstree可以很容易看清楚是不是有子shell产生。<br />
+ <br />
+http://bbs.chinaunix.net/forum/viewtopic.php?p=1583329#1583329<br />
+ 天外闲云 回复于：2004-05-11 20:11:32<br />
+[quote:7687c03504=&quot;sakulagi&quot;]至于source的行为为什么和直接执行一个script不一样：<br />
+bash的manual里提到，使用source script_name的时候，实际上并没有产生一个新的子shell来执行这个脚本，而是直接在当前的shell里执行的这个脚本。这样所有对..........[/quote:7687c03504]<br />
+上次他问那个问题的时候我就这么说了(讲了半天父子shell和export功能)，结果他只看你的没看我的，又跑出来问了！<br />
+ <br />
+<br />
+<b>本文来自ChinaUnix博客，如果查看原文请点：</b><a href="http://blog.chinaunix.net/u/24474/showart_241337.html" target="_blank">http://blog.chinaunix.net/u/24474/showart_241337.html</a> 
+</td>
+
+      </tr>
+
+
+      <tr>
+
+        <td height="20" align="right"> 　 <a href="http://linux.chinaunix.net/bbs/thread-949542-1-1.html"  target="_blank">发表评论</a>
+
+  <a href="http://linux.chinaunix.net/bbs/thread-949542-1-1.html"  target="_blank">查看评论</a>(共有<span class="STYLE1" id ="postcount2"></span>条评论)
+<a href="http://linux.chinaunix.net/bbs/forum-41-1.html" target="_blank">我要提问</a>
+</td>
+
+      </tr>
+      <tr>
+
+        <td>&nbsp;</td>
+
+      </tr>
+
+      
+
+    </table>
+
+
+</td>
+
+    <td width="8">&nbsp;</td>
+
+    <td width="245" valign="top" bgcolor="#FFF9EB">
+<center><br>
+<form action="/search2.php" method="GET">
+<input type="text" name="key" size="15"><input type=hidden name="id" value=0 ><input type="submit" value="搜索">
+</form>
+<br>
+</center>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+      <tr>
+
+        <td height="27" background="/images/bg245.jpg" class="F13"><table width="100%"><tr><td class="F13">最新资讯</td><td align="right"><a href="/news" target="_blank">更多>></a>&nbsp;</td></tr></table></td>
+
+      </tr>
+
+      <tr>
+
+        <td valign="top" bgcolor="#FFFFFF" class="BLKtext" ><table width="97%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+          <tr>
+
+            <td height="5"></td>
+
+          </tr>
+
+          <tr>
+
+            <td>· <a href='/news/2010/12/10/1175490.shtml' title='金山卫士开源计划首周源码下载突破两万' target='_blank'>金山卫士开源计划首周源码下载..</a><br />
+· <a href='/news/2010/12/10/1175491.shtml' title='谷歌劝说诺基亚采用Android操作系统' target='_blank'>谷歌劝说诺基亚采用Android操作..</a><br />
+· <a href='/news/2010/12/10/1175492.shtml' title='11月份Linux市场占有率升至5%' target='_blank'>11月份Linux市场占有率升至5%</a><br />
+· <a href='/news/2010/12/10/1175493.shtml' title='Apache 基金会确认退出 JCP 执行委员会' target='_blank'>Apache 基金会确认退出 JCP 执..</a><br />
+· <a href='/news/2010/12/07/1175306.shtml' title='Chrome 10 新功能探秘：新增GPU混合加速功能' target='_blank'>Chrome 10 新功能探秘：新增GP..</a><br />
+· <a href='/news/2010/12/07/1175307.shtml' title='金山宣布开源其安全软件' target='_blank'>金山宣布开源其安全软件</a><br />
+· <a href='/news/2010/12/07/1175308.shtml' title='开源FTP服务器ProFTPD发现后门' target='_blank'>开源FTP服务器ProFTPD发现后门</a><br />
+· <a href='/news/2010/12/07/1175309.shtml' title='女黑客在开源会议上抱受骚扰' target='_blank'>女黑客在开源会议上抱受骚扰</a><br />
+· <a href='/news/2010/12/07/1175310.shtml' title='21款值得关注的Linux游戏' target='_blank'>21款值得关注的Linux游戏</a><br />
+· <a href='/news/2010/12/07/1175311.shtml' title='马化腾：腾讯半年后彻底转型，开放和分享' target='_blank'>马化腾：腾讯半年后彻底转型，..</a><br />
+</td>
+
+          </tr>
+
+          <tr>
+
+            <td height="5"></td>
+
+          </tr>
+
+        </table></td>
+
+      </tr>
+
+      <tr>
+
+        <td height="10" bgcolor="#FFFFFF"></td>
+
+      </tr>
+
+      <tr></table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+      <tr>
+
+        <td height="27" background="/images/bg245.jpg" class="F13"><table width="100%"><tr><td class="F13">论坛热点</td><td align="right"><a href="/bbs" target="_blank">更多>></a>&nbsp;</td></tr></table></td>
+
+      </tr>
+
+      <tr>
+
+        <td valign="top" bgcolor="#FFFFFF" class="BLKtext" ><table width="97%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+          <tr>
+
+            <td height="5"></td>
+
+          </tr>
+
+          <tr>
+
+            <td>· <a href='http://linux.chinaunix.net/bbs/thread-1177273-1-1.html' title='Linux系统移植从零开始！参与讨论即有机会获得图书一本！' target='_blank'>Linux系统移植从零开始！参与..</a><br />
+· <a href='http://linux.chinaunix.net/bbs/thread-1177271-1-1.html' title='学习linux的意义在哪里' target='_blank'>学习linux的意义在哪里</a><br />
+· <a href='http://linux.chinaunix.net/bbs/thread-1177409-1-1.html' title='使用netfilter在哪能获取到原始以太包' target='_blank'>使用netfilter在哪能获取到原..</a><br />
+· <a href='http://linux.chinaunix.net/bbs/thread-1177298-1-1.html' title='哥纠结了' target='_blank'>哥纠结了</a><br />
+· <a href='http://linux.chinaunix.net/bbs/thread-1177227-1-1.html' title='一个在线读开源代码的工具，希望版主能保留几天，谢谢！' target='_blank'>一个在线读开源代码的工具，..</a><br />
+· <a href='http://linux.chinaunix.net/bbs/thread-1177374-1-1.html' title='为什么我的目录下没有.cshrc文件？' target='_blank'>为什么我的目录下没有.cshrc..</a><br />
+· <a href='http://linux.chinaunix.net/bbs/thread-1177344-1-1.html' title='初学linux从哪里开始' target='_blank'>初学linux从哪里开始</a><br />
+· <a href='http://linux.chinaunix.net/bbs/thread-1177382-1-1.html' title='linux 系统无法上网' target='_blank'>linux 系统无法上网</a><br />
+· <a href='http://linux.chinaunix.net/bbs/thread-1177380-1-1.html' title='新手安装UCenter 时总是出错。望高手指点' target='_blank'>新手安装UCenter 时总是出错..</a><br />
+· <a href='http://linux.chinaunix.net/bbs/thread-1177274-1-1.html' title='cacti添加主机显示的状态都是unknow，不能进行资源绘图' target='_blank'>cacti添加主机显示的状态都是..</a><br />
+</td>
+
+          </tr>
+
+          <tr>
+
+            <td height="5"></td>
+
+          </tr>
+
+        </table></td>
+
+      </tr>
+
+      <tr>
+
+        <td height="10" bgcolor="#FFFFFF"></td>
+
+      </tr>
+
+      <tr></table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+      <tr>
+
+        <td height="27" background="/images/bg245.jpg" class="F13"><table width="100%"><tr><td class="F13">文档更新</td><td align="right"><a href="/techdoc" target="_blank">更多>></a>&nbsp;</td></tr></table></td>
+
+      </tr>
+
+      <tr>
+
+        <td valign="top" bgcolor="#FFFFFF" class="BLKtext" ><table width="97%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+          <tr>
+
+            <td height="5"></td>
+
+          </tr>
+
+          <tr>
+
+            <td>· <a href='/techdoc/beginner/2010/11/17/1174196.shtml' title='菜鸟入门三星ARM11嵌入式系统，是否困难？' target='_blank'>菜鸟入门三星ARM11嵌入式系统，是..</a><br />
+· <a href='/techdoc/beginner/2010/09/16/1171153.shtml' title='寻redhat 5.3 的中文手册 for ia64' target='_blank'>寻redhat 5.3 的中文手册 for ia64</a><br />
+· <a href='/techdoc/beginner/2010/09/06/1170624.shtml' title='请问redhat 5.3 企业版的用户手册去哪里下载？' target='_blank'>请问redhat 5.3 企业版的用户手册..</a><br />
+· <a href='/techdoc/beginner/2010/08/18/1169548.shtml' title='LINUX与UNIX SHELL编程指南(中文)' target='_blank'>LINUX与UNIX SHELL编程指南(中文)</a><br />
+· <a href='/techdoc/beginner/2010/03/24/1160550.shtml' title='一些基本用户管理以及基本安装方法' target='_blank'>一些基本用户管理以及基本安装方法</a><br />
+· <a href='/techdoc/beginner/2010/03/23/1160525.shtml' title='菜鸟学习linux笔记与练习-----第二天。一些基本命令以及初级网络配置' target='_blank'>菜鸟学习linux笔记与练习-----第..</a><br />
+· <a href='/techdoc/beginner/2010/03/23/1160523.shtml' title='菜鸟学习linux笔记与练习-----第一天。一些初级命令以及基本用户管理' target='_blank'>菜鸟学习linux笔记与练习-----第..</a><br />
+· <a href='/techdoc/beginner/2010/03/22/1160427.shtml' title='服务器配置：Squid配置详解' target='_blank'>服务器配置：Squid配置详解</a><br />
+· <a href='/techdoc/install/2010/01/29/1156159.shtml' title='linux下u盘使用' target='_blank'>linux下u盘使用</a><br />
+· <a href='/techdoc/install/2010/01/29/1156155.shtml' title='ubuntu dynamips 绑定网卡到虚拟机' target='_blank'>ubuntu dynamips 绑定网卡到虚拟机</a><br />
+</td>
+
+          </tr>
+
+   
+        </table></td>
+
+      </tr>
+
+
+      <tr></table>
+</td>
+
+  </tr>
+
+</table>
+<script src="/js/threadcount.php?tid=949542"></script>
+<table width="950" border="0" align="center" cellpadding="0" cellspacing="0">
+
+  <tr>
+
+    <td>&nbsp;</td>
+
+  </tr>
+
+</table>
+
+<table width="950" border="0" align="center" cellpadding="0" cellspacing="0">
+
+  <tr>
+
+    <td height="2" bgcolor="#308CF6"></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="30" align="center"><a href="http://www.chinaunix.net/about/index.shtml" target="_blank">关于我们</a> | <a href="http://www.chinaunix.net/about/connect.html" target="_blank">联系方式</a> | <a href="http://www.chinaunix.net/about/service.html" target="_blank">广告合作</a> | <a href="http://www.chinaunix.net/about/hr.html" target="_blank">诚聘英才</a> | <a href="http://www.chinaunix.net/about/channel.html" target="_blank">网站地图</a> | <a href="http://www.chinaunix.net/about/friend.html" target="_blank">友情链接</a> | <a href="http://linux.chinaunix.net/bbs/register.php" target="_blank">免费注册</a></td>
+
+  </tr>
+
+  <tr>
+
+    <td height="2" bgcolor="#308CF6"></td>
+
+  </tr>
+
+  <tr>
+
+    <td align="center"><p>Copyright &copy; 2001-2009 ChinaUnix.net All Rights Reserved</p>
+
+        <p>感谢所有关心和支持过ChinaUnix的朋友们<br />
+	<p>
+ <a href="http://www.it168.com/images/icp.jpg" target="_blank">京ICP证:060528号</a></p></td>
+
+  </tr>
+
+</table>
+
+<!-- 统计 START -->
+<script src="http://stat.it168.com/pv.js" type="text/javascript"></script>
+<script>
+function sendPV(){
+    var pvTrack = new PvTrack();
+    pvTrack.type = 10; // 频道类别ID
+    pvTrack.channel = 22; // 频道ID
+   
+    pvTrack.pageType = 0;
+    pvTrack.track();
+}
+window.setTimeout("sendPV()", 0);
+</script>
+<script language="javascript" src="http://bbs.chinaunix.net/googlepv/pv.js" type="text/javascript"></script>
+<!-- 统计 .END -->
+<div style='display:none'>
+<script type="text/javascript"> 
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F0ee5e8cdc4d43389b3d1bfd76e83216b' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-11982772-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+</html>

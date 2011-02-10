@@ -1,0 +1,493 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>
+linux命令之curl  | 孙剑和de博客 &#8211;  我的快乐生活</title>
+<link rel="stylesheet" href="http://www.sunjianhe.com/wp-content/themes/xiaohan/style.css" type="text/css" media="screen" />
+<link rel="alternate" type="application/rss+xml" title="孙剑和de博客 &#8211;  我的快乐生活 RSS Feed" href="http://www.sunjianhe.com/?feed=rss2" />
+<link rel="pingback" href="http://www.sunjianhe.com/xmlrpc.php" />
+<script type="text/javascript" src="http://www.sunjianhe.com/wp-content/themes/xiaohan/images/base.js"></script>
+<link rel="alternate" type="application/rss+xml" title="孙剑和de博客 -  我的快乐生活 &raquo; feed" href="http://www.sunjianhe.com/?feed=rss2" />
+<link rel="alternate" type="application/rss+xml" title="孙剑和de博客 -  我的快乐生活 &raquo; 评论 feed" href="http://www.sunjianhe.com/?feed=comments-rss2" />
+<link rel="alternate" type="application/rss+xml" title="孙剑和de博客 -  我的快乐生活 &raquo; linux命令之curl 评论 feed" href="http://www.sunjianhe.com/?feed=rss2&amp;p=769" />
+<script type='text/javascript' src='http://www.sunjianhe.com/wp-includes/js/comment-reply.js?ver=20090102'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.sunjianhe.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.sunjianhe.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='孙剑和de博客 &#8211;  我的快乐生活' href='http://www.sunjianhe.com' />
+<link rel='start' title='不能混合吃的食物' href='http://www.sunjianhe.com/?p=6' />
+<link rel='prev' title='dig 提取ip' href='http://www.sunjianhe.com/?p=468' />
+<link rel='next' title='一个人一首歌' href='http://www.sunjianhe.com/?p=305' />
+<meta name="generator" content="WordPress 3.0.4" />
+<link rel='canonical' href='http://www.sunjianhe.com/?p=769' />
+<link rel="Shortcut Icon" type="image/x-icon" href="http://www.sunjianhe.com/favicon.ico" /></head>
+
+<body class="single single-post postid-769 cat-202-id">
+<div id="wrap">
+	<div id="header">
+    	<div id="blog_title">
+        	<h1><a href="http://www.sunjianhe.com/">孙剑和de博客 &#8211;  我的快乐生活</a></h1>
+        	<p>本博客记录着本人在管理与维护邮局，主机，数据库出现的问题及总结一些经验及个人的生活点滴.</p>
+            <div class="banner">						<img src="http://www.sunjianhe.com/wp-content/themes/xiaohan/images/headers/path.jpg" width="468" height="60" alt="" />
+					            </div>
+        </div>
+        <div id="nav">
+        	<ul id="menu" class="menu"><li id="menu-item-283" class="menu-item menu-item-type-custom menu-item-home menu-item-283"><a href="http://www.sunjianhe.com/"><span>首页</span></a></li>
+<li id="menu-item-285" class="menu-item menu-item-type-taxonomy menu-item-285"><a href="http://www.sunjianhe.com/?cat=10"><span>linux维护</span></a></li>
+<li id="menu-item-290" class="menu-item menu-item-type-taxonomy menu-item-290"><a href="http://www.sunjianhe.com/?cat=3"><span>邮局系统</span></a></li>
+<li id="menu-item-287" class="menu-item menu-item-type-taxonomy menu-item-287"><a href="http://www.sunjianhe.com/?cat=4"><span>主机技术</span></a></li>
+<li id="menu-item-289" class="menu-item menu-item-type-taxonomy menu-item-289"><a href="http://www.sunjianhe.com/?cat=1"><span>数据库</span></a></li>
+<li id="menu-item-288" class="menu-item menu-item-type-taxonomy menu-item-288"><a href="http://www.sunjianhe.com/?cat=14"><span>存储安全</span></a></li>
+<li id="menu-item-286" class="menu-item menu-item-type-taxonomy menu-item-286"><a href="http://www.sunjianhe.com/?cat=6"><span>shell脚本</span></a></li>
+<li id="menu-item-291" class="menu-item menu-item-type-taxonomy menu-item-291"><a href="http://www.sunjianhe.com/?cat=8"><span>静心驿站</span></a></li>
+<li id="menu-item-284" class="menu-item menu-item-type-post_type menu-item-284"><a href="http://www.sunjianhe.com/?page_id=2"><span>关于我们</span></a></li>
+</ul>			<div class="rss_ico"><a href="http://www.sunjianhe.com/?feed=rss2" target="_blank" rel="nofollow"><img src="http://www.sunjianhe.com/wp-content/themes/xiaohan/images/rss_ico.gif" alt="RSS 订阅" /></a></div>
+        </div>
+    </div>
+	<div id="container" class="article">
+    	<div class="content">
+        	            <div class="place">
+				<a title="转到首页" href="http://www.sunjianhe.com/">首页</a> &gt; <a href="http://www.sunjianhe.com/?cat=202" title="查看 linux命令手册 的全部文章" rel="category">linux命令手册</a> &gt; linux命令之curl			</div>
+            <div class="post" id="post-769">
+            	<div class="date"><span>2010</span><span class="f">八月20</span></div>
+            	<h2><a class="title" href="http://www.sunjianhe.com/?p=769" rel="bookmark">linux命令之curl</a></h2>
+				<div class="info">
+					<span class="author"><a href="http://www.sunjianhe.com/?author=1" title="由 孙剑和 发表">孙剑和</a></span>
+                    <span class="categories"><a href="http://www.sunjianhe.com/?cat=202" title="查看 linux命令手册 的全部文章" rel="category">linux命令手册</a></span>
+                    <span class="tags"><a href="http://www.sunjianhe.com/?tag=curl-%e5%91%bd%e4%bb%a4" rel="tag">curl 命令</a>, <a href="http://www.sunjianhe.com/?tag=curl%e4%bb%8b%e7%bb%8d" rel="tag">curl介绍</a>, <a href="http://www.sunjianhe.com/?tag=curl%e8%af%a6%e8%a7%a3" rel="tag">curl详解</a>, <a href="http://www.sunjianhe.com/?tag=linux%e5%91%bd%e4%bb%a4curl" rel="tag">linux命令curl</a></span>
+                                        <span class="comments"><a href="http://www.sunjianhe.com/?p=769#respond" class="Comments off"  title="linux命令之curl 上的评论"><em>0</em> Comments</a></span>
+                    					<span class="addcomment"><a href="#respond">发表评论</a></span>
+										<div class="clear"></div>
+				</div>
+				<div class="con" id="a769">
+					<p>linux curl是一个利用URL规则在命令行下工作的文件传输工具。它支持文件的上传和下载.</p>
+<p><strong>一，curl命令参数</strong></p>
+<li>-a/&#8211;append 上传文件时，附加到目标文件   </li>
+<li> -A/&#8211;user-agent &lt;string&gt;  设置用户代理发送给服务器   </li>
+<li> - anyauth   可以使用“任何”身份验证方法   </li>
+<li> -b/&#8211;cookie &lt;name=string/file&gt; cookie字符串或文件读取位置   </li>
+<li> - basic 使用HTTP基本验证   </li>
+<li> -B/&#8211;use-ascii 使用ASCII /文本传输   </li>
+<li> -c/&#8211;cookie-jar &lt;file&gt; 操作结束后把cookie写入到这个文件中   </li>
+<li> -C/&#8211;continue-at &lt;offset&gt;  断点续转   </li>
+<li> -d/&#8211;data &lt;data&gt;   HTTP POST方式传送数据   </li>
+<li> &#8211;data-ascii &lt;data&gt;  以ascii的方式post数据   </li>
+<li> &#8211;data-binary &lt;data&gt; 以二进制的方式post数据   </li>
+<li> &#8211;negotiate     使用HTTP身份验证   </li>
+<li> &#8211;digest        使用数字身份验证   </li>
+<li> &#8211;disable-eprt  禁止使用EPRT或LPRT   </li>
+<li> &#8211;disable-epsv  禁止使用EPSV   </li>
+<li> -D/&#8211;dump-header &lt;file&gt; 把header信息写入到该文件中   </li>
+<li> &#8211;egd-file &lt;file&gt; 为随机数据(SSL)设置EGD socket路径   </li>
+<li> &#8211;tcp-nodelay   使用TCP_NODELAY选项   </li>
+<li> -e/&#8211;referer 来源网址   </li>
+<li> -E/&#8211;cert &lt;cert[:passwd]&gt; 客户端证书文件和密码 (SSL)   </li>
+<li> &#8211;cert-type &lt;type&gt; 证书文件类型 (DER/PEM/ENG) (SSL)   </li>
+<li> &#8211;key &lt;key&gt;     私钥文件名 (SSL)   </li>
+<li> &#8211;key-type &lt;type&gt; 私钥文件类型 (DER/PEM/ENG) (SSL)   </li>
+<li> &#8211;pass  &lt;pass&gt;  私钥密码 (SSL)   </li>
+<li> &#8211;engine &lt;eng&gt;  加密引擎使用 (SSL). &#8221;&#8211;engine list&#8221; for list   </li>
+<li> &#8211;cacert &lt;file&gt; CA证书 (SSL)   </li>
+<li> &#8211;capath &lt;directory&gt; CA目录 (made using c_rehash) to verify peer against (SSL)   </li>
+<li> &#8211;ciphers &lt;list&gt;  SSL密码   </li>
+<li> &#8211;compressed    要求返回是压缩的形势 (using deflate or gzip)   </li>
+<li> &#8211;connect-timeout &lt;seconds&gt; 设置最大请求时间   </li>
+<li> &#8211;create-dirs   建立本地目录的目录层次结构   </li>
+<li> &#8211;crlf          上传是把LF转变成CRLF   </li>
+<li> -f/&#8211;fail          连接失败时不显示http错误   </li>
+<li> &#8211;ftp-create-dirs 如果远程目录不存在，创建远程目录   </li>
+<li> &#8211;ftp-method [multicwd/nocwd/singlecwd] 控制CWD的使用   </li>
+<li> &#8211;ftp-pasv      使用 PASV/EPSV 代替端口   </li>
+<li> &#8211;ftp-skip-pasv-ip 使用PASV的时候,忽略该IP地址   </li>
+<li> &#8211;ftp-ssl       尝试用 SSL/TLS 来进行ftp数据传输   </li>
+<li> &#8211;ftp-ssl-reqd  要求用 SSL/TLS 来进行ftp数据传输   </li>
+<li> -F/&#8211;form &lt;name=content&gt; 模拟http表单提交数据   </li>
+<li> -form-string &lt;name=string&gt; 模拟http表单提交数据   </li>
+<li> -g/&#8211;globoff 禁用网址序列和范围使用{}和[]   </li>
+<li> -G/&#8211;get 以get的方式来发送数据   </li>
+<li> -h/&#8211;help 帮助   </li>
+<li> -H/&#8211;header &lt;line&gt;自定义头信息传递给服务器   </li>
+<li> &#8211;ignore-content-length  忽略的HTTP头信息的长度   </li>
+<li> -i/&#8211;include 输出时包括protocol头信息   </li>
+<li> -I/&#8211;head  只显示文档信息   </li>
+<li> 从文件中读取-j/&#8211;junk-session-cookies忽略会话Cookie   </li>
+<li> - 界面&lt;interface&gt;指定网络接口/地址使用   </li>
+<li> - krb4 &lt;级别&gt;启用与指定的安全级别krb4   </li>
+<li> -j/&#8211;junk-session-cookies 读取文件进忽略session cookie   </li>
+<li> &#8211;interface &lt;interface&gt; 使用指定网络接口/地址   </li>
+<li> &#8211;krb4 &lt;level&gt;  使用指定安全级别的krb4   </li>
+<li> -k/&#8211;insecure 允许不使用证书到SSL站点   </li>
+<li> -K/&#8211;config  指定的配置文件读取   </li>
+<li> -l/&#8211;list-only 列出ftp目录下的文件名称   </li>
+<li> &#8211;limit-rate &lt;rate&gt; 设置传输速度   </li>
+<li> &#8211;local-port&lt;NUM&gt; 强制使用本地端口号   </li>
+<li> -m/&#8211;max-time &lt;seconds&gt; 设置最大传输时间   </li>
+<li> &#8211;max-redirs &lt;num&gt; 设置最大读取的目录数   </li>
+<li> &#8211;max-filesize &lt;bytes&gt; 设置最大下载的文件总量   </li>
+<li> -M/&#8211;manual  显示全手动   </li>
+<li> -n/&#8211;netrc 从netrc文件中读取用户名和密码   </li>
+<li> &#8211;netrc-optional 使用 .netrc 或者 URL来覆盖-n   </li>
+<li> &#8211;ntlm          使用 HTTP NTLM 身份验证   </li>
+<li> -N/&#8211;no-buffer 禁用缓冲输出   </li>
+<li> -o/&#8211;output 把输出写到该文件中   </li>
+<li> -O/&#8211;remote-name 把输出写到该文件中，保留远程文件的文件名   </li>
+<li> -p/&#8211;proxytunnel   使用HTTP代理   </li>
+<li> &#8211;proxy-anyauth 选择任一代理身份验证方法   </li>
+<li> &#8211;proxy-basic   在代理上使用基本身份验证   </li>
+<li> &#8211;proxy-digest  在代理上使用数字身份验证   </li>
+<li> &#8211;proxy-ntlm    在代理上使用ntlm身份验证   </li>
+<li> -P/&#8211;ftp-port &lt;address&gt; 使用端口地址，而不是使用PASV   </li>
+<li> -Q/&#8211;quote &lt;cmd&gt;文件传输前，发送命令到服务器   </li>
+<li> -r/&#8211;range &lt;range&gt;检索来自HTTP/1.1或FTP服务器字节范围   </li>
+<li> &#8211;range-file 读取（SSL）的随机文件   </li>
+<li> -R/&#8211;remote-time   在本地生成文件时，保留远程文件时间   </li>
+<li> &#8211;retry &lt;num&gt;   传输出现问题时，重试的次数   </li>
+<li> &#8211;retry-delay &lt;seconds&gt;  传输出现问题时，设置重试间隔时间   </li>
+<li> &#8211;retry-max-time &lt;seconds&gt; 传输出现问题时，设置最大重试时间   </li>
+<li> -s/&#8211;silent静音模式。不输出任何东西   </li>
+<li> -S/&#8211;show-error   显示错误   </li>
+<li> &#8211;socks4 &lt;host[:port]&gt; 用socks4代理给定主机和端口   </li>
+<li> &#8211;socks5 &lt;host[:port]&gt; 用socks5代理给定主机和端口   </li>
+<li> &#8211;stderr &lt;file&gt;   </li>
+<li> -t/&#8211;telnet-option &lt;OPT=val&gt; Telnet选项设置   </li>
+<li> &#8211;trace &lt;file&gt;  对指定文件进行debug   </li>
+<li> &#8211;trace-ascii &lt;file&gt; Like &#8211;跟踪但没有hex输出   </li>
+<li> &#8211;trace-time    跟踪/详细输出时，添加时间戳   </li>
+<li> -T/&#8211;upload-file &lt;file&gt; 上传文件   </li>
+<li> &#8211;url &lt;URL&gt;     Spet URL to work with   </li>
+<li> -u/&#8211;user &lt;user[:password]&gt;设置服务器的用户和密码   </li>
+<li> -U/&#8211;proxy-user &lt;user[:password]&gt;设置代理用户名和密码   </li>
+<li> -v/&#8211;verbose   </li>
+<li> -V/&#8211;version 显示版本信息   </li>
+<li> -w/&#8211;write-out [format]什么输出完成后   </li>
+<li> -x/&#8211;proxy &lt;host[:port]&gt;在给定的端口上使用HTTP代理   </li>
+<li> -X/&#8211;request &lt;command&gt;指定什么命令   </li>
+<li> -y/&#8211;speed-time 放弃限速所要的时间。默认为30   </li>
+<li> -Y/&#8211;speed-limit 停止传输速度的限制，速度时间&#8217;秒   </li>
+<li> -z/&#8211;time-cond  传送时间设置   </li>
+<li> -0/&#8211;http1.0  使用HTTP 1.0   </li>
+<li> -1/&#8211;tlsv1  使用TLSv1（SSL）   </li>
+<li> -2/&#8211;sslv2 使用SSLv2的（SSL）   </li>
+<li> -3/&#8211;sslv3         使用的SSLv3（SSL）   </li>
+<li> &#8211;3p-quote      like -Q for the source URL for 3rd party transfer   </li>
+<li> &#8211;3p-url        使用url，进行第三方传送   </li>
+<li> &#8211;3p-user       使用用户名和密码，进行第三方传送   </li>
+<li> -4/&#8211;ipv4   使用IP4   </li>
+<li> -6/&#8211;ipv6   使用IP6   </li>
+<li> -#/&#8211;progress-bar 用进度条显示当前的传送状态  </li>
+<p>二，常用curl实例<br />
+ <br />
+1,抓取页面内容到一个文件中</p>
+<p>[root@admin]# curl -o home.html  <a href="http://linux987.zjp11.host.35.com">http://linux987.zjp11.host.35.com</a></p>
+<p>[root@admin]# curl -o home.html  <a href="http://linux987.zjp11.host.35.com">http://linux987.zjp11.host.35.com</a></p>
+<p>2,用-O（大写的），后面的url要具体到某个文件，不然抓不下来。我们还可以用正则来抓取东西</p>
+<p>[root@admin]# curl -O</p>
+<p>[root@admin]# curl -O</p>
+<p>3,模拟表单信息，模拟登录，保存cookie信息</p>
+<p>[root@admin]# curl -c ./cookie_c.txt -F log=aaaa -F pwd=****** <a href="http://linux987.zjp11.host.35.com/wp-login.php">http://linux987.zjp11.host.35.com/wp-login.php</a></p>
+<p>[root@admin]# curl -c ./cookie_c.txt -F log=aaaa -F pwd=****** <a href="http://linux987.zjp11.host.35.com/wp-login.php">http://linux987.zjp11.host.35.com/wp-login.php</a></p>
+<p>4,模拟表单信息，模拟登录，保存头信息</p>
+<p>[root@admin]# curl -D ./cookie_D.txt -F log=aaaa -F pwd=****** <a href="http://linux987.zjp11.host.35.com/wp-login.php">http://linux987.zjp11.host.35.com/wp-login.php</a></p>
+<p>[root@admin]# curl -D ./cookie_D.txt -F log=aaaa -F pwd=****** <a href="http://linux987.zjp11.host.35.com/wp-login.php">http://linux987.zjp11.host.35.com/wp-login.php</a></p>
+<p>-c（小写）产生的cookie和-D里面的cookie是不一样的。</p>
+<p>5,使用cookie文件</p>
+<p>[root@admin]# curl -b ./cookie_c.txt  <a href="http://linux987.zjp11.host.35.com/wp-admin">http://linux987.zjp11.host.35.com/wp-admin</a></p>
+<p>[root@admin]# curl -b ./cookie_c.txt  <a href="http://linux987.zjp11.host.35.com/wp-admin">http://linux987.zjp11.host.35.com/wp-admin</a></p>
+<p>6,断点续传，-C（大写的）</p>
+<p>[root@admin]# curl -C -O</p>
+<p>7,传送数据，最好用登录页面测试，因为你传值过去后，curl回抓数据，你可以看到你传值有没有成功</p>
+<p>[root@admin]# curl -d log=aaaa  <a href="http://linux987.zjp11.host.35.com/wp-login.php">http://linux987.zjp11.host.35.com/wp-login.php</a></p>
+<p>[root@admin]# curl -d log=aaaa  <a href="http://linux987.zjp11.host.35.com/wp-login.php">http://linux987.zjp11.host.35.com/wp-login.php</a></p>
+<p>8,显示抓取错误，下面这个例子，很清楚的表明了。</p>
+<p>[root@admin]# curl -f <a href="http://linux987.zjp11.host.35.com/asdf">http://linux987.zjp11.host.35.com/asdf</a></p>
+<p>curl: （22） The requested URL returned error: 404</p>
+<p>[root@admin]# curl <a href="http://linux987.zjp11.host.35.com/asdf">http://linux987.zjp11.host.35.com/asdf</a></p>
+<p>&lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;404,not found&lt;/TITLE&gt;</p>
+<p>……</p>
+<p>[root@admin]# curl -f <a href="http://linux987.zjp11.host.35.com/asdf">http://linux987.zjp11.host.35.com/asdf</a></p>
+<p>curl: （22） The requested URL returned error: 404</p>
+<p>[root@admin]# curl <a href="http://linux987.zjp11.host.35.com/asdf">http://linux987.zjp11.host.35.com/asdf</a></p>
+<p>&lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;404,not found&lt;/TITLE&gt;</p>
+<p>……</p>
+<p>9,伪造来源地址，有的网站会判断，请求来源地址。</p>
+<p>[root@admin]# curl -e <a href="http://localhost">http://localhost</a> <a href="http://linux987.zjp11.host.35.com/wp-login.php">http://linux987.zjp11.host.35.com/wp-login.php</a></p>
+<p>[root@admin]# curl -e <a href="http://localhost">http://localhost</a> <a href="http://linux987.zjp11.host.35.com/wp-login.php">http://linux987.zjp11.host.35.com/wp-login.php</a></p>
+<p>10,当我们经常用curl去搞人家东西的时候，人家会把你的IP给屏蔽掉的，这个时候，我们可以用代理</p>
+<p>[root@admin]# curl -x 24.10.28.84:32779 -o home.html <a href="http://linux987.zjp11.host.35.com">http://linux987.zjp11.host.35.com</a></p>
+<p>[root@admin]# curl -x 24.10.28.84:32779 -o home.html <a href="http://linux987.zjp11.host.35.com">http://linux987.zjp11.host.35.com</a></p>
+<p>11,比较大的东西，我们可以分段下载</p>
+<p>[root@admin]# curl -r 0-100 -o img.part1 <a href="http://linux987.zjp11.host.35.com/wp">http://linux987.zjp11.host.35.com/wp</a>-</p>
+<p>content/uploads/2010/09/compare_varnish.jpg</p>
+<p>% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</p>
+<p>Dload  Upload   Total   Spent    Left  Speed</p>
+<p>100   101  100   101    0     0    105      0 &#8211;:&#8211;:&#8211; &#8211;:&#8211;:&#8211; &#8211;:&#8211;:&#8211;     0</p>
+<p>[root@admin]# curl -r 100-200 -o img.part2 <a href="http://linux987.zjp11.host.35.com/wp">http://linux987.zjp11.host.35.com/wp</a>-</p>
+<p>content/uploads/2010/09/compare_varnish.jpg</p>
+<p>% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</p>
+<p>Dload  Upload   Total   Spent    Left  Speed</p>
+<p>100   101  100   101    0     0     57      0  0:00:01  0:00:01 &#8211;:&#8211;:&#8211;     0</p>
+<p>[root@admin]# curl -r 200- -o img.part3 <a href="http://linux987.zjp11.host.35.com/wp">http://linux987.zjp11.host.35.com/wp</a>-</p>
+<p>content/uploads/2010/09/compare_varnish.jpg</p>
+<p>% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</p>
+<p>Dload  Upload   Total   Spent    Left  Speed</p>
+<p>100  104k  100  104k    0     0  52793      0  0:00:02  0:00:02 &#8211;:&#8211;:&#8211; 88961</p>
+<p>[root@admin]# ls |grep part | xargs du -sh</p>
+<p>4.0K    one.part1</p>
+<p>112K    three.part3</p>
+<p>4.0K    two.part2</p>
+<p>[root@admin]# curl -r 0-100 -o img.part1 <a href="http://linux987.zjp11.host.35.com/wp">http://linux987.zjp11.host.35.com/wp</a>-</p>
+<p>content/uploads/2010/09/compare_varnish.jpg</p>
+<p>% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</p>
+<p>Dload  Upload   Total   Spent    Left  Speed</p>
+<p>100   101  100   101    0     0    105      0 &#8211;:&#8211;:&#8211; &#8211;:&#8211;:&#8211; &#8211;:&#8211;:&#8211;     0</p>
+<p>[root@admin]# curl -r 100-200 -o img.part2 <a href="http://linux987.zjp11.host.35.com/wp">http://linux987.zjp11.host.35.com/wp</a>-</p>
+<p>content/uploads/2010/09/compare_varnish.jpg</p>
+<p>% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</p>
+<p>Dload  Upload   Total   Spent    Left  Speed</p>
+<p>100   101  100   101    0     0     57      0  0:00:01  0:00:01 &#8211;:&#8211;:&#8211;     0</p>
+<p>[root@admin]# curl -r 200- -o img.part3 <a href="http://linux987.zjp11.host.35.com/wp">http://linux987.zjp11.host.35.com/wp</a>-</p>
+<p>content/uploads/2010/09/compare_varnish.jpg</p>
+<p>% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</p>
+<p>Dload  Upload   Total   Spent    Left  Speed</p>
+<p>100  104k  100  104k    0     0  52793      0  0:00:02  0:00:02 &#8211;:&#8211;:&#8211; 88961</p>
+<p>[root@admin]# ls |grep part | xargs du -sh</p>
+<p>4.0K    one.part1</p>
+<p>112K    three.part3</p>
+<p>4.0K    two.part2</p>
+<p>用的时候，把他们cat一下就OK了，cat img.part* &gt;img.jpg</p>
+<p>12,不会显示下载进度信息</p>
+<p>[root@admin]# curl -s -o aaa.jpg</p>
+<p>13,显示下载进度条</p>
+<p>[root@admin]# curl -# -O</p>
+<p>######################################################################## 100.0%</p>
+<p>14,通过ftp下载文件</p>
+<p>[root@admin]$ curl -u 用户名：密码 -O <a href="http://linux987.zjp11.host.35.com/demo/curtain/bbstudy_files/style.css">http://linux987.zjp11.host.35.com/demo/curtain/bbstudy_files/style.css</a></p>
+<p>% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</p>
+<p>Dload  Upload   Total   Spent    Left  Speed</p>
+<p>101  1934  101  1934    0     0   3184      0 &#8211;:&#8211;:&#8211; &#8211;:&#8211;:&#8211; &#8211;:&#8211;:&#8211;  7136</p>
+<p>[root@admin]$ curl -u 用户名：密码 -O <a href="http://linux987.zjp11.host.35.com/demo/curtain/bbstudy_files/style.css">http://linux987.zjp11.host.35.com/demo/curtain/bbstudy_files/style.css</a></p>
+<p>% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</p>
+<p>Dload  Upload   Total   Spent    Left  Speed</p>
+<p>101  1934  101  1934    0     0   3184      0 &#8211;:&#8211;:&#8211; &#8211;:&#8211;:&#8211; &#8211;:&#8211;:&#8211;  7136</p>
+<p>或者用下面的方式</p>
+<p>[root@admin]$ curl -O ftp://用户名：密码@ip:port/demo/curtain/bbstudy_files/style.css</p>
+<p>[root@admin]$ curl -O ftp://用户名：密码@ip:port/demo/curtain/bbstudy_files/style.css</p>
+<p>15,通过ftp上传</p>
+<p>[root@admin]$ curl -T test.sql ftp://用户名：密码@ip:port/demo/curtain/bbstudy_files/</p>
+<p>[root@admin]$ curl -T test.sql ftp://用户名：密码@ip:port/demo/curtain/bbstudy_files/</p>
+					<div class="clear"></div>
+				</div>
+                <div class="under">
+					<p>文章作者：<a href="http://www.sunjianhe.com/">孙剑和</a><br />本文地址：<a href="http://www.sunjianhe.com/?p=769">http://www.sunjianhe.com/?p=769</a><br />版权所有 &copy; 转载时必须以链接形式注明作者和原始出处！</p>
+				</div>
+            </div>
+            <div id="postnavi">
+				<span class="prev">&laquo; <a href="http://www.sunjianhe.com/?p=305" rel="next">一个人一首歌</a></span>
+				<span class="next"><a href="http://www.sunjianhe.com/?p=468" rel="prev">dig 提取ip</a> &raquo;</span>
+				<div class="clear"></div>
+			</div>
+            <div class="like">
+            	<h4>或许你会感兴趣的文章</h4><ul><ul>
+<li><span>2010-08-21</span><a href="http://www.sunjianhe.com/?p=229" rel="bookmark" title="Permanent Link to scp,rsync,proftpd限速的方法">scp,rsync,proftpd限速的方法</a></li>
+<li><span>2010-10-20</span><a href="http://www.sunjianhe.com/?p=753" rel="bookmark" title="Permanent Link to mysql主从复制的配置">mysql主从复制的配置</a></li>
+<li><span>2010-10-09</span><a href="http://www.sunjianhe.com/?p=668" rel="bookmark" title="Permanent Link to perl从零开始学习.第八课时 正则表达式(2)">perl从零开始学习.第八课时 正则表达式(2)</a></li>
+<li><span>2010-11-21</span><a href="http://www.sunjianhe.com/?p=881" rel="bookmark" title="Permanent Link to 九鹏溪">九鹏溪</a></li>
+<li><span>2010-09-04</span><a href="http://www.sunjianhe.com/?p=346" rel="bookmark" title="Permanent Link to 做了一件好事">做了一件好事</a></li>
+<li><span>2010-09-19</span><a href="http://www.sunjianhe.com/?p=514" rel="bookmark" title="Permanent Link to 高级网络规划设计师">高级网络规划设计师</a></li>
+<li><span>2010-10-07</span><a href="http://www.sunjianhe.com/?p=639" rel="bookmark" title="Permanent Link to 随笔.剩男剩女">随笔.剩男剩女</a></li>
+<li><span>2010-11-18</span><a href="http://www.sunjianhe.com/?p=876" rel="bookmark" title="Permanent Link to 加密一句话木马">加密一句话木马</a></li>
+</ul>
+
+            </div>
+                        <div class="comment_box">
+            	<script type="text/javascript" src="http://www.sunjianhe.com/wp-content/themes/xiaohan/images/comment.js"></script>
+
+
+
+<!-- You can start editing here. -->
+	<div class="block">
+		<div class="small g">本文目前尚无任何评论.</div>
+	</div>
+
+
+	<div id="respond">
+	<form id="commentform" name="commentform" action="http://www.sunjianhe.com/wp-comments-post.php" method="post">
+		<h3>发表评论</h3>
+					<a rel="nofollow" id="cancel-comment-reply-link" href="/?p=769#respond" style="display:none;">Cancel reply</a>				<div class="form_box">
+        	<div class="text"><textarea name="comment" id="comment" class="textarea" cols="64" rows="8" tabindex="4"></textarea></div>
+			<div class="form_info">
+            	<div class="part">
+
+									
+					<div id="author_info">
+						<div><label for="author" class="small">昵称 *</label></div>
+						<div><input type="text" class="textfield" name="author" id="author" value="" tabindex="1" /></div>
+						<div><label for="email" class="small">E-Mail * (will not be published)</label></div>
+						<div><input type="text" class="textfield" name="email" id="email" value="" tabindex="2" /></div>
+						<div><label for="url" class="small">网址</label></div>
+						<div><input type="text" class="textfield" name="url" id="url" value="" tabindex="3" /></div>
+					</div>
+
+					
+								</div>
+
+									<input type='hidden' name='comment_post_ID' value='769' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+				
+				<div class="part">
+					<input type="submit" id="submit" class="button" tabindex="5" value="提交评论 (Ctrl+Enter)" />
+					<input type="hidden" name="comment_post_ID" value="769" />
+				</div>
+
+				
+			</div>
+
+			<div class="clear"></div>
+		</div>
+			</form>
+	</div>
+
+	
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+    var commenttextarea = document.getElementById('comment');
+    commenttextarea.onkeydown = function quickSubmit(e) {
+        if (!e) var e = window.event;
+        if (e.ctrlKey && e.keyCode == 13){
+            document.getElementById('submit').click();
+        }
+    }
+//--><!]]>
+</script>            </div>
+        </div>
+        	<div class="sidebar">
+				<div class="block search_form">
+        	<form method="get" id="searchform" action="http://www.sunjianhe.com/">
+	<div class="form">
+		<input name="s" type="text" id="s" onblur="if (this.value =='') this.value='请输入关键字搜索...'" onfocus="this.value=''" onclick="if (this.value=='Search Blog...') this.value=''" value="Search Blog..." class="inputbox" />
+		<span>
+		<input type="submit" name="button" id="button" value="" class="go" />
+		</span>
+<p>姓名：孙剑和(Sam)
+<br />邮箱：jxfa1310088@163.com
+ <br />工作经历
+ <br />第一份工作:
+ <br />地点:惠安;职位:技术员兼ASP程序员
+ <br />第二份工作:
+<br />地点:厦门;职位:MIS网管(公司网络维护)
+<br />第三份工作:
+<br />地点:厦门;职位:维护网管(邮局,主机linux,windows,数据库)
+</p>
+	</div>
+</form>        </div>
+		<div class="block rad">
+        	        			</div>
+        <div class="block feed_form">
+        	<h3>RSS 订阅</h3>
+            <ul>
+            	<li><a rel="external nofollow" title="订阅到 Google" href="http://fusion.google.com/add?feedurl=http://www.sunjianhe.com/?feed=rss2" target="_blank"><img src="http://www.sunjianhe.com/wp-content/themes/xiaohan/images/icon_google.gif" alt="订阅到 Google" /></a></li>
+                <li><a rel="external nofollow" title="订阅到鲜果" href="http://www.xianguo.com/subscribe.php?url=http://www.sunjianhe.com/?feed=rss2" target="_blank"><img src="http://www.sunjianhe.com/wp-content/themes/xiaohan/images/icon_xianguo.gif" alt="订阅到鲜果" /></a></li>
+                <li><a rel="external nofollow" title="订阅到QQ 邮件订阅" href="http://mail.qq.com/cgi-bin/feed?u=http://www.sunjianhe.com/?feed=rss2" target="_blank"><img src="http://www.sunjianhe.com/wp-content/themes/xiaohan/images/icon_qq.gif" alt="订阅到QQ 邮件订阅" /></a></li>
+                <li><a rel="external nofollow" title="订阅到抓虾" href="http://www.sunjianhe.com/?feed=rss2" target="_blank"><img src="http://www.sunjianhe.com/wp-content/themes/xiaohan/images/icon_mail.gif" alt="订阅到抓虾" /></a></li>
+            </ul>
+        </div>
+        <div class="block categories"><h3>分类: </h3>
+        	<ul>
+        		<li class="cat-item cat-item-202"><a href="http://www.sunjianhe.com/?cat=202" title="linux command">linux命令手册</a> (6)
+</li>
+	<li class="cat-item cat-item-10"><a href="http://www.sunjianhe.com/?cat=10" title="linux维护">linux维护</a> (47)
+</li>
+	<li class="cat-item cat-item-7"><a href="http://www.sunjianhe.com/?cat=7" title="perl语言">perl语言</a> (17)
+</li>
+	<li class="cat-item cat-item-6"><a href="http://www.sunjianhe.com/?cat=6" title="shell脚本相关">shell脚本</a> (13)
+</li>
+	<li class="cat-item cat-item-4"><a href="http://www.sunjianhe.com/?cat=4" title="主机相关的技术">主机技术</a> (8)
+</li>
+	<li class="cat-item cat-item-14"><a href="http://www.sunjianhe.com/?cat=14" title="存储安全相关的技术">存储安全</a> (5)
+</li>
+	<li class="cat-item cat-item-1"><a href="http://www.sunjianhe.com/?cat=1" title="数据库相关的技术">数据库</a> (13)
+</li>
+	<li class="cat-item cat-item-5"><a href="http://www.sunjianhe.com/?cat=5" title="网络相关的技术">网络管理</a> (4)
+</li>
+	<li class="cat-item cat-item-3"><a href="http://www.sunjianhe.com/?cat=3" title="邮件系统相关的技术">邮局系统</a> (18)
+</li>
+	<li class="cat-item cat-item-8"><a href="http://www.sunjianhe.com/?cat=8" title="随便写写">静心驿站</a> (35)
+</li>
+            </ul>
+        </div>
+        <div class="block">
+        	<h3>
+			最新文章    		</h3>
+        	<ul>
+            	<li><a href="http://www.sunjianhe.com/?p=959">perl程序控制rsync多线程</a></li><li><a href="http://www.sunjianhe.com/?p=954">25号福马食品出差</a></li><li><a href="http://www.sunjianhe.com/?p=949">20-23号网络通信安全管理员培训</a></li><li><a href="http://www.sunjianhe.com/?p=945">Starting MySQL.Manager of pid-file quit without updating fi[FAILED]</a></li><li><a href="http://www.sunjianhe.com/?p=943">备案号下来了</a></li><li><a href="http://www.sunjianhe.com/?p=937">Warning: Cannot modify header information &#8211; headers already sent by</a></li><li><a href="http://www.sunjianhe.com/?p=964">学习cacti</a></li><li><a href="http://www.sunjianhe.com/?p=933">邮件系统.UID重复问题</a></li><li><a href="http://www.sunjianhe.com/?p=961">linux常用的命令(转)</a></li><li><a href="http://www.sunjianhe.com/?p=931">2011年的blog目标</a></li>            </ul>
+        </div>
+        <div class="block"><h3>最受欢迎文章</h3>
+        	<ul>
+            	 
+                <li><span>2010-08-22 18:01:11</span><a href="http://www.sunjianhe.com/?p=125" title="说说一句话木马">说说一句话木马</a></li> 
+				 
+                <li><span>2010-09-19 20:00:26</span><a href="http://www.sunjianhe.com/?p=508" title="centos 内核升级(2.6.18-194.el5升2.6.30)">centos 内核升级(2.6.18-194.el5升2.6.30)</a></li> 
+				 
+                <li><span>2010-10-18 12:32:37</span><a href="http://www.sunjianhe.com/?p=732" title="Linux流量监控-iftop介绍">Linux流量监控-iftop介绍</a></li> 
+				 
+                <li><span>2010-07-01 13:52:41</span><a href="http://www.sunjianhe.com/?p=16" title="2010上半年网络工程师-过了">2010上半年网络工程师-过了</a></li> 
+				 
+                <li><span>2010-08-21 14:24:44</span><a href="http://www.sunjianhe.com/?p=37" title="用最简单的方法架设本地的SMTP服务器">用最简单的方法架设本地的SMTP服务器</a></li> 
+				 
+                <li><span>2010-08-27 20:14:28</span><a href="http://www.sunjianhe.com/?p=203" title="谈谈做网站的那些事及给站长的一些建议">谈谈做网站的那些事及给站长的一些建议</a></li> 
+				 
+                <li><span>2010-09-20 20:29:23</span><a href="http://www.sunjianhe.com/?p=525" title="perl从零开始学习.第七课时 文件操作(1)">perl从零开始学习.第七课时 文件操作(1)</a></li> 
+				 
+                <li><span>2010-10-07 13:35:16</span><a href="http://www.sunjianhe.com/?p=644" title="perl从零开始学习.第八课时 正则表达式(1)">perl从零开始学习.第八课时 正则表达式(1)</a></li> 
+				 
+                <li><span>2010-10-17 13:40:27</span><a href="http://www.sunjianhe.com/?p=724" title="邮件系统维护小结">邮件系统维护小结</a></li> 
+				 
+                <li><span>2010-10-09 18:31:08</span><a href="http://www.sunjianhe.com/?p=668" title="perl从零开始学习.第八课时 正则表达式(2)">perl从零开始学习.第八课时 正则表达式(2)</a></li> 
+				            </ul>
+        </div>
+        <div class="block comment"><h3>最新评论</h3>
+        	<ul>
+            	
+<li class="new">站长工具  评论道：<br /> <a href="http://www.sunjianhe.com/?p=959#comment-90" title="站长工具:perl程序控制rsync多线程">博主，兔年快乐！</a></li>
+<li class="new">站长工具  评论道：<br /> <a href="http://www.sunjianhe.com/?p=954#comment-89" title="站长工具:25号福马食品出差">昨天在功能升级过程中发现搜狗的网站评级系统升级了，</a></li>
+<li class="new">站长工具  评论道：<br /> <a href="http://www.sunjianhe.com/?p=954#comment-88" title="站长工具:25号福马食品出差">博主文章好给力，站长精灵的百度挖词功能又增强了，可</a></li>
+<li class="new">孙剑和  评论道：<br /> <a href="http://www.sunjianhe.com/?p=949#comment-87" title="孙剑和:20-23号网络通信安全管理员培训">呵呵，还好了。。。</a></li>
+<li class="new">电脑知识与技术博客  评论道：<br /> <a href="http://www.sunjianhe.com/?p=949#comment-86" title="电脑知识与技术博客:20-23号网络通信安全管理员培训">多好啊，还培训呢</a></li>
+<li class="new">孙剑和  评论道：<br /> <a href="http://www.sunjianhe.com/?p=945#comment-85" title="孙剑和:Starting MySQL.Manager of pid-file quit without updating fi[FAILED]">呵呵。。。可以的</a></li>
+<li class="new">站长工具  评论道：<br /> <a href="http://www.sunjianhe.com/?p=945#comment-84" title="站长工具:Starting MySQL.Manager of pid-file quit without updating fi[FAILED]">博主的文章很不错，我是站长工具-站长精灵的作者，一</a></li>
+<li class="new">重庆时时彩  评论道：<br /> <a href="http://www.sunjianhe.com/?p=911#comment-72" title="重庆时时彩:named ipv6问题解决">看不太懂啊，求解！</a></li>
+<li class="new">七七  评论道：<br /> <a href="http://www.sunjianhe.com/?p=37#comment-69" title="七七:用最简单的方法架设本地的SMTP服务器">发我一份吧：kf@10nn.cn</a></li>
+<li class="new">ufphvkncu  评论道：<br /> <a href="http://www.sunjianhe.com/?p=18#comment-68" title="ufphvkncu:Postfix报错解决“delivery temporarily suspended: unknown mail transport error”">t6p9sF  </a></li>
+                
+            </ul>
+        </div>
+        <div class="block"><h3>博客存档</h3>
+        	<ul>
+            		<li><a href='http://www.sunjianhe.com/?m=201101' title='2011 年一月'>2011 年一月</a></li>
+	<li><a href='http://www.sunjianhe.com/?m=201012' title='2010 年十二月'>2010 年十二月</a></li>
+	<li><a href='http://www.sunjianhe.com/?m=201011' title='2010 年十一月'>2010 年十一月</a></li>
+	<li><a href='http://www.sunjianhe.com/?m=201010' title='2010 年十月'>2010 年十月</a></li>
+	<li><a href='http://www.sunjianhe.com/?m=201009' title='2010 年九月'>2010 年九月</a></li>
+	<li><a href='http://www.sunjianhe.com/?m=201008' title='2010 年八月'>2010 年八月</a></li>
+	<li><a href='http://www.sunjianhe.com/?m=201007' title='2010 年七月'>2010 年七月</a></li>
+            </ul>
+        </div>
+        <!-- tag cloud -->
+                                <div class="block"><h3>Meta</h3>
+        	<ul>
+            	<li><a href="http://www.sunjianhe.com/wp-login.php?action=register">注册</a></li>				<li><a href="http://www.sunjianhe.com/wp-login.php">登录</a></li>
+            </ul>
+        </div>
+         	</div>
+       </div>
+<div class="clear"></div>
+<div id="footer">
+    <div class="foot">
+    	<a id="gotop" href="javascript:void(0);" onclick="MGJS.goTop();return false;">置顶</a>
+		<a id="powered" href="http://wordpress.org/">WordPress</a>
+    	<div class="copy"><p>版权所有 &copy;  2010 <a href="http://www.sunjianhe.com">孙剑和de博客 &#8211;  我的快乐生活</a>   <script src="http://s16.cnzz.com/stat.php?id=2389058&web_id=2389058" language="JavaScript"></script><br /> Valid <a href="http://validator.w3.org/check?uri=referer">XHTML 1.1</a> and <a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css3">CSS 3</a>  51querys in 4.851 seconds.</p></div>
+		<span class="copyright">Theme Designed by <a href="http://www.sunjianhe.com/">孙剑和</a></span>	</div>
+</div>
+</div>
+</body>
+</html>

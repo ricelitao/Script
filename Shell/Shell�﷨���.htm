@@ -1,0 +1,2404 @@
+<!--STATUS OK-->
+
+
+<html><head><meta http-equiv=content-type content="text/html; charset=gb2312">
+<title>Shell语法简介_濒湖小筑_百度空间      </title>
+
+<style type="text/css">
+    .error{color:#FF0000;font-size:12px}
+    .shareUser,.shareLastEditor{line-height:20px;color:#666666;text-align:left}
+    .shareLastEditor{margin:5px 0 8px;}
+</style>
+
+<script type="text/javascript">
+    var g_pageTimerStart=new Date().getTime();
+</script>
+
+<script type="text/javascript" src="/ui/scripts/global.js"></script>
+<script type="text/javascript" src="/static/common/scripts/libs.js"></script>
+<script type="text/javascript" src="http://img.baidu.com/js/tangram-1.1.0.js"></script>
+
+
+<script type="text/javascript">
+var Session = {
+    isLogin: ! true,
+    isHost: "",
+    userName: "屏风竹影",   
+    userPortrait:'bcc7c6c1b7e7d6f1d3b0cb00',
+    spaceURL: "/davey%5Fdeng",
+    spBasicURL:"davey_deng",
+    spBasicURLEnc:"davey%5Fdeng",
+    visitorName:    "",
+    visitorPortrait:'00000000',
+    isActive: '',   
+    visitorURL: "/index.html",        // 
+    pageURL: "http://hi.baidu.com/davey%5Fdeng/blog/item/65b1c544553eb13886947315%2Ehtml",    
+    refer: "http://hi.baidu.com/davey_deng/blog/item/65b1c544553eb13886947315.html",
+    spToken: '6a8c2dfe8e9f393bdbbc3a6d7265bada', 
+    spFriendDomain: 'http://frd.baidu.com',
+    spSpaceDomain: 'http://hi.baidu.com',
+    spPortraitDomain: '',
+    spSpaceStaticDomain: 'http://hi.baidu.com' 
+
+    ,isDrag:  false  
+    ,isProfile:  false   
+    };
+</script>
+
+</head>
+
+<body>
+
+<center>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+if(top.location != self.location){
+	top.location = self.location;
+}
+var myref = encodeURIComponent("http://hi.baidu.com/davey%5Fdeng/blog/item/65b1c544553eb13886947315%2Ehtml");
+/*]]>*/
+</script>
+<link rel="stylesheet" type="text/css" href="/ui/css/mods.css" />
+
+<link rel="stylesheet" type="text/css" href="http://hitn.bdimg.com/davey%5Fdeng/css/item/e2465dd038e117d3572c8489.css" />
+
+<link rel="stylesheet" type="text/css" href="/space.css" />
+
+<div class="userbar">
+    <div id="nav">
+        <a class="logo" href="http://hi.baidu.com/index.htm"><img src="http://img.baidu.com/hi/img/ihome/logo.gif" border="0" alt="图片" /></a>
+
+        <div class="manage">
+            <form action="https://passport.baidu.com/?login" method="post">
+                用户名:<input type="text" name="username" />&nbsp;&nbsp; 
+                密码:<input type="password" name="password" /> 
+                <input type="hidden" name="mem_pass" value="on" />
+                <input type="submit" value="" style="width:0; height:0;" />
+                <a href="#" class="loginlink" onclick="this.parentNode.submit(); return false;">登录</a>  
+            </form> 
+            <a href="/reg/new" class="reglink">注册</a>
+        </div>
+
+    </div>
+</div>
+
+
+
+		
+
+
+
+<div id="main" align="left">
+
+<!--[if IE]>
+<script>
+var objmain = document.getElementById("main");
+function updatesize(){ var bodyw = window.document.body.offsetWidth; if(bodyw <= 790) objmain.style.width="772px"; else if(bodyw >= 1016) objmain.style.width="996px"; else objmain.style.width="100%"; }
+updatesize(); window.onresize = updatesize;
+</script>
+<![endif]-->
+
+	<div id="header">
+
+	<div class="lc"><div class="rc"></div></div>
+<div class="tit"><a href="/davey%5Fdeng/home" class="titlink" title="屏风竹影的空间 http://hi.baidu.com/davey_deng">濒湖小筑</a></div>
+<div class="desc">我不是英雄，但我和一班英雄一起战斗</div>
+<div id="tabline">&nbsp;</div>
+
+	<div id="tab"><a href="/davey%5Fdeng/home">主页</a><a href="/davey%5Fdeng/blog" class="on">博客</a><a href="/davey%5Fdeng/album">相册</a><span>|</span><a href="/davey%5Fdeng/profile">个人档案</a>
+
+	<span>|</span><a href="/davey%5Fdeng/friends">好友</a>
+
+
+
+
+
+	</div>
+
+</div>
+
+
+
+<div class="stage">
+
+<div class="stagepad">
+
+<div style="width:100%">
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="modth">
+
+	<tr><td class="modtl" width="7">&nbsp;</td>
+
+	<td class="modtc" nowrap><div class="modhead"><span class="modtit">查看文章</span></div></td>
+
+	<td class="modtc" nowrap align="right"></td>
+
+	<td class="modtr" width="7">&nbsp;</td>
+
+	</tr></table>
+
+
+
+<div id="m_blog" class="modbox" style="overflow-x:hidden;">
+
+<div class="tit">
+
+Shell语法简介</div>
+
+<div class="date">2008-12-15  19:46</div>
+
+
+
+
+<table style="table-layout:fixed;width:100%"><tr><td><div id="blog_text" class="cnt" ><p>一、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  用户登陆进入系统后的系统环境变量<br>
+$HOME 使用者自己的目录 <br>
+$PATH 执行命令时所搜寻的目录 <br>
+$TZ 时区 <br>
+$MAILCHECK 每隔多少秒检查是否有新的信件 <br>
+$PS1 在命令列时的提示号 <br>
+$PS2 当命令尚未打完时，Shell 要求再输入时的提示号 <br>
+$MANPATH man 指令的搜寻路径 <br>
+二、特殊变量<br>
+$0 这个程序的执行名字 <br>
+$n 这个程序的第n个参数值，n=1..9 <br>
+$* 这个程序的所有参数 <br>
+$# 这个程序的参数个数 <br>
+IXDBA.NET技术社区<br>
+$$ 这个程序的PID <br>
+$! 执行上一个指令的PID <br>
+$? 执行上一个指令的返回值 <br>
+三、shell中的变元<br>
+* 任意字符串 <br>
+? 一个任意字符 <br>
+[abc] a, b, c三者中之一 <br>
+[a-n] 从a到n的任一字符 <br>
+四、几个特殊字符表示 <br>
+\b 退回 <br>
+\c 打印一行时没有换行符 这个我们经常会用到 <br>
+\f 换页 <br>
+\r 回车 <br>
+\t 制表 <br>
+\v 垂直制表 <br>
+\\ 反斜线本身 <br>
+五、判断文件的属性<br>
+格式：-操作符 filename <br>
+-e 文件存在返回1， 否则返回0 <br>
+-r 文件可读返回1,否则返回0 <br>
+-w 文件可写返回1,否则返回0 <br>
+-x 文件可执行返回1,否则返回0 <br>
+-o 文件属于用户本人返回1, 否则返回0 <br>
+-z 文件长度为0返回1, 否则返回0. <br>
+-f 文件为普通文件返回1, 否则返回0 <br>
+-d 文件为目录文件时返回1, 否则返回0 <br>
+六、测试字符串<br>
+字符串1 = 字符串2　当两个字串相等时为真 <br>
+字符串1 != 字符串2 当两个字串不等时为真 <br>
+-n 字符串　 　 当字符串的长度大于0时为真 <br>
+-z 字符串　 当字符串的长度为0时为真 <br>
+字符串 当串字符串为非空时为真 <br>
+七、测试两个整数关系 <br>
+数字1 -eq 数字2 两数相等为真 <br>
+数字1 -ne 数字2 两数不等为真 <br>
+数字1 -gt 数字2 数字1大于数字2为真 <br>
+数字1 -ge 数字2 　 数字1大于等于数字2为真 <br>
+数字1 -lt 数字2 数字1小于数字2为真 <br>
+数字1 -le 数字2 数字1小于等于数字2为真 <br>
+八、逻辑测试<br>
+-a 　 　 与 <br>
+-o　 或 <br>
+!非<br>
+shell中的特殊字符有 <br>
+1、$ 美元符 <br>
+2、\ 反斜杠 <br>
+3、` 反引号 <br>
+4、&quot;　双引号 <br>
+5、&lt; ,&gt;,*,?,[,] <br>
+下面我一一举列说明 <br>
+一、$符号 <br>
+1、echo $? 显示的是上一条指令退出状态 <br>
+2、echo &quot;$?&quot; 效果同上 <br>
+3、echo '$?' 显示的是$? <br>
+4、echo \$? 显示的是$? <br>
+5、echo &quot;\$?&quot; 显示的是$? <br>
+大家可能已经看出　$符号在双引号中具有特殊意义　双引号对$符号不起作用而单引号可以将特殊字符的的特殊意义屏蔽掉，使其能显示为字符本身，反斜杠也可以将特殊字符的特殊含义屏蔽掉，使特殊字符失去特殊含义。 <br>
+二、\　反斜杠 <br>
+反斜杠的作用是将特殊符号字符的特殊含义屏蔽掉，使其还是原字符 <br>
+A＝1234 <br>
+echo \$A 显示为$A 如果不加\将显示为1234 <br>
+echo \` 显示为` <br>
+echo \&quot; 显示为双引号 <br>
+echo \\ 显示为\ <br>
+三、` 反引号 <br>
+反引号的功能是命令替换，将反引号中的字符串做为命令来执行，我们在用shell编程时经常用的到　将系统命令的执行结果赋给一个变量 <br>
+A=`date` <br>
+echo $A 显示的不是date而是当时的时间串 <br>
+比如有一文件A的内容如下　 <br>
+ABCDEFG <br>
+1234456 <br>
+abcdefg <br>
+B=`cat A|grep 234`  # 检索文件A中含有字符串234的行 <br>
+echo $B 将显示为1234456 <br>
+echo &quot;$B&quot; 将显示为什么？ <br>
+echo &quot;\$B&quot; 将显示为什么？读者自己试试 <br>
+四、&quot; 双引号<br>
+在系统中有些特殊字符，为避免引用这些特殊字符　往往用双引号或单引号将这些特殊字符引起来，使其不具有特殊含义。 <br>
+但有一部分特殊字符在引号中还是具有特殊含义，用双引号引起来是不起作用的。本文中所列的前四个特殊字符在双引号中还是特殊字符。为了使其不具有特殊含义一是用单引号引进来二是用\反斜线使其失去作用。 <br>
+比如我们想原样输出这些特殊字符 <br>
+echo &quot;&quot;&quot; <br>
+echo &quot;$&quot; <br>
+echo &quot;\&quot; <br>
+echo &quot;`&quot; <br>
+以上不是你所期望的结果，因为双引号对它们不起作用，你只能这样才能输出这些特殊字符的原形 <br>
+echo '&quot;' <br>
+echo '$' <br>
+echo '\' <br>
+echo '`' <br>
+或 <br>
+echo &quot;\&quot;&quot; <br>
+echo &quot;\$&quot; <br>
+echo &quot;\\&quot; <br>
+echo &quot;\`&quot; <br>
+将分别显示为　&quot; $ \ ` <br>
+五、其它特殊字符<br>
+大家注意到，除了前四个特殊字符外，我将其它的特殊字符都放在一块，这是因为前四个特殊字符在双引号中还是具有特殊含义，所以单独拿出来讲，除此以外的特殊字符如果你要输出这些特殊字符的原形，你就可以用双引号或单引号引起来使其失去特殊含义。 <br>
+&lt; ,&gt;,*,?,[,]对shell有特殊含义　但你可以用双引号引起来输入这些原形<br>
+一、if 条件语句　<br>
+格式： <br>
+if 条件表达式 <br>
+then #当条件为真时执行以下语句 <br>
+命令列表 <br>
+else #为假时执行以下语句 <br>
+命令列表 <br>
+fi <br>
+if　语句也可以嵌套使用 <br>
+if 条件表达式1 <br>
+then <br>
+if 条件表达式2 <br>
+then <br>
+命令列表 <br>
+else <br>
+if 条件表达式3 <br>
+then <br>
+命令列表 <br>
+else <br>
+命令列表 <br>
+fi <br>
+fi <br>
+else <br>
+命令列表 <br>
+fi <br>
+你可以进行多层嵌套　一个if语句一定要跟一个fi　表示该层条件结束否则会造成语法错误结合前面讲的　举例如下： <br>
+这里先讲一个条件语句中用到的命令test　表示测试test后面的条件是否为真 <br>
+if test -f &quot;$1&quot; <br>
+then <br>
+lpr $1 <br>
+else <br>
+if test -d &quot;$1&quot; <br>
+then <br>
+cd $1 <br>
+lpr $1 <br>
+else <br>
+echo &quot;$1不是文件或目录&quot; <br>
+fi <br>
+fi <br>
+以上的例子还可以改成如下所示 <br>
+if test -f &quot;$1&quot; <br>
+then <br>
+lpr $1 <br>
+elif test -d &quot;$1&quot; #elif　同else if <br>
+then <br>
+(cd $1;lpr $1) <br>
+else <br>
+echo &quot;$1不是文件或目录&quot; <br>
+fi       <br>
+以上的例子不知您是否看懂是什么意思吗？ <br>
+假如我们现在将这个例子保存为prfile <br>
+chmod +x prfile <br>
+执行刚才的程序 <br>
+./prfile aaa <br>
+这个例子是检查你的输入的参数是否是一个文件　如果是就打印　如果是一个目录　先转目录再打印　如果即不是文件也不是目录给出提示 <br>
+二、多重条件测试语句case <br>
+格式： <br>
+case 字串　in <br>
+模式) 命令列表;; <br>
+模式) 命令列表;; <br>
+.... <br>
+esac <br>
+多重条件语句是以case 开始以esac结束　中间可以有多个条件列表　功能是测试字串和和里面的模式有没有匹配的,有就执行里面的命令列表　模式也可以是*号　表示任意字串，每个模式里面的最后要心;;双引号结束，否则会发生语法错误。 <br>
+现举例如下： <br>
+case $1 in <br>
+*.c) <br>
+cc $1 <br>
+;; <br>
+*.txt) <br>
+lpr $1 <br>
+;; <br>
+*) <br>
+echo &quot;未知的类型&quot; <br>
+esac <br>
+假如将以上内容保存在文件abc中 <br>
+chmod +x abc <br>
+执行　./abc a.c 　 将会对文件a.c进行编译 <br>
+执行 ./abc readme.txt　将会把文件通过打印机 <br>
+假如我将以上内容改一下，你是否会知道它的执行结果？ <br>
+case $1 in <br>
+*) <br>
+cc $1 <br>
+;; <br>
+*.txt) <br>
+lpr $1 <br>
+;; <br>
+*.c) <br>
+echo &quot;未知的类型&quot; <br>
+esac</p>
+<p>. while 循环 <br>
+while 命令格式 <br>
+while 条件表 <br>
+do <br>
+命令表 <br>
+done <br>
+执行过程 <br>
+Shell首先执行条件表,如果条件表的最后一条语句的退出状态为零,则执行盾环体内的命令表,执行完后,再检查条件表,如果退出状态为零将继续执行,如此循环往复直到条件表的最后一条语句的退出状态非零. 退出状态为零就是条件为真True. <br>
+举例说明 假如shell文件的内容如下: <br>
+Sum=0 <br>
+i=0 <br>
+while true #true是系统的关键词 表示真</p>
+<p>o <br>
+i=`expr $i + 1` <br>
+Sum=`expr $Sum + $i` <br>
+if [ $i = &quot;100&quot; ] <br>
+then <br>
+break; <br>
+fi <br>
+done <br>
+echo $i $Sum <br>
+最后这个程序显示的是 100 5050 <br>
+这个程序的运算就是将1到100加起来 <br>
+下面将这个程序再改动一下 <br>
+Sum=0 <br>
+i=0 <br>
+while [ $i != &quot;100&quot; ] <br>
+do <br>
+i=`expr $i + 1` <br>
+Sum=`expr $Sum + $i` <br>
+done <br>
+echo $i $Sum <br>
+改动后的程序运算结果和上面是一样 但程序比上面的要简练 <br>
+在这个循环中还可以以until做为测试条件 它正好与while测试的条件相反,也就是当条件为假时将继续执行循环体内的语句,否则就退出循环体,下面还用这个例子. <br>
+Sum=0 <br>
+i=0 <br>
+until [ $i = &quot;100&quot; ] <br>
+do <br>
+i=`expr $i + 1` <br>
+Sum=`expr $Sum + $i` <br>
+done <br>
+echo $i $Sum <br>
+当i不等于100时循环 就是当条件为假时循环,否则就退出,而第一个例子是当i不等于100 <br>
+时循环,也就是测试条件为真时循环. <br>
+二.for 循环 <br>
+命令格式: <br>
+for 变量 in 名字列表 <br>
+do <br>
+命令列表 <br>
+done <br>
+这里的名字列表是一个由空格分隔的字符串列表,shell在执行for循环时每次依次从名字表中取出一个字符串赋给循环变量作为变量的值. <br>
+在写for语句时,也可以省略in 名字列表部分,这表示用当前的位置参数来代替这时的名字列表. <br>
+面举个例子，比如在你的电脑中有两个目录,一个是aa,一个是bb在这两个目录中有5个相同的文件,但其中一个目录中的一个或多个文件刚刚修改过,现在我忘记刚才改的是那几个文件 了,那么我靠已知的序码查找。<br>
+程序如下: <br>
+for File in a1 a2 a3 a4 a5 <br>
+do <br>
+diff aa/$File bb/$File <br>
+done <br>
+下面再举一个不带名字列表的例子 <br>
+for File <br>
+do <br>
+echo $Filw <br>
+done <br>
+文件内容保存在a.sh中 并可执行 <br>
+我们在执行这个shell程序时命令行如下: <br>
+a.sh a1 a2 a3 a4 a5 <br>
+执行结果如下: <br>
+a1 <br>
+a2 <br>
+a3 <br>
+a4 <br>
+a5 <br>
+大家从这个例子中可以看到命令行的参数被逐一读入一次 <br>
+三.循环控制语句<br>
+break 命令不执行当前循环体内break下面的语句从当前循环退出. <br>
+continue 命令是程序在本循体内忽略下面的语句,从循环头开始执行.<br>
+shell 编程的最好理解<br>
+为什么要进行shell编程<br>
+　　在Linux系统中，虽然有各种各样的图形化接口工具，但是shell仍然是一个非常灵活的工具。Shell不仅仅是命令的收集，而且是一门非常棒的编程语言。您可以通过使用shell使大量的任务自动化，shell特别擅长系统管理任务，尤其适合那些易用性、可维护性和便携性比效率更重要的任务。<br>
+　　下面，让我们一起来看看shell是如何工作的：<br>
+建立一个脚本<br>
+　　Linux中有好多中不同的shell，但是通常我们使用bash (bourne again shell) 进行shell编程，因为bash是免费的并且很容易使用。所以在本文中笔者所提供的脚本都是使用bash（但是在大多数情况下，这些脚本同样可以在bash的大姐，bourne shell中运行）。<br>
+　　如同其他语言一样，通过我们使用任意一种文字编辑器，比如nedit、kedit、emacs、vi<br>
+　　等来编写我们的shell程序。<br>
+　　程序必须以下面的行开始（必须方在文件的第一行）：<br>
+#!/bin/sh<br>
+  　符号#!用来告诉系统它后面的参数是用来执行该文件的程序。在这个例子中我们使用/bin/sh来执行程序。<br>
+　　当编辑好脚本时，如果要执行该脚本，还必须使其可执行。<br>
+　　要使脚本可执行：<br>
+chmod +x filename <br>
+  　然后，您可以通过输入： ./filename 来执行您的脚本。<br>
+注释<br>
+　　在进行shell编程时，以#开头的句子表示注释，直到这一行的结束。我们真诚地建议您在程序中使用注释。如果您使用了注释，那么即使相当长的时间内没有使用该脚本，您也能在很短的时间内明白该脚本的作用及工作原理。<br>
+变量<br>
+　　在其他编程语言中您必须使用变量。在shell编程中，所有的变量都由字符串组成，并且您不需要对变量进行声明。要赋值给一个变量，您可以这样写： <br>
+变量名=值<br>
+　　取出变量值可以加一个美元符号（$）在变量前面： <br>
+#!/bin/sh<br>
+#对变量赋值：<br>
+a=&quot;hello world&quot;<br>
+# 现在打印变量a的内容：<br>
+echo &quot;A is:&quot;<br>
+echo $a<br>
+　　在您的编辑器中输入以上内容，然后将其保存为一个文件first。之后执行chmod +x first <br>
+　　使其可执行，最后输入./first执行该脚本。<br>
+　　这个脚本将会输出：<br>
+A is:<br>
+hello world</p>
+<p>　　有时候变量名很容易与其他文字混淆，比如：<br>
+num=2<br>
+echo &quot;this is the $numnd&quot;<br>
+　　这并不会打印出&quot;this is the 2nd&quot;，而仅仅打印&quot;this is the &quot;，因为shell会去搜索变量numnd的值，但是这个变量时没有值的。可以使用花括号来告诉shell我们要打印的是num变量： <br>
+num=2<br>
+echo &quot;this is the ${num}nd&quot;<br>
+　　这将打印： this is the 2nd <br>
+　　有许多变量是系统自动设定的，这将在后面使用这些变量时进行讨论。<br>
+　　如果您需要处理数学表达式，那么您需要使用诸如expr等程序（见下面）。<br>
+　　除了一般的仅在程序内有效的shell变量以外，还有环境变量。由export关键字处理过的变量叫做环境变量。我们不对环境变量进行讨论，因为通常情况下仅仅在登录脚本中使用环境变量。 <br>
+Shell命令和流程控制<br>
+　　在shell脚本中可以使用三类命令：<br>
+1)Unix 命令:<br>
+　　虽然在shell脚本中可以使用任意的unix命令，但是还是由一些相对更常用的命令。这些命令通常是用来进行文件和文字操作的。<br>
+常用命令语法及功能<br>
+　　echo &quot;some text&quot;: 将文字内容打印在屏幕上<br>
+　　ls: 文件列表<br>
+　　wc -l filewc -w filewc -c file: 计算文件行数计算文件中的单词数计算文件中的字符数<br>
+　　cp sourcefile destfile: 文件拷贝<br>
+　　mv oldname newname : 重命名文件或移动文件<br>
+　　rm file: 删除文件<br>
+　　grep 'pattern' file: 在文件内搜索字符串比如：grep 'searchstring' file.txt<br>
+　　cut -b colnum file: 指定欲显示的文件内容范围，并将它们输出到标准输出设备比如：输出每行第5个到第9个字符cut -b5-9 file.txt千万不要和cat命令混淆，这是两个完全不同的命令<br>
+　　cat file.txt: 输出文件内容到标准输出设备（屏幕）上<br>
+　　file somefile: 得到文件类型<br>
+　　read var: 提示用户输入，并将输入赋值给变量<br>
+　　sort file.txt: 对file.txt文件中的行进行排序<br>
+　　uniq: 删除文本文件中出现的行列比如： sort file.txt | uniq<br>
+　　expr: 进行数学运算Example: add 2 and 3expr 2 &quot;+&quot; 3<br>
+　　find: 搜索文件比如：根据文件名搜索find . -name filename -print<br>
+　　tee: 将数据输出到标准输出设备(屏幕) 和文件比如：somecommand | tee outfile<br>
+　　basename file: 返回不包含路径的文件名比如： basename /bin/tux将返回 tux<br>
+　　dirname file: 返回文件所在路径比如：dirname /bin/tux将返回 /bin<br>
+　　head file: 打印文本文件开头几行<br>
+　　tail file : 打印文本文件末尾几行<br>
+　　sed: Sed是一个基本的查找替换程序。可以从标准输入（比如命令管道）读入文本，并将结果输出到标准输出（屏幕）。该命令采用正则表达式（见参考）进行搜索。不要和shell中的通配符相混淆。比如：将linuxfocus 替换为 LinuxFocus ：cat text.file | sed 's/linuxfocus/LinuxFocus/' &gt; newtext.file<br>
+　　awk: awk 用来从文本文件中提取字段。缺省地，字段分割符是空格，可以使用-F指定其他分割符。cat file.txt | awk -F, '{print $1 &quot;,&quot; $3 }'这里我们使用，作为字段分割符，同时打印第一个和第三个字段。如果该文件内容如下： Adam Bor, 34, IndiaKerry Miller, 22, USA命令输出结果为：Adam Bor, IndiaKerry Miller, USA<br>
+2) 概念: 管道, 重定向和 backtick<br>
+　　这些不是系统命令，但是他们真的很重要。<br>
+　　管道 (|) 将一个命令的输出作为另外一个命令的输入。<br>
+grep &quot;hello&quot; file.txt | wc -l<br>
+  　在file.txt中搜索包含有&rdquo;hello&rdquo;的行并计算其行数。<br>
+　　在这里grep命令的输出作为wc命令的输入。当然您可以使用多个命令。<br>
+　　重定向：将命令的结果输出到文件，而不是标准输出（屏幕）。<br>
+　　&gt; 写入文件并覆盖旧文件<br>
+　　&gt;&gt; 加到文件的尾部，保留旧文件内容。<br>
+反短斜线<br>
+　　使用反短斜线可以将一个命令的输出作为另外一个命令的一个命令行参数。<br>
+　　命令： <br>
+find . -mtime -1 -type f -print<br>
+　　用来查找过去24小时（-mtime -2则表示过去48小时）内修改过的文件。如果您想将所有查找到的文件打一个包，则可以使用以下脚本： <br>
+#!/bin/sh<br>
+# The ticks are backticks (`) not normal quotes ('):<br>
+tar -zcvf lastmod.tar.gz `find . -mtime -1 -type f -print`<br>
+　　3) 流程控制<br>
+　　&quot;if&quot; 表达式 如果条件为真则执行then后面的部分： <br>
+if ....; then<br>
+&nbsp;&nbsp;  ....<br>
+elif ....; then<br>
+　 ....<br>
+else<br>
+　 ....<br>
+fi<br>
+　　大多数情况下，可以使用测试命令来对条件进行测试。比如可以比较字符串、判断文件是否存在及是否可读等等…<br>
+　　通常用&quot; [ ] &quot;来表示条件测试。注意这里的空格很重要。要确保方括号的空格。 <br>
+[ -f &quot;somefile&quot; ] ：判断是否是一个文件<br>
+[ -x &quot;/bin/ls&quot; ] ：判断/bin/ls是否存在并有可执行权限<br>
+[ -n &quot;$var&quot; ] ：判断$var变量是否有值<br>
+[ &quot;$a&quot; = &quot;$b&quot; ] ：判断$a和$b是否相等<br>
+　　执行man test可以查看所有测试表达式可以比较和判断的类型。<br>
+　　直接执行以下脚本： <br>
+#!/bin/sh<br>
+if [ &quot;$SHELL&quot; = &quot;/bin/bash&quot; ]; then<br>
+　echo &quot;your login shell is the bash (bourne again shell)&quot;<br>
+else<br>
+　echo &quot;your login shell is not bash but $SHELL&quot;<br>
+fi<br>
+　　变量$SHELL包含了登录shell的名称，我们和/bin/bash进行了比较。<br>
+　　摘要：续Shell 编程(1)(2002-09-16 13:27:37)<br>
+快捷操作符<br>
+　　熟悉C语言的朋友可能会很喜欢下面的表达式：<br>
+[ -f &quot;/etc/shadow&quot; ] &amp;&amp; echo &quot;This computer uses shadow passwors&quot;<br>
+　　这里 &amp;&amp; 就是一个快捷操作符，如果左边的表达式为真则执行右边的语句。您也可以认为是逻辑运算中的与操作。上例中表示如果/etc/shadow文件存在则打印&rdquo; This computer uses shadow passwors&rdquo;。同样或操作(||)在shell编程中也是可用的。这里有个例子： <br>
+#!/bin/sh<br>
+mailfolder=/var/spool/mail/james<br>
+[ -r &quot;$mailfolder&quot; ]' '{ echo &quot;Can not read $mailfolder&quot; ; exit 1; }<br>
+echo &quot;$mailfolder has mail from:&quot;<br>
+grep &quot;^From &quot; $mailfolder<br>
+　　该脚本首先判断mailfolder是否可读。如果可读则打印该文件中的&quot;From&quot; 一行。如果不可读则或操作生效，打印错误信息后脚本退出。这里有个问题，那就是我们必须有两个命令： <br>
+　　-打印错误信息<br>
+　　-退出程序 <br>
+　　我们使用花括号以匿名函数的形式将两个命令放到一起作为一个命令使用。一般函数将在下文提及。<br>
+　　不用与和或操作符，我们也可以用if表达式作任何事情，但是使用与或操作符会更便利很多。<br>
+　　case表达式可以用来匹配一个给定的字符串，而不是数字。 <br>
+case ... in<br>
+...) do something here ;;<br>
+esac<br>
+　　让我们看一个例子。 file命令可以辨别出一个给定文件的文件类型，比如： <br>
+file lf.gz<br>
+　　这将返回：<br>
+lf.gz: gzip compressed data, deflated, original filename,<br>
+last modified: Mon Aug 27 23:09:18 2001, os: Unix<br>
+　　我们利用这一点写了一个叫做smartzip的脚本，该脚本可以自动解压bzip2, gzip 和zip 类型的压缩文件： <br>
+<a href="http://www.ixdba.net/">www.ixdba.net</a><br>
+#!/bin/sh<br>
+ftype=`file &quot;$1&quot;`<br>
+case &quot;$ftype&quot; in<br>
+&quot;$1: Zip archive&quot;*)<br>
+　　unzip &quot;$1&quot; ;;<br>
+&quot;$1: gzip compressed&quot;*)<br>
+　　gunzip &quot;$1&quot; ;;<br>
+&quot;$1: bzip2 compressed&quot;*)<br>
+　　bunzip2 &quot;$1&quot; ;;<br>
+*) error &quot;File $1 can not be uncompressed with smartzip&quot;;;<br>
+esac<br>
+　　您可能注意到我们在这里使用了一个特殊的变量$1。该变量包含了传递给该程序的第一个参数值。也就是说，当我们运行：<br>
+smartzip articles.zip <br>
+$1 就是字符串 articles.zip <br>
+　　select 表达式是一种bash的扩展应用，尤其擅长于交互式使用。用户可以从一组不同的值中进行选择。 <br>
+select var in ... ; do<br>
+　break<br>
+done<br>
+.... now $var can be used ....<br>
+下面是一个例子：<br>
+#!/bin/sh<br>
+echo &quot;What is your favourite OS?&quot;<br>
+select var in &quot;Linux&quot; &quot;Gnu Hurd&quot; &quot;Free BSD&quot; &quot;Other&quot;; do<br>
+　　　　break<br>
+done<br>
+echo &quot;You have selected $var&quot;<br>
+　　下面是该脚本运行的结果： <br>
+What is your favourite OS?<br>
+1) Linux<br>
+2) Gnu Hurd<br>
+3) Free BSD<br>
+4) Other<br>
+#? 1<br>
+You have selected Linux<br>
+　　您也可以在shell中使用如下的loop表达式：<br>
+while ...; do<br>
+....<br>
+done<br>
+　　while-loop 将运行直到表达式测试为真。will run while the expression that we test for is true. 关键字&quot;break&quot; 用来跳出循环。而关键字&rdquo;continue&rdquo;用来不执行余下的部分而直接跳到下一个循环。</p>
+<p>　　for-loop表达式查看一个字符串列表 (字符串用空格分隔) 然后将其赋给一个变量： <br>
+for var in ....; do<br>
+　....<br>
+done<br>
+　　在下面的例子中，将分别打印ABC到屏幕上： <br>
+#!/bin/sh<br>
+for var in A B C ; do<br>
+　echo &quot;var is $var&quot;<br>
+done<br>
+　　下面是一个更为有用的脚本showrpm，其功能是打印一些RPM包的统计信息：<br>
+#!/bin/sh<br>
+# list a content summary of a number of RPM packages<br>
+# USAGE: showrpm rpmfile1 rpmfile2 ...<br>
+# EXAMPLE: showrpm /cdrom/RedHat/RPMS/*.rpm<br>
+for rpmpackage in $*; do<br>
+　if [ -r &quot;$rpmpackage&quot; ];then<br>
+　　echo &quot;=============== $rpmpackage ==============&quot;<br>
+　　rpm -qi -p $rpmpackage<br>
+　else<br>
+　　echo &quot;ERROR: cannot read file $rpmpackage&quot;<br>
+　fi<br>
+done<br>
+　　这里出现了第二个特殊的变量$*，该变量包含了所有输入的命令行参数值。如果您运行showrpm openssh.rpm w3m.rpm webgrep.rpm <br>
+　　此时 $* 包含了 3 个字符串，即openssh.rpm, w3m.rpm and webgrep.rpm. <br>
+引号<br>
+　　在向程序传递任何参数之前，程序会扩展通配符和变量。这里所谓扩展的意思是程序会把通配符（比如*）替换成合适的文件名，它变量替换成变量值。为了防止程序作这种替换，您可以使用引号：让我们来看一个例子，假设在当前目录下有一些文件，两个jpg文件， mail.jpg 和tux.jpg。<br>
+#!/bin/sh<br>
+echo *.jpg<br>
+　　这将打印出&quot;mail.jpg tux.jpg&quot;的结果。<br>
+　　引号 (单引号和双引号) 将防止这种通配符扩展： <br>
+#!/bin/sh<br>
+echo &quot;*.jpg&quot;<br>
+echo '*.jpg'<br>
+　　这将打印&quot;*.jpg&quot; 两次。 <br>
+　　单引号更严格一些。它可以防止任何变量扩展。双引号可以防止通配符扩展但允许变量扩展。 <br>
+#!/bin/sh<br>
+echo $SHELL<br>
+echo &quot;$SHELL&quot;<br>
+echo '$SHELL'<br>
+　　运行结果为： <br>
+/bin/bash<br>
+/bin/bash<br>
+$SHELL<br>
+　　最后，还有一种防止这种扩展的方法，那就是使用转义字符--反斜杆： <br>
+echo *.jpg<br>
+echo $SHELL<br>
+　　这将输出：<br>
+*.jpg<br>
+$SHELL<br>
+Here documents<br>
+　　当要将几行文字传递给一个命令时，here documents（译者注：目前还没有见到过对该词适合的翻译）一种不错的方法。对每个脚本写一段帮助性的文字是很有用的，此时如果我们四有那个here documents就不必用echo函数一行行输出。 一个 &quot;Here document&quot; 以 &lt;&lt; 开头，后面接上一个字符串，这个字符串还必须出现在here document的末尾。下面是一个例子，在该例子中，我们对多个文件进行重命名，并且使用here documents打印帮助： <br>
+#!/bin/sh<br>
+# we have less than 3 arguments. Print the help text:<br>
+if [ $# -lt 3 ] ; then<br>
+cat &lt; ren -- renames a number of files using sed regular expressions<br>
+USAGE: ren 'regexp' 'replacement' files...<br>
+EXAMPLE: rename all *.HTM files in *.html:<br>
+　ren 'HTM$' 'html' *.HTM<br>
+HELP<br>
+　exit 0<br>
+fi<br>
+OLD=&quot;$1&quot;<br>
+NEW=&quot;$2&quot;<br>
+# The shift command removes one argument from the list of<br>
+# command line arguments.<br>
+shift<br>
+shift<br>
+# $* contains now all the files:<br>
+for file in $*; do<br>
+　　if [ -f &quot;$file&quot; ] ; then<br>
+　　　newfile=`echo &quot;$file&quot; | sed &quot;s/${OLD}/${NEW}/g&quot;`<br>
+　　　if [ -f &quot;$newfile&quot; ]; then<br>
+　　　　echo &quot;ERROR: $newfile exists already&quot;<br>
+　　　else<br>
+　　　　echo &quot;renaming $file to $newfile ...&quot;<br>
+　　　　mv &quot;$file&quot; &quot;$newfile&quot;<br>
+　　　fi<br>
+　　fi<br>
+done<br>
+　　这是一个复杂一些的例子。让我们详细讨论一下。第一个if表达式判断输入命令行参数是否小于3个 (特殊变量$# 表示包含参数的个数) 。如果输入参数小于3个，则将帮助文字传递给cat命令，然后由cat命令将其打印在屏幕上。打印帮助文字后程序退出。 如果输入参数等于或大于3个，我们就将第一个参数赋值给变量OLD，第二个参数赋值给变量NEW。下一步，我们使用shift命令将第一个和第二个参数从参数列表中删除，这样原来的第三个参数就成为参数列表$*的第一个参数。然后我们开始循环，命令行参数列表被一个接一个地被赋值给变量$file。接着我们判断该文件是否存在，如果存在则通过sed命令搜索和替换来产生新的文件名。然后将反短斜线内命令结果赋值给newfile。这样我们就达到了我们的目的：得到了旧文件名和新文件名。然后使用mv命令进行重命名。<br>
+函数<br>
+　　如果您写了一些稍微复杂一些的程序，您就会发现在程序中可能在几个地方使用了相同的代码，并且您也会发现，如果我们使用了函数，会方便很多。一个函数是这个样子的： <br>
+functionname()<br>
+{<br>
+# inside the body $1 is the first argument given to the function<br>
+# $2 the second ...<br>
+body<br>
+}</p>
+<p>　　您需要在每个程序的开始对函数进行声明。<br>
+  　下面是一个叫做xtitlebar的脚本，使用这个脚本您可以改变终端窗口的名称。这里使用了一个叫做help的函数。正如您可以看到的那样，这个定义的函数被使用了两次。 <br>
+#!/bin/sh<br>
+# vim: set sw=4 ts=4 et:<br>
+help()<br>
+{<br>
+　　cat &lt; xtitlebar -- change the name of an xterm, gnome-terminal or kde konsole<br>
+USAGE: xtitlebar [-h] &quot;string_for_titelbar&quot;<br>
+OPTIONS: -h help text<br>
+EXAMPLE: xtitlebar &quot;cvs&quot;<br>
+HELP<br>
+　　exit 0<br>
+}</p>
+<p># in case of error or if -h is given we call the function help:<br>
+[ -z &quot;$1&quot; ] &amp;&amp; help<br>
+[ &quot;$1&quot; = &quot;-h&quot; ] &amp;&amp; help</p>
+<p># send the escape sequence to change the xterm titelbar:<br>
+echo -e &quot;33]0;$107&quot; <br>
+#</p>
+<p>　　在脚本中提供帮助是一种很好的编程习惯，这样方便其他用户（和您）使用和理解脚本。<br>
+命令行参数<br>
+　　我们已经见过$* 和 $1, $2 ... $9 等特殊变量，这些特殊变量包含了用户从命令行输入的参数。迄今为止，我们仅仅了解了一些简单的命令行语法（比如一些强制性的参数和查看帮助的-h选项）。但是在编写更复杂的程序时，您可能会发现您需要更多的自定义的选项。通常的惯例是在所有可选的参数之前加一个减号，后面再加上参数值 (比如文件名)。 <br>
+　　有好多方法可以实现对输入参数的分析，但是下面的使用case表达式的例子无遗是一个不错的方法。 <br>
+#!/bin/sh<br>
+help()<br>
+{<br>
+　cat &lt; This is a generic command line parser demo.<br>
+USAGE EXAMPLE: cmdparser -l hello -f -- -somefile1 somefile2<br>
+HELP<br>
+　exit 0<br>
+}</p>
+<p>while [ -n &quot;$1&quot; ]; do<br>
+case $1 in<br>
+　　-h) help;shift 1;; # function help is called<br>
+　　-f) opt_f=1;shift 1;; # variable opt_f is set<br>
+　　-l) opt_l=$2;shift 2;; # -l takes an argument -&gt; shift by 2<br>
+　　--) shift;break;; # end of options<br>
+　　-*) echo &quot;error: no such option $1. -h for help&quot;;exit 1;;<br>
+　　*) break;;<br>
+esac<br>
+done</p>
+<p>echo &quot;opt_f is $opt_f&quot;<br>
+echo &quot;opt_l is $opt_l&quot;<br>
+echo &quot;first arg is $1&quot;<br>
+echo &quot;2nd arg is $2&quot;</p>
+<p>　　您可以这样运行该脚本：<br>
+cmdparser -l hello -f -- -somefile1 somefile2<br>
+　　返回的结果是：<br>
+opt_f is 1<br>
+opt_l is hello<br>
+first arg is -somefile1<br>
+2nd arg is somefile2</p>
+<p>　　这个脚本是如何工作的呢？脚本首先在所有输入命令行参数中进行循环，将输入参数与case表达式进行比较，如果匹配则设置一个变量并且移除该参数。根据unix系统的惯例，首先输入的应该是包含减号的参数。</p></div></td></tr></table>
+
+<br>
+
+<div class="opt">
+
+<a href="/davey%5Fdeng/blog/category/unix%BC%BC%CA%F5%CE%C4%D5%C2" title="查看该分类中所有文章">类别：unix技术文章</a>
+
+| <a  href="#" onclick="addToShare(); return false;" target="_blank"><img src="http://img.baidu.com/hi/img/share.gif" border="0" align="absbottom"  /></a>
+
+
+
+
+	
+
+	| <a title="将此文章添加到百度搜藏" href="http://cang.baidu.com/do/add" onClick="return addToFavor();" target="_blank">添加到搜藏</a>
+
+	
+    | <a title="将此文章分享到i贴吧" href="#" onclick="addToiTieba(); return false;"  target="_blank">分享到i贴吧</a>
+
+	| 浏览(<span id="result"></span>)
+
+	| <a href="#send">评论</a>&nbsp;(1)
+
+
+
+<script language="javascript">
+
+/*<![CDATA[*/
+
+var pre = [true,'UNIX下查看INFORMIX数据库', 'UNIX下查看INFORMIX数据库','/davey%5Fdeng/blog/item/48a124f126b63fa8a50f520b.html'];
+
+var post = [true,'在UNIX下如何让可执行文件在其它目录下执行','在UNIX下如何让可执行文件在其它...', '/davey%5Fdeng/blog/item/d5ba3907c82c6f7c03088111.html'];
+
+if(pre[0] || post[0]){
+
+	document.write('<div style="height:5px;line-height:5px;">&nbsp;</div><div id="in_nav">');
+
+	if(pre[0]){
+
+		document.write('上一篇：<a href="' + pre[3] + '" title="' + pre[1] + '">' +  pre[2] + '</a>&nbsp;&nbsp;&nbsp;&nbsp;');
+
+	}
+
+	if(post[0]){
+
+		document.write('下一篇：<a href="' + post[3] + '" title="' + post[1] + '">' +  post[2] + '</a>');
+
+	}
+
+	document.write('</div>');
+
+}
+
+/*]]>*/
+
+</script>
+
+
+
+</div>
+
+
+
+<div class="line">&nbsp;</div>
+
+
+
+
+
+
+
+    
+<style type="text/css">
+
+/*<![CDATA[*/
+
+#in_related_doc a { text-decoration:none; }
+
+/*]]>*/
+
+</style>
+
+<div id="in_related_tmp"></div>
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="in_reader">
+    <div class="tit">最近读者：</div>
+
+</div>
+
+
+
+
+
+<div class="line">&nbsp;</div>
+
+
+
+
+
+
+
+
+
+
+<div id="in_comment">
+
+    <a name="comment"></a>
+
+    <div class="tit">网友评论：</div>
+
+    <span id="userCommentList"></span>    
+
+    <div id="page"></div>
+
+</div>
+
+<form action='/davey%5Fdeng/commit' id='blogCmtSubmitForm'  name='blogCmtSubmitForm' method='post'>
+    <input type='hidden' name='bdstoken' value='6a8c2dfe8e9f393bdbbc3a6d7265bada'>
+    <input type='hidden'  name='ct' value='8'>
+    <input type='hidden'  name='cm' value='2'>
+    <input type='hidden'  name='spBlogID' value='65b1c544553eb13886947315'>
+    <input type='hidden'  name='spBlogCmtID' value=''>
+    <input type='hidden'  name='spRefURL' value=''>
+</form>
+
+
+
+
+
+
+<div id="in_send">
+
+<a name="send"></a>
+
+<form name="form1" id="popFormSubmit" action="/davey%5Fdeng/commit" method="post" onSubmit="return checkcmtform()">
+
+<input type="hidden" name="bdstoken" value="6a8c2dfe8e9f393bdbbc3a6d7265bada">
+
+<input type="hidden" name="ct" value="8">
+
+<input type="hidden" name="cm" value="1">
+
+<input type="hidden" name="spBlogID" value="65b1c544553eb13886947315">
+
+<input type="hidden" name="spRefURL" id="spRefURL" />
+
+<script>
+
+    document.getElementById("spRefURL").value = window.location.href;
+
+</script>
+
+<div class="tit">发表评论：</div>
+
+<table width="620" border="0" cellspacing="5" cellpadding="0">
+
+
+
+
+
+<tr id="2_err" style="display:none">
+
+<td>&nbsp;</td>
+
+<td><div class="error" id="2_err_con"></div></td>
+
+</tr>
+
+
+
+<tr>
+
+<td valign="top" class="f14" id="reTitle">内　容：</td>
+
+<td>
+	<textarea name="spBlogCmtText" id="spBlogCmtText" style="width:520px;height:155px"  tabindex="3" onFocus="hidErr(3);" onclick="BdUtil.relogin(); return false;" ></textarea>
+</td>
+
+</tr>
+
+<tr id="3_err" style="display:none">
+
+<td>&nbsp;</td>
+
+<td><div class="error" id="3_err_con"></div></td>
+
+</tr>
+
+
+
+
+<tr>
+
+<td valign="top"class="f14">&nbsp;</td>
+
+<td valign="top" class="f14"><input id="btn_ok" name="btn_ok" type="submit" onclick="BdUtil.relogin(); return false;" value="发表评论" tabindex=5>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="cancleReLink" onClick="canclereply(); return false;" style="display:none; font-size:12px;color:#666;">取消回复</a></td>
+
+</tr>
+
+</table>
+
+</form>
+
+</div>
+
+
+
+
+
+
+
+
+
+<br>
+
+</div>
+
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="8">
+
+<tr><td class="modbl" width="7">&nbsp;</td>
+
+<td class="modbc">&nbsp;</td>
+
+<td class="modbr" width="7">&nbsp;</td>
+
+</tr></table>
+
+
+
+
+
+
+
+</div>
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+<br><center><div id="ft">&copy;2011 Baidu</div></center>
+
+
+</center>
+
+<ul id="blogCmtContentList" style="display:none;">
+
+ <li id="blogCmtContent_1">好文章啊</li>
+
+</ul>
+
+<!--inc_getmsgnum.html-->
+
+<iframe id="submitiframe" name="submitiframe" src="/st/blank.html" style="display:none;"></iframe>
+
+
+<script type="text/javascript" src="/ui/scripts/blog/detailpage.js"></script>
+<script type="text/javascript">
+    //*****there is some function。
+    function checkMail(s)
+
+    {
+
+        var pattern=/\w+@\w+\.[a-z]+/;
+
+        if(pattern.test(s))
+
+        {
+
+           return true;
+
+        }
+
+        else
+
+       {
+
+          return false;
+
+       }
+
+    }
+
+
+
+
+
+    function checkeandu(eanduid)
+
+    {
+
+        var eanduvalue=baidu.G(eanduid).value;
+
+        var len=baidu.string.getByteLength(eanduvalue);
+
+        if(len>128)
+
+        {
+
+            showErr(2,"您输入的网址或邮箱太长，请保持在128字节以内。");
+
+            return false;
+
+        }
+
+        else
+
+        {
+
+             return true;
+
+        }
+
+
+
+    }
+
+
+
+
+
+    function checkname(strid)
+
+    {
+
+        var ele=baidu.G(strid);
+
+        var len=baidu.string.getByteLength(ele.value);
+
+        if(len>49)
+
+        {
+
+            showErr(1,"您输入的姓名太长，请保持在49字节以内。");
+
+            return false;
+
+        }
+
+        else
+
+        {
+
+            if(len==0)
+
+            {
+
+                baidu.G(strid).value="匿名网友";
+
+            }
+
+             return true;
+
+        }
+
+
+
+    }
+
+
+
+    function checktext(textid)
+
+    {
+
+            var tempStr='';
+
+            var isLightFont=false;
+
+            if(editor&&textid=="spBlogCmtText"){
+
+                tempStr=editor.getHtml();
+                
+                /*
+                //火星文处理，能不碰它就别碰它
+                tempStr=tempStr.replace(/<span style="filter:glow\(color=#([0-9a-z]{3,6}),strength=2\);height:0px;color:#([0-9a-z]{3,6})">/ig,'');
+
+                tempStr=tempStr.replace(/<\/span>/ig,'');
+                */
+
+                baidu.G("spBlogCmtText").value=tempStr;
+
+                isLightFont=!(tempStr==editor.getHtml());
+
+            }
+
+
+            var str=baidu.string.trim(baidu.G(textid).value);
+            baidu.G(textid).value=str;
+
+            
+
+            len=str.length;
+
+            if(len==0 || ((/^[\s,　]+$/gi).test(str)) )
+
+            {
+
+                showErr(3,"您必须输入评论内容，请检查。");
+
+                return false;
+
+            }
+
+            else
+
+            {
+
+                    var maxLength=isLightFont?916:1000;
+
+                    if(len > maxLength)
+
+                    {
+
+                        showErr(3,"您输入的评论内容太长，请保持在500字以内。");
+
+                        return false;
+
+                    }
+
+                    if(editor&&textid=="spBlogCmtText"){
+
+                        baidu.G("spBlogCmtText").value=editor.getHtml();
+
+                        baidu.G(textid).value=str;
+
+                    }
+
+
+
+                return true;
+
+            }
+
+    }
+
+
+
+    function showErr(index,str)
+
+    {
+
+        baidu.G(index+"_err").style.display="";
+
+        baidu.G(index+"_err_con").innerHTML=str;
+
+    }
+
+    function hidErr(index)
+
+    {
+
+        baidu.G(index+"_err").style.display="none";
+
+        baidu.G(index+"_err_con").innerHTML="";
+
+    }
+
+
+
+    function alertPop(tit,con)
+
+    {
+
+        var pop=new Popup({ contentType:4,isReloadOnClose:false,width:340,height:80});
+
+        pop.setContent("title",tit);
+
+        pop.setContent("alertCon",con);
+
+        pop.build();
+
+        pop.show();
+
+    }
+
+
+
+    function cmtfull()
+
+    {
+
+        var cnum=1;
+
+        if(cnum>=50000)
+
+        {
+
+            alertPop("发表评论","单篇日志评论数最多为50000条.");
+
+            return false;
+
+        }
+
+        else
+
+        {
+
+            return true;
+
+        }
+
+    }
+
+
+
+    function checkcmtform()
+
+    {
+
+        if(checkname("spBlogCmtor")&&checkeandu("spBlogCmtURL")&&checktext("spBlogCmtText")&&cmtfull())
+
+        {
+
+            submitForm();
+
+            return true;
+
+        }
+
+        else
+
+        {
+
+            return false;
+
+        }
+
+    }
+
+
+
+    var g_pop=null;
+
+    function submitForm()
+
+    {
+
+        g_pop=new Popup({ contentType:1,isReloadOnClose:false,width:340,height:80});
+
+        g_pop.setContent("title","添加评论");
+
+        g_pop.setContent("contentUrl","");
+
+        g_pop.setContent("someDisabledBtn","btn_ok");
+
+        g_pop.build();
+
+        G("popFormSubmit").target=g_pop.iframeIdName;
+
+        g_pop.show();
+
+    }
+
+
+
+    function g_close_pop()
+
+    {
+
+        g_pop.close();
+
+    }
+
+
+
+    function formatonlinpic()
+
+    {
+
+        var picobj=document.getElementsByName("onlinepic");
+
+        var picnum=picobj.length;
+
+
+
+        for(var i=0;i<picnum;i++)
+
+        {
+
+            if(picobj[i].width>200)
+
+            {
+
+                picobj[i].width=200;
+
+            }
+
+            if(picobj[i].height>200)
+
+            {
+
+                picobj[i].height=200;
+
+            }
+
+        }
+
+        try{baidu.G("btn_ok").disabled = "";}catch(e){}
+
+    }
+
+
+
+    function addToFavor(){
+
+        var blogTitle='Shell语法简介'.replace(/&#39;/g,'\'');
+
+        window.open('http://cang.baidu.com/do/add?it='+encodeURIComponent(blogTitle+'_百度空间')+'&iu='+encodeURIComponent(location.href)+'&fr=sp#nw=1','_s','scrollbars=no,width=600,height=450,right=75,top=20,status=no,resizable=yes');
+
+        return false;
+
+    }
+
+    function addToiTieba(){
+        var blogTitle='Shell语法简介'.replace(/&#39;/g,'\'');
+        window.open('http://tieba.baidu.com/i/sys/share?link='+encodeURIComponent('http://hi.baidu.com/davey%5Fdeng/blog/item/65b1c544553eb13886947315.html')+'&type=text&title='+encodeURIComponent(blogTitle)+'&content=');
+    }
+
+    function addToShare(){
+        window.open('http://apps.hi.baidu.com/share/?url='+encodeURIComponent('http://hi.baidu.com/davey%5Fdeng/blog/item/65b1c544553eb13886947315.html'));
+    }
+
+
+    /* some functions for cmt-reply */
+    var g_cmtorInfo = [];
+    function goCmtReply(cmtPorID){
+        cmtreply(g_cmtorInfo[cmtPorID],cmtPorID);
+    }
+    function cmtreply(cmtName,cmtPorID)
+
+    {
+
+        cmtName=cmtName.replace(/<|>/g,"");
+
+        window.location.hash="#send";
+
+        var cmtForm=document.form1;
+
+        cmtForm.cm.value="3";
+
+        if(!cmtForm.spReferTarget)
+
+        {
+
+            var ipt=document.createElement("input");
+
+            ipt.type="hidden";
+
+            ipt.name="spReferTarget";
+
+            ipt.value=cmtPorID;
+
+            cmtForm.appendChild(ipt);
+
+        }else cmtForm.spReferTarget.value=cmtPorID;
+
+
+
+
+
+         //G("reTitle").innerHTML="回复"+cmtName+"：";
+
+         G("cancleReLink").style.display="";
+
+         cmtForm.btn_ok.value="回复评论";
+
+
+
+
+
+         try{
+
+            editor.window.focus();
+
+            editor.window.document.body.innerHTML="回复"+cmtName+"：";
+
+
+
+            var w = editor.window;
+
+            if(w.getSelection){
+
+                var d = w.document;
+
+                var s = w.getSelection();
+
+                var r = d.createRange();
+
+                r.setStartAfter(d.body.firstChild);
+
+                r.setEndAfter(d.body.lastChild);
+
+                s.removeAllRanges();
+
+                s.addRange(r);
+
+            }
+
+        }catch(e){
+
+                try{
+
+                    cmtForm.getElementsByTagName("textarea")[0].focus();
+
+                    cmtForm.getElementsByTagName("textarea")[0].value="回复"+cmtName+"：";
+
+                }catch(e){}
+
+        }
+
+    }
+
+
+
+    function canclereply()
+
+    {
+
+        var cmtForm=document.form1;
+
+        cmtForm.cm.value="1";
+
+        try{cmtForm.removeChild(cmtForm.spReferTarget);}catch(e){}
+
+        /*
+
+        try{
+
+                var cmt=cmtForm.getElementsByTagName("textarea")[0]
+
+                cmt.value="";
+
+                cmt.focus();
+
+        }catch(e){}
+
+        */
+
+
+
+        try{
+
+                var ed=editor.window.document.body;
+
+                ed.innerHTML="";
+
+                editor.window.focus();
+
+            }catch(e){
+
+                var cmt=cmtForm.getElementsByTagName("textarea")[0];
+
+                cmt.value="";
+
+                cmt.focus();
+
+        }
+
+
+
+        G("cancleReLink").style.display="none";
+
+        cmtForm.btn_ok.value="发表评论";
+
+    }
+
+
+
+    function gotoreply()
+
+    {//to checking whether reply cmt
+
+        if( window.location.hash.indexOf("&re=1")<0) return;
+
+        var cmtID=window.location.hash.split("&")[0].replace("#","");
+
+        var cmtlinks=document.getElementsByTagName("a");
+
+        for(var i=0,n=cmtlinks.length;i<n;i++)
+
+        {
+
+            if(cmtlinks[i].name==cmtID){ var rename=cmtlinks[i].getAttribute("rename");  repid=cmtlinks[i].getAttribute("repid"); break;}
+
+        }
+
+        if(typeof(rename)!="undefined"){
+
+            cmtreply(rename, repid);
+
+        }
+
+    }
+
+    
+    
+    function f_focus(){
+        getVcode();
+    }
+    function getVcode(){
+        var url="http://hi.baidu.com/sys/file/getvcode?echoback=getVcodeDone&t="+(new Date().getTime());
+        BdAjax.loadJS(url)
+    }
+
+    function getVcodeDone(vcode){
+        document.form1.spVcode.value=vcode;
+        var imgsrc="http://hiup.baidu.com/cgi-bin/genimg?"+vcode;
+        G('verifypic').src=imgsrc;
+        G('yanzheng').style.display="block";
+    }
+    function newverifypic(){
+        getVcode();
+        return false;
+    }
+
+    function blogdel(str)
+
+    {
+
+        var pop=new Popup({ contentType:3,isReloadOnClose:false,width:340,height:80});
+
+        pop.setContent("title","删除文章");
+
+        pop.setContent("confirmCon","您确定要彻底删除这篇文章及其所有评论吗？");
+
+        pop.setContent("callBack",delCallback);
+
+        pop.setContent("parameter",{fid:str,popup:pop});
+
+        pop.build();
+
+        pop.show();
+
+        return false;
+
+    }
+
+    
+    function delCallback(para)
+
+    {
+        if(!para["popup"])return;
+
+        var o_pop=para["popup"];
+
+        o_pop.config.contentType=1;
+
+        o_pop.setContent("contentUrl","");
+
+        o_pop.reBuild();
+
+        G(para["fid"]).target=o_pop.iframeIdName;
+        eval("document.draft"+para["fid"]).submit();
+
+        eval("document."+para["fid"]).submit();
+
+    }
+
+
+
+    var _Space = _Space || {};
+    
+    /********这里的东西，是用来生成评论列表的**********/
+    _Space.commentOperate = (function(){
+        
+        function getCmtTpl(){
+            
+            var cmtStrTpl = [];
+                        
+            cmtStrTpl.push('<a name="#{cmtid}" rename="#{cmtuser}" repid="#{cmtportrait}"></a>');
+            cmtStrTpl.push('<table width="100%" border="0" cellspacing="0" cellpadding="0" class="item" style="table-layout:fixed;word-wrap:break-word;overflow:hidden;"><tr>');
+            cmtStrTpl.push('<td valign="top" class="index" width="5%">#{cmtindex}</td>');
+            cmtStrTpl.push('<td align="center" valign="top" width="10%">');
+            cmtStrTpl.push('<div class="user" style="overflow:hidden;">#{cmtuserhead}</div>');
+            cmtStrTpl.push('</td><td class="cnt" style="padding-left:20px;">');
+            cmtStrTpl.push('<span class="date">#{cmttime} #{mobileup} #{cmtreplay} #{cmtdel}</span>');
+            cmtStrTpl.push('<div class="desc" style="overflow:hidden;word-break:normal;"  name="cmtcontent">#{cmtcontent}</div></td>');
+            cmtStrTpl.push('</tr></table>');
+            cmtStrTpl.push('<div class="line">&nbsp;</div>');
+
+            return cmtStrTpl.join('');
+        }
+
+        function getUserPortrait(type,cmtid,cmtname,cmturl,portraitId){
+            var html1="";
+
+        	if(type==1){
+
+			    html1="<a href='"+cmturl+"' target='_blank' class='ucard' pid="+portraitId+"><img  border='0' src='http://tx.bdimg.com/sys/portraitn/item/"+portraitId+".jpg'><br>"+cmtname+"</a>";
+
+            }else{
+
+                if(cmtname=="" || cmtname=="匿名网友"){
+
+                    if(cmturl==""){
+
+                        html1="<a>匿名网友</a>";
+
+                    }else{
+
+                        html1="<a href='"+cmturl+"' target='_blank' class='ucard' pid="+portraitId+">"+cmtname+"</a>";
+
+                    }
+
+                }else{
+
+                    if(cmturl==""){
+
+                        html1="<div class='f14' style='display:inline'>网友:<a>"+cmtname+"</a></div>";
+
+                    }else{
+
+                        html1="<div class='f14' style='display:inline'>网友:<a href='"+cmturl+"' target='_blank' title='"+cmturl+"'>"+cmtname+"</a></div>";
+
+                    }
+
+                }
+
+            }
+
+            return html1;
+        }
+
+        function renderCmt(cmtdata){
+            var tpl = getCmtTpl();
+
+            var mobileup=cmtdata.isMobileUp? '<a  href="http://hi.baidu.com/hi/cms/article/help_phone/index.html" target="_blank" style="text-decoration:none;">来自手机<img src="http://img.baidu.com/hi/img/mobile.gif" align="absmiddle" border="0" /></a>' : '';
+
+            var cmtreplay =(cmtdata.isCanReply && cmtdata.isCmtAllow)? ( cmtdata.isAnonymity ? ' | <a href="#" onclick="BdUtil.relogin();return false;">回复</a>' : ' | <a href="#" onclick="goCmtReply(\'#{cmtportrait}\');return false;">回复</a>') : '';
+
+            var cmtdel = Session.isHost ? ' | <a href="#" onClick="_Space.commentOperate.deleteCmt(\'#{cmtid}\'); return false;">删除</a> | <a href="#" onclick="userSpam.tipBlogCmt(this, \'#{cmtuser}\' ,\'#{cmtid}\', \'#{blogid}\') ; return false;">举报</a>' : '';
+
+            var cmtuserhead = getUserPortrait(cmtdata.userType,"#{cmtid}","#{cmtuser}","#{cmturl}","#{cmtportrait}");
+
+            mobileup = baidu.string.format(mobileup, cmtdata);
+            cmtreplay = baidu.string.format(cmtreplay, cmtdata);
+            cmtdel = baidu.string.format(cmtdel, cmtdata);
+            cmtuserhead = baidu.string.format(cmtuserhead, cmtdata);
+
+            cmtdata.mobileup = mobileup;
+            cmtdata.cmtreplay = cmtreplay;
+            cmtdata.cmtdel = cmtdel;
+            cmtdata.cmtuserhead = cmtuserhead;
+
+
+            return baidu.string.format(tpl, cmtdata);
+        }
+
+        
+        function deleteCmt(cid){
+            var pop=new Popup({ contentType:3,isReloadOnClose:false,width:340,height:80});
+
+            pop.setContent("title","删除评论");
+
+            pop.setContent("confirmCon","您确定要彻底删除这条评论吗？");
+
+            pop.setContent("callBack", function(){
+            
+                var o_pop=pop;
+                var _F = baidu.G('blogCmtSubmitForm');
+                _F.spBlogCmtID.value=cid;
+                _F.spRefURL.value = window.location.href;
+
+                o_pop.config.contentType=1;
+
+                o_pop.setContent("contentUrl","");
+
+                o_pop.reBuild();
+
+                _F.target=o_pop.iframeIdName;
+
+                _F.submit();
+            });
+
+            pop.build();
+
+            pop.show();
+
+            return false;
+        }
+    
+
+        function showCmtList(){
+            var cmtDataList = getCmtDataList();
+            var cmtList = [];
+
+            baidu.each(cmtDataList, function(item, index){
+                cmtList.push( renderCmt(item) );
+            });
+
+            baidu.G('userCommentList').innerHTML = cmtList.join('');
+
+            filterCmtContent('userCommentList');
+        }
+
+        function getCmtDataList(){
+            var cmtDataList=[];
+
+            
+    
+            g_cmtorInfo["939a37353930323730364901"] = "75902706"; //评论用户列表。 因为xss，所以改成了现在这个搓样子。
+            
+            cmtDataList.push({
+                cmtid : "4d8dd095694d6310d31b7035",
+                cmtuser : "75902706",
+                cmturl : "http://hi.baidu.com/75902706",
+                cmtportrait : "939a37353930323730364901",
+                cmttime : "2010-07-17  20:23",
+                // spBlogCmtTextList。 但是因为不能编码，所以就先到html里吧。。
+                cmtcontent : baidu.G('blogCmtContent_1').innerHTML,  
+                cmtindex : "1",
+                isMobileUp :  false ,
+                isCanReply :  true ,
+                isCmtAllow :  true ,
+                isisAnonymity :  true ,
+                userType :  1 ,
+                blogid : "65b1c544553eb13886947315"
+            });
+
+            
+
+            return cmtDataList;
+        }
+        
+        
+        function filterCmtContent(n){
+
+            if(!baidu.browser.ie){
+
+                var defaultfilter1='<span style="filter:glow(color=#000000,strength=2);height:0px;color:#000000">';
+
+                var defaultfilter2='<span style="height: 0px; color: rgb(0, 0, 0);">';
+
+                var commentDiv=document.getElementById(n);
+
+                var divs=commentDiv.getElementsByTagName('div');
+
+                var d,tmp;
+
+                for( var i=0,len=divs.length;i<len;i++){
+
+                    d=divs[i];
+
+                    if(d.getAttribute('name')=='cmtcontent'){
+
+                        tmp=d.innerHTML;
+
+                        tmp=tmp.replace(/<span style="filter:glow\(color=#([0-9a-z]{3,6}),strength=2\);height:0px;color:#([0-9a-z]{3,6})">/ig,defaultfilter1);
+
+                        tmp=tmp.replace('<span style="height: 0px; color: rgb(255, 255, 255);">',defaultfilter2);
+
+                        d.innerHTML=tmp;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        return {
+            showCmtList : showCmtList,
+            deleteCmt : deleteCmt
+        }
+        
+    })();
+    
+    /**********分享该文章的用户功能**********/
+    
+
+    
+    /*********相关文章的显示函数********/
+    _Space.RelatedDoc=(function(){
+
+        function HI_MOD_IN_RELATED_DOC_CALLBACK(arg){
+
+            if(arg.length <= 1) return false;
+
+            var hasMore = arg[0];
+
+            var D=function(A,B){A[A.length]=B;}
+
+            if(arg.length % 2 == 0) D(arg, ["","","",""]);
+
+
+
+            var html = ['<div id="in_related_doc"><div class="tit">相关文章：</div>'];
+
+            D(html, '<table cellpadding="0" cellspacing="3" border="0">');
+
+            for(var i = 1, j = arg.length; i < j; i += 2){
+
+                D(html, '<tr>');
+
+                D(html, '<td width="15px"><a style="font-size:25px" >&#8226;</a></td><td><a href="http://hi.baidu.com/' + arg[i][3] + '/blog/item/' + arg[i][2] + '.html" target="_blank" title="' + arg[i][0] + '">' + arg[i][1] + '</a>');
+
+                D(html, new Array(10).join('\u3000'));
+
+                D(html, '</td>');
+
+                if(arg[i + 1][0] != "")
+
+                    D(html, '<td width="15px"><a style="font-size:25px" >&#8226;</a></td><td><a href="http://hi.baidu.com/' + arg[i + 1][3] + '/blog/item/' + arg[i + 1][2] + '.html" target="_blank" title="' + arg[i + 1][0] + '">' + arg[i + 1][1] + '</a></td>');
+
+                else
+
+                    D(html, '<td>&nbsp;</td><td>&nbsp;</td>');
+
+                D(html, '</tr>');
+
+            }
+
+            if(hasMore) D(html, '<tr><td colspan="4"><a target="_blank" href="/sys/search?pageno=1&type=7&sort=1&word=Shell%D3%EF%B7%A8%BC%F2%BD%E9&item=65b1c544553eb13886947315">更多&gt;&gt;</a></td></tr>');
+
+            D(html, '</table></div><div class="line">&nbsp;</div>');
+
+
+
+            var div = document.getElementById('in_related_tmp');
+
+            if(div){
+
+                div.innerHTML = html.join('');
+
+                while(div.firstChild){
+
+                    div.parentNode.insertBefore(div.firstChild, div);
+
+                }
+
+                div.parentNode.removeChild(div);
+
+            }
+
+
+        }
+
+        window.HI_MOD_IN_RELATED_DOC_CALLBACK = HI_MOD_IN_RELATED_DOC_CALLBACK;
+
+        function show(){
+            if( baidu.G('in_related_tmp') )
+            baidu.sio.callByServer("/sys/search?type=8&word=Shell%D3%EF%B7%A8%BC%F2%BD%E9&item=65b1c544553eb13886947315");
+        }
+
+        return {
+            show : show
+        }
+
+    })();
+    
+
+    /*********最近读者*********/
+    _Space.latestReader=(function(){
+        var g_read=[
+
+        
+
+        ["8668njb","4ae3383636386e6a62420d","8668njb"],
+
+        
+
+        ["75902706","939a37353930323730364901","75902706"],
+
+        
+
+        ["myselfwithsoft","21296d7973656c6677697468736f6674750b","myselfwithsoft"],
+
+        
+
+        ["qi1wen2yan3","217371693177656e3279616e333d0a","qi1wen2yan3"],
+
+        
+
+        ["%CB%C4%D4%C2%B7%E7%D1%EF","bb26cbc4d4c2b7e7d1ef8209","四月风扬"],
+
+        
+
+        ["musicmoviegame","62b94d4d47536b799409","MMGSky"],
+
+        
+
+        ["centipedecn","25d163656e746970656465636ec903","centipedecn"],
+
+        
+
+        ["lunckyyu","7f4c6c756e636b7979759907","lunckyyu"],
+
+        
+
+        {}
+
+        ];
+
+        g_read.length=g_read.length-1;
+
+
+
+        var _rh1="";
+
+        var _rh2="";
+
+
+
+        function show(){
+
+            _rh1 += '<table width="100%" ><tr>';
+
+            _rh2+='<tr>';
+
+            if(!Session.isLogin){
+
+                _rh1+='<td align="center" width="10%" ><img border="0" width="55" height="55" src="http://img.baidu.com/hi/img/portraitn.jpg"></td>';
+
+                _rh2+='<td>&nbsp;</td>';
+
+                if(g_read.length>0){
+
+                    _rh1+='<td align="left" width="12%">';
+
+                }else{
+
+                    _rh1+='<td align="left" width="100%">';
+
+                }
+
+                _rh1+='<a href="https://passport.baidu.com/?login&tpl=sp&tpl_reg=sp&u='+myref+'" target="_self" onclick="BdUtil.relogin(); return false;">登录</a>后，您就出现在这里。</td>';
+
+                _rh2+='<td>&nbsp;</td>'
+
+            }
+
+            if(g_read.length==0){
+
+                if(Session.isLogin){
+
+                    _rh1+='<td align=left width="100%">最近还没有登录用户看过这篇文章……</td>';
+
+                    _rh2+='<td>&nbsp;</td>';
+
+                }
+
+            }else{
+
+                for(i=0,len=g_read.length;i<len;i++){
+
+                    _rh1+='<td align="center" valign="bottom" width="10%" class="user"><a href="/'+g_read[i][0]+'" target="_blank" class="ucard" pid="'+g_read[i][1]+'"><img border="0" src="http://tx.bdimg.com/sys/portraitn/item/'+g_read[i][1]+'.jpg"></a></td>';
+
+                    _rh2+='<td align="center" valign="top" class="user"><a href="/'+g_read[i][0]+'" target="_blank" class="ucard" pid="'+g_read[i][1]+'">'+g_read[i][2]+'</a></td>';
+
+                }
+
+            }
+
+            _rh1+='<td width="100%"></td></tr>';
+
+            _rh2+='<td></td></tr></table>';
+
+
+            baidu.dom.insertHTML("in_reader", "beforeEnd", _rh1+_rh2);
+
+        }
+
+        return {
+            show : show
+        }
+    })();
+    
+
+    /*********页面完成后执行的一些东西，比较乱，小心轻放**********/
+    _Space.pageDone = (function(){
+        
+        function initBlogTextForFCK(){
+            //fck init music
+            if(window.Node){Node.prototype.replaceNode=function(Node){this.parentNode.replaceChild(Node,this);}}
+            var imgBox=document.getElementsByName('musicName');
+            var isAutoPlay=true;
+            for(var i=0,n=imgBox.length;i<n;i++){
+                var img=imgBox[i];
+                if(img.getAttribute('rel')){
+                    var musicSrc=img.getAttribute('rel');
+                    var musicDiv = document.createElement("SPAN");
+                    var tmp=musicSrc.substr (musicSrc.indexOf('#')+1, 1);
+                    var tmpAutoPlay=(tmp=='1');
+                    if(isAutoPlay&&tmpAutoPlay){
+                        isAutoPlay=false;
+                        tmpAutoPlay=true;
+                    }else{
+                        tmpAutoPlay=false;
+                    }
+                    var shtml=creatbgmusic(musicSrc.substr(0,musicSrc.indexOf('#')).replace(/[\s><()'"]+/g,''),1,true,false,tmpAutoPlay,tmpAutoPlay,'FckMusicHelper');
+                    shtml=shtml.replace('width=100%','width=200').replace('width="100%"','width=200 height=45');			img.replaceNode(musicDiv);
+                    musicDiv.innerHTML=shtml;
+                    i--;n--;
+                }
+            }
+                //fck init vote
+            !function(){
+                var vote = document.getElementsByName('FCK_VOTE');
+                for(var i=0,len=vote.length,item,rel=0,cdiv;i<len;i++){
+                    item = vote[0];
+                    rel = item.getAttribute('rel')|0;
+                    if(rel){
+                        cdiv = document.createElement('span');
+                        item.parentNode.replaceChild(cdiv,item);
+                        baidu.swf.create({
+                            "id": "VOTE_FLASH_"+i,
+                            "width" : "585",
+                            "height": "100",
+                            "ver"   : "9.0.0",
+                            "wmode" : document.all ? "opaque" : "window",
+                            "allowscriptaccess" : "always",
+                            "url"   : "http://hi.bdimg.com/apps/appvote/spaceVote.swf?vote_id="+rel
+                        },cdiv)
+
+                    }
+                }
+            }()
+            //document.getElementById('blog_text').style.display='';
+        }
+        
+        function resizeBlogImg(){
+
+            if(document.getElementById("m_blog"))
+
+            {
+
+                var imgarray = document.getElementById("m_blog").getElementsByTagName('img');
+
+                var imgw = document.getElementById("m_blog").offsetWidth;
+
+                imgw =imgw-40;
+
+                for(var i=0; i<imgarray.length; i++){
+                    if(imgarray[i].className=="blogimg" && imgarray[i].width>=imgw) {
+                        imgarray[i].width=imgw;
+                    }
+                }
+            }
+        }
+
+        function fixURLCopyBug(){
+        
+            // Fix ff bugs
+
+            var blog_text = document.getElementById('blog_text');
+            /**
+
+            blog_text.innerHTML = blog_text.innerHTML.replace(/href\s*=\s*("|')?(\.\.\/\.\.\/)/gi,"href=$1../$2");
+            */
+            /*modify by poker, to fix the flashalbum's static domain*/
+            var _blog_trans = blog_text.innerHTML.replace(/href\s*=\s*("|')?(\.\.\/\.\.\/)/gi,"href=$1../$2");
+            _blog_trans = _blog_trans.replace(/http:\/\/hi\.baidu\.com\/static\/album\/album\.swf/g,"http://hi.bdimg.com/static/album/album.swf");
+            blog_text.innerHTML = _blog_trans;
+        }
+
+        function getPVData(){
+
+            var hstr="";
+
+            baidu.sio.callByServer("/davey%5Fdeng/brwstat?key1=1&key2=97464cd434dc8ac550da4b03_65b1c544553eb13886947315_");   
+        } 
+
+        function setpv(allnum)
+
+        {
+
+            var num = allnum.split('_');
+
+            baidu.G("result").innerHTML=num[0];
+
+        }
+
+        window.setpv = setpv;
+        
+        function initCmtEditor(){ //初始化浏览编辑器
+            var editor=null;
+
+            try{
+
+                editor=new BdEditor("spBlogCmtText",{width:"100%",height:"155px"});
+
+                editor.onfocus = function(){hidErr(3);}
+
+                editor.render();
+
+                //如果用户没有登陆，焦点进入编辑器，弹出登录框
+				
+                var editorCont=editor.window;
+				baidu.Q("ToolbarContainer",baidu.G("in_send"))[0].style.display="none";
+                baidu.on(editorCont,"focus",function(){
+				BdUtil.relogin();
+				return false;
+				});
+				
+
+            }catch(e){
+
+                var spBlogCmtText = document.getElementById("spBlogCmtText");
+                if(!spBlogCmtText ) return false;
+
+                var p = spBlogCmtText.previousSibling;
+
+                while(p && p.nodeType != 1) p = p.previousSibling;
+
+                if(p && /bdeditor_container/.test(p.id)){
+
+                    p.parentNode.removeChild(p);
+
+                }
+
+                spBlogCmtText.style.display = '';
+
+                editor=null;
+
+            }
+
+            
+
+            window.editor = editor;
+        }
+
+        function ok(){
+            getPVData();
+            resizeBlogImg();
+            fixURLCopyBug();
+            initBlogTextForFCK();
+            initCmtEditor();
+
+            gotoreply(); /* external fun*/
+        }
+
+        return {
+            ok : ok
+        }
+    })();
+
+    /********分段加载处理对象，实验性功能*********/
+    _Space.SectionLoad = (function(){
+
+        var loaded = false;
+
+        var sectioinList = [];
+
+        function complete(item){
+            item.isComplete = true;
+        }
+
+        function add(mod, loadCallback){
+
+            var mod = baidu.G(mod);
+            
+            sectioinList.push({"mod": mod, "callback":loadCallback});
+        }
+
+        function startLoad(item){
+            item['callback']();
+            complete(item);
+        }
+
+        function checkStat(){
+            if(sectioinList.length <= 0) return;
+
+            var pageTop2bottom=getPageTop2bottom();
+            
+            baidu.each(sectioinList, function(item, index){
+
+                if(! item.isComplete){
+                    if(getOffsetTop(item.mod)-100 <= pageTop2bottom)
+                        startLoad(item);
+                }
+            });
+        }
+
+        function getOffsetTop(mod){
+            return baidu.dom.getPosition(mod).top;
+        }
+
+        function getPageTop2bottom(){
+            var dsh = baidu.page.getScrollTop();
+            var dch = baidu.page.getViewHeight();
+
+            return dsh + dch;
+        }
+
+        
+        baidu.on(window, 'resize', checkStat);
+        baidu.on(window, 'onload', checkStat);
+        baidu.on(window, 'scroll', checkStat);
+        
+        return {
+            "add" : add
+        } 
+    })();
+
+    /*******Start Working！*******/
+    var _pageEndTime=(new Date().getTime()) - g_pageTimerStart;
+
+    baidu.on(window, 'load', function(){
+        var _pageLoadTime=(new Date().getTime()) - g_pageTimerStart;
+
+        BdUtil.hi_trackerLink('m_20101109_blogloadtime', _pageLoadTime+'|'+_pageEndTime);
+    });
+
+    /**********Step2***********/
+    _Space.pageDone.ok();
+
+    baidu.G('share_user_list') && _Space.SectionLoad.add('share_user_list', _Space.BlogSharedUser.getData);
+    baidu.G('in_related_tmp') && _Space.SectionLoad.add('in_related_tmp', _Space.RelatedDoc.show);
+    baidu.G('in_reader') && _Space.SectionLoad.add('in_reader', _Space.latestReader.show);
+    baidu.G('in_comment') && _Space.SectionLoad.add('in_comment', _Space.commentOperate.showCmtList);
+</script>
+
+
+
+			
+
+
+<script type="text/javascript">
+/*<![CDATA[*/
+
+var SP = SP || {};
+if(!SP.mycard){
+    SP.mycard = new (function(){
+        var me = this;
+        var _cancleAction = Session.isDrag;  
+        var _list = [];
+        var _sourceLoaded = false;    
+        me.bind = function (_id){
+            if(_cancleAction){  //abort
+                return;
+            }
+            if(!_sourceLoaded){
+                _list.push(_id);
+            } else {
+                baidu.space.mycard.bind(_id);
+            }
+        }
+        me.init = function (_config){
+            _cancleAction = !!_config.cancle;
+        }
+        me.onSourceLoaded = function (){
+            _sourceLoaded = true;
+            baidu.space.mycard.init({portrait: Session.visitorPortrait});
+            for(var i=0,len=_list.length; i<len; i++){
+                baidu.space.mycard.bind(_list[i]);
+            }
+        }
+    })();
+    baidu.dom.ready(function(){
+        BdAjax.loadCSS('/ui/css/ucard/ucard.css?v=020507100.css');
+        BdAjax.loadJS('/ui/scripts/ucard/ucard.js?v=020507100.js');
+    });
+}
+SP.mycard.bind('m_blog');  
+/*]]>*/
+</script>
+
+
+	<script type="text/javascript" src="/ui/scripts/refer/refer.js"></script>
+	
+<link rel="stylesheet" type="text/css" href="/ui/css/userset.css" />
+<link rel="stylesheet" type="text/css" href="/ui/css/beautify/widget.css" />
+
+<script type="text/javascript" src="http://hitn.bdimg.com/davey%5Fdeng/tnfile/item/c88f7196901cb96d54fb96c3.js"></script>
+
+<script type="text/javascript">
+//页面状态变量
+var Session = Session || {
+    spaceURL: "/davey%5Fdeng",
+    pageURL: "http://hi.baidu.com/davey%5Fdeng/blog/item/65b1c544553eb13886947315%2Ehtml",    //当前访问的url
+    isHost: "",         // 是否是空间主人
+    userName: "屏风竹影",   // 空间主人用户名
+    userNameEnc:    "%C6%C1%B7%E7%D6%F1%D3%B0", 
+    visitorName:    "",
+    visitorURL: "/index.html",        // 
+    refer: "http://hi.baidu.com/davey_deng/blog/item/65b1c544553eb13886947315.html",
+    spBasicURL:"davey_deng",
+    spBasicURLEnc:"davey%5Fdeng"
+};
+</script>
+<script src="/ui/scripts/beautify/render.js" type="text/javascript"></script>
+<script type="text/javascript">
+baidu.dom.ready(function(){
+    if(typeof spBeautifyConfigData != 'undefined'){
+        var _installList = spBeautifyConfigData.list;
+    } else {
+        spBeautifyConfigData = {};
+        _installList = [];
+    }
+    spBeautifyConfigData.currentDate  = Math.round((new Date('2011/02/05')).getTime() / 1000);    
+    BeautifyWidget.init({timeStamp: spBeautifyConfigData.currentDate, env: 'sys'});
+    BeautifyWidget.render(_installList);
+	if(Space && Space.ActiveTip){
+		if(baidu.g("active_space")){
+			window.active_tip=new Space.ActiveTip("tary_space_name",function(){
+				active_tip.hidden();
+				//activeSpace("pop_tip");
+				if(BdUtil && BdUtil.ns_trackerLink){
+					BdUtil.ns_trackerLink('nm_20101018_activeBlank',''); 
+				}
+				window.open('http://hi.baidu.com/reg/preihome?pageDomain=pop_tip');
+			//	window.location.href="http://hi.baidu.com/reg/preihome?pageDomain=pop_tip";
+				setTimeout(function(){
+					window.location.reload();
+				},1000);
+				
+			
+			});
+		}
+		window.succTip=function(spaceUrl){
+			active_dia.close();
+			//var tiphtml="<div><div class='setBlackcon'>恭喜您，激活成功！欢迎入驻百度空间！</div><div class='setBlackpanel'><div class='blackConfirmbtn' onclick=\"goIhome('"+spaceUrl+"')\">确认</div></div></div>";
+			BdDialog.Alert("恭喜您，激活成功！欢迎入驻百度空间！");
+			baidu.g("dialogYES").onclick=function(){
+				window.location.reload();
+			};	
+		};
+	}
+	
+});
+</script>
+
+
+
+<script type="text/javascript" src="http://hi.baidu.com/hi/cms/article/quickjs/auto.js"></script>
+<script>
+try{SCD.init("http://hi.baidu.com/davey_deng/blog/item/65b1c544553eb13886947315.html")}catch(e){}
+</script>
+
+
+</body></html>

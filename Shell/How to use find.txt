@@ -1,0 +1,118 @@
+1.find
+find path operators
+The operators are as follows:
+1)-name filename  按照文件名查找文件。
+ find . -name '*.jpg'(在当前目录下找文件名以jpg结束的文件，记得加引号)
+ 不管当前路径是什么，如果想要在自己的根目录$ H O M E中查找文件名符合* . t x t的文件，使用~作为' p a t h n a m e参数，
+ 波浪号~代表了你的$ H O M E目录。
+ find ~ -name "*.txt" -print
+ 
+2)-perm mode  按照文件权限来查找文件。
+为了在当前目录中文件属主具有读、写权限，并且文件所属组的用户和其他用户具有读权限的文件，可以用：
+$ find . -type f -perm 644 -exec ls -l {} \;
+按文件权限模式来查找文件的话。最好使用八进制的权限表示法。
+-perm mode:文件许可正好符合mode
+-perm +mode:文件许可部分符合mode
+-perm -mode: 文件许可完全符合mode
+
+3)-type c
+b - 块设备文件。
+d - 目录。
+c - 字符设备文件。
+p - 管道文件。
+l - 符号链接文件。
+f - 普通文件。
+为了查找当前文件系统中的所有目录并排序，可以用：
+find . -type d  |sort
+
+4)-user name  按照文件属主来查找文件。
+
+5)-group name 按照文件所属的组来查找文件。
+
+6)-size n[c] 查找文件长度为n块的文件，带有c时表示文件长度以字节计(1 block＝512 bytes)(block扇区 byte字节)
+find . -size +234384c  查找文件长度比234384字节大的文件
+find $HOME  -type f -size +1000  and  -size -2000 -print  查介于500K至1000K之间的文件
+
+7)-inum n
+Find files with the inode number n.
+
+8)-atime n
+
+9)-mtime n   按照文件的更改时间来查找文件， - n表示文件更改时间距现在n天以内，+ n表示文件更改时间距现在n天以前。
+
+10)-ctime n
+
+文件的 ctime、mtime、atime 之间有什么区别? 
+配置信息
+解决方法
+文件的 Access time，atime 是在读取文件或者执行文件时更改的。
+文件的 Modified time，mtime 是在写入文件时随文件内容的更改而更改的。
+文件的 Change time，ctime 是在写入文件、更改所有者、权限或链接设置时随 Inode 的内容更改而更改的。 
+
+因此，更改文件的内容即会更改 mtime 和 ctime，但是文件的 ctime 可能会在 mtime 未发生任何变化时更改 - 在权限更改，但是文件内容没有变化的情况下。 
+ls(1) 命令可用来列出文件的 atime、ctime 和 mtime。
+ls -lc filename         列出文件的 ctime
+ls -lu filename         列出文件的 atime
+ls -l filename          列出文件的 mtime 
+
+
+11)-newer file  查找更改时间比文件f i l e 新的文件
+查找更改时间比文件2.jpg新但不比文件ls.txt旧的文件：
+find -newer 2.jpg ! -newer ls.txt
+
+12)-depth：在查找文件时，首先查找当前目录中的文件，然后再在其子目录中查找
+
+13)operator1 -a operator2
+Find files that match both operator1 and operator2,the -a isn't strictly necessary;when two search parameters are provided,
+one after the other,find assumes you want files that match both conditions.
+
+14)operator1 -o operator2
+Find files that match either operator1 or operator2.
+
+15)!operator
+Find all files that do not match the given operator.
+
+16)\( expression \)
+Logical precedence;in a complex expression evaluate this part of the expression before the rest.
+避开多个文件夹:
+find \( -path "/path/dir1" -o -path "/path/dir2" \) -prune -o -print
+
+17)-print  find命令将匹配的文件输出到标准输出,一般来说，是默认的命令。
+
+18)-ls
+List the file's name on standard output with a format like ls -l.
+
+19)-exec command
+使用find时，只要把想要的操作写在一个文件里，就可以用exec来配合find查找，很方便的
+
+（在有些操作系统中只允许- e x e c选项执行诸如l s或ls -l这样的命令）。大多数用户使用这一选项是为了查找旧文件并删除它们。
+建议在真正执行r m命令删除文件之前，最好先用l s命令看一下，确认它们是所要删除的文件。
+
+e x e c选项后面跟随着所要执行的命令或脚本，然后是一对儿{ }，一个空格和一个\，最后是一个分号。
+
+为了使用e x e c选项，必须要同时使用p r i n t选项。
+如果验证一下f i n d命令，会发现该命令只输出从当前路径起的相对路径及文件名。
+
+find /etc -name "passwd*" -exec grep "sam" {} \;
+f i n d命令首先匹配所有文件名为“ passwd*”的文件，例如passwd、passwd.old、passwd.bak，然后执
+行grep命令看看在这些文件中是否存在一个sam用户。
+
+20)-ok command(same as -exec,except that find prompts you for permission before executing command.)
+find . -name "*.conf"  -mtime +5 -ok rm {} \;
+f i n d命令在当前目录中查找所有文件名以.conf结尾、更改时间在5日以上的文件，并删除它们，并且在删除之前先给出提示。
+
+21）如果在查找文件时希望忽略某个目录，因为你知道那个目录中没有你所要查找的文件，
+那么可以使用- p r u n e选项来指出需要忽略的目录。在使用- p r u n e选项时要当心，
+因为如果你同时使用了- d e p t h选项，那么- p r u n e选项就会被f i n d命令忽略。
+如果希望在/ a p p s目录下查找文件，但不希望在/ a p p s / b i n目录下查找，可以用：
+find /apps -path "/apps/bin" -prune -o -print
+
+find [path ..] [expression] 在路径列表的后面的是表达式 
+-path "/usr/sam" -prune -o -print 是 -path "/usr/sam" -a -prune -o -print 的简写表达式按顺序求值, 
+-a 和 -o 都是短路求值，与 shell 的 && 和 || 类似如果 -path "/usr/sam" 为真，则求值 -prune , -prune 返回真，
+与逻辑表达式为真；否则不求值 -prune ，与逻辑表达式为假。 如果 -path "/usr/sam" -a -prune 为假，则求值 -print ，
+-print 返回真，或逻辑表达式为真；否则不求值 -print，或逻辑表达式为真。 
+
+用g r e p命令在当前目录下的所有普通文件中搜索hostnames这个词
+find . -name \* -type f -print | xargs grep "hostnames"
+注意，在上面的例子中， \用来取消f i n d命令中的*在s h e l l中的特殊含义。

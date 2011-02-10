@@ -1,0 +1,1350 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>日期相减的问题 - Shell -  ChinaUnix.net </title>
+<meta name="keywords" content="日期相减的问题 - Shell -  ChinaUnix.net">
+<meta name="description" content="日期相减的问题 - Shell -  ChinaUnix.netShell 好象在哪里见到过：shell下两个日期相减计算出天数的代码，但正需要的时候又不知何处了？哪位知道？可否告知或提供其代码的呢？？？谢谢！！！ Linux,Freebsd,Solaris,Sco,HP-UX,IBM-AIX,cisco,oracle,java,cgi,mysql,perl,Apache,proFTP,Sendmail,Qmail,DNS,Squid,Rsync,SSL">
+<meta name="generator" content="Discuz! 7.2" />
+<meta name="author" content="Discuz! Team and Comsenz UI Team" />
+<meta name="copyright" content="2001-2009 Comsenz Inc." />
+<meta name="MSSmartTagsPreventParsing" content="True" />
+<meta http-equiv="MSThemeCompatible" content="Yes" />
+<meta http-equiv="Refresh" content="3600">
+<meta http-equiv="x-ua-compatible" content="ie=7" />
+<link rel="archives" title="ChinaUnix.net" href="http://bbs3.chinaunix.net/archiver/" />
+<link rel="stylesheet" type="text/css" href="forumdata/cache/style_7_common.css?hqz" /><link rel="stylesheet" type="text/css" href="forumdata/cache/scriptstyle_7_viewthread.css?hqz" />
+<script type="text/javascript">var STYLEID = '7', IMGDIR = 'images/default', VERHASH = 'hqz', charset = 'gbk', discuz_uid = 0, cookiedomain = 'chinaunix.net', cookiepath = '/', attackevasive = '0', disallowfloat = 'login|register|newthread|reply|viewvote|tradeorder|activity|debate|nav|usergroups|task', creditnotice = '', gid = parseInt('60'), fid = parseInt('24'), tid = parseInt('301195')</script>
+<script src="forumdata/cache/common.js?hqz" type="text/javascript"></script>
+</head>
+
+<body id="viewthread" onkeydown="if(event.keyCode==27) return false;">
+
+<div id="append_parent"></div><div id="ajaxwaitid"></div>
+
+<div id="header">
+<div id="myprompt_menu" style="display:none" class="promptmenu">
+<div class="promptcontent">
+<ul class="s_clear"><li style="display:none"><a id="prompt_pm" href="pm.php?filter=newpm" target="_blank">私人消息 (0)</a></li><li style="display:none"><a id="prompt_announcepm" href="pm.php?filter=announcepm" target="_blank">公共消息 (0)</a></li><li style="display:none"><a id="prompt_systempm" href="notice.php?filter=systempm" target="_blank">系统消息 (0)</a></li><li style="display:none"><a id="prompt_friend" href="notice.php?filter=friend" target="_blank">好友消息 (0)</a></li><li style="display:none"><a id="prompt_threads" href="notice.php?filter=threads" target="_blank">帖子消息 (0)</a></li></ul>
+</div>
+</div>
+</div>
+
+<!--栏目条-->
+<style type=text/css>
+A.title1:link {font-size:14px;font-family:arial;font-weight:bold;text-decoration:none;color:#ffffff;}
+A.title1:visited {font-size:14px;font-family:arial;font-weight:bold;text-decoration:none;color:#ffffff;}
+A.title1:active {font-size:14px;font-family:arial;font-weight:bold;text-decoration:none;color:#ffffff;}
+A.title1:hover {font-size:14px;font-family:arial;font-weight:bold;text-decoration:none;color:#ffffff;}
+A.title2:link {text-decoration:none;color:#000000;font-size:12px}
+A.title2:visited {text-decoration:none;color:#000000;font-size:12px}
+A.title2:active {text-decoration:none;color:#ff0000;font-size:12px}
+A.title2:hover {text-decoration:none;color:#ff0000;font-size:12px}
+</style>
+<center>
+<table width="98%" border=0 cellspacing=0 cellpadding=0 align=center bgcolor=#ffffff>
+<tr><td height=1 colspan=2 bgcolor=#000000></td></tr>
+<tr><td height=2 colspan=2></td></tr>
+<tr><td width=150 height=18 bgcolor=#9898ba align=center><a href="http://bbs.chinaunix.net/" class=title1>bbs.ChinaUnix.net</a></td>
+<td width=* align=right>
+<table border=0 cellspacing=0 cellpadding=0>
+
+<tr align=center><td align=right>
+<a href=http://www.chinaunix.net class=title2>首页</a> | 
+<a href=http://my.chinaunix.net class=title2 target=_blank style=color:red>微博</a> |
+<a href=http://news.chinaunix.net class=title2 target=_blank>新闻</a>
+ | <a href=http://linux.chinaunix.net class=title2 target=_blank style=color:red>Linux</a> 
+    | <a href=http://freebsd.chinaunix.net class=title2 target=_blank style=color:red>FreeBSD</a>
+   | <a href=http://aix.chinaunix.net class=title2 target=_blank style=color:red>AIX</a>
+   | <a href=http://win.chinaunix.net class=title2 target=_blank style=color:blue>Windows</a>
+ | <a href=http://blog.chinaunix.net class=title2 target=_blank>博客</a>
+ | <a href=http://bbs.chinaunix.net class=title2>论坛</a>
+  | <a href=http://stor.chinaunix.net class=title2 target=_blank >存储</a>
+  | <a href=http://net.chinaunix.net class=title2 target=_blank >网络</a>
+  | <a href=http://job.chinaunix.net class=title2 target=_blank>人才</a>
+ | <a href=http://wiki.chinaunix.net class=title2 target=_blank>Wiki</a>
+ | <a href=http://fanqiang.chinaunix.net class=title2 target=_blank style=color:red>资料</a>
+ | <a href=http://book.chinaunix.net class=title2 target=_blank >读书</a>
+ | <a href=http://man.chinaunix.net class=title2 target=_blank>手册</a>
+ | <a href=http://download.chinaunix.net class=title2 target=_blank>下载</font></a>
+ | <a href=http://hi.chinaunix.net/ class=title2 target=_blank style=color:red>空间</a>
+  | <a href=http://search.chinaunix.net class=title2 target=_blank>搜索</font></a>
+
+</td></tr>
+</table></td></tr>
+<tr><td height=2 colspan=2></td></tr>
+<tr><td height=1 colspan=2 bgcolor=#000000></td></tr>
+</table>
+<!--------->
+
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" width="98%">
+<tr><td align="left">
+<a href="/"><img src="images/default/logo.gif" alt="ChinaUnix.net" border="0" /></a>
+</td><td align="center" height=85>
+<IFRAME SRC="http://count.chinaunix.net/iframe.php?id=39" width="760" height="80" frameborder="0"  scrolling="no"></IFRAME></td></tr>
+<tr><FORM name=toplogin action="logging.php?action=login" method=post><td align="left" height="28" background="images/default/bg_menu_top.gif" colspan="2">
+&nbsp;
+<!--
+<input type="hidden" name="referer" value="">
+会员:<INPUT tabIndex=20 maxLength=40 size=10 name=username>
+密码:<INPUT tabIndex=21 type=password size=10 name=password>
+-->
+<INPUT type=submit value=登录 name=loginsubmit>
+<a href="register.php">免费注册</a>
+| <a href="member.php?action=lostpasswd">忘记密码</a>
+| <a href="logging.php?action=login">会员登录</a>
+| <a href="http://search.chinaunix.net/" target=_blank>搜索</a>
+| <a href="faq.php">帮助</a>&nbsp;
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" width="910">
+<tr><td height="1"></td></tr>
+</table>
+</td></FORM></tr>
+</table>
+
+<div class="maintable"><br><script language="javascript">
+<!--
+function showexif(obj){
+try{
+if(document.getElementById(obj).style.display=="none"){
+document.getElementById(obj).style.display="block";
+}else{
+document.getElementById(obj).style.display="none";
+}
+}catch(e){
+}
+}
+//-->
+</script>
+
+
+<script src="forumdata/cache/viewthread.js?hqz" type="text/javascript"></script>
+<script type="text/javascript">zoomstatus = parseInt(1);var imagemaxwidth = '%700';var aimgcount = new Array();</script>
+
+
+<div class="subtable" style="width:98%">
+<div style="float:left;font-size:16px;color:#000000;text-align:left">
+ 
+<b>日期相减的问题</b>
+</div>
+<div class="p_bar"><a class="p_curpage">1</a><a href="thread-301195-2-1.html" class="p_num">2</a><a href="thread-301195-2-1.html" class="p_redirect">&rsaquo;&rsaquo;</a></div></div>
+<br />
+
+<div class="subtable">
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" width="98%" align="center">
+<tr><td nowrap>
+<span id="newspecial" prompt="post_newthread" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})">
+<a href="post.php?action=newthread&amp;fid=24&amp;extra=page%3D1" onclick="showWindow('newthread', this.href);return false;"><img src="images/default/new_topic.gif" border="0"  alt="" /></a> </span>
+
+<a href="post.php?action=newthread&amp;fid=24&amp;extra=page%3D1&amp;special=1"><img src="images/default/new_poll.gif" border="0"  alt="" /></a>
+<a href="post.php?action=reply&amp;fid=24&amp;tid=301195&amp;extra=page%3D1"><img src="images/default/new_reply.gif" border="0" alt=""  /></a>&nbsp;
+<a href="http://www.chinaunix.net">首页</a> &raquo; 
+<a href="index.shtml">论坛</a> <!-- &raquo; <a href="listthread.php" style="color:#FF0000">汇总贴列表</a> -->  &raquo; <a href="forum-24-1.html">Shell</a> &raquo; </td><td nowrap align="right">
+<select onchange="if(this.options[this.selectedIndex].value != '') {
+window.location=('forumdisplay.php?fid='+this.options[this.selectedIndex].value+'&amp;sid=8G7b28') }">
+<option value="">版块跳转</option>
+<optgroup label="--Unix操作系统"><option value="4">Linux论坛</option><option value="5">BSD</option><option value="6">Solaris</option><option value="118">互操作专区</option><option value="9">AIX</option><option value="10">AS400</option><option value="8">HP-UX</option><option value="7">SCO UNIX</option><option value="11">Tru64 UNIX</option><option value="12">IRIX</option><option value="41">Mac OS X</option></optgroup><optgroup label="--虚拟化技术"><option value="172">VMware虚拟化</option><option value="173">Microsoft虚拟化</option><option value="174">Citrix虚拟化</option><option value="175">开源虚拟化</option><option value="176">小型机虚拟化</option><option value="177">虚拟化解决方案</option></optgroup><optgroup label="--程序设计"><option value="23">C/C++</option><option value="24">Shell</option><option value="26">Java</option><option value="27">Php</option><option value="25">Perl</option><option value="55">Python</option><option value="80">Web开发</option><option value="28">软件工程</option><option value="81">中间件技术</option><option value="84">GUI编程</option><option value="99">软件配置管理</option><option value="100">VoIP开发技术</option><option value="103">CPU与编译器</option><option value="116">Ruby</option><option value="137">OpenAPI</option><option value="142">Functional编程</option><option value="140">数据仓库与数据挖掘</option><option value="185">架构设计</option></optgroup><optgroup label="--网络技术"><option value="29">安全技术</option><option value="30">网络技术</option><option value="34">存储备份之家</option><option value="126">&nbsp; &nbsp; &nbsp; 存储业界</option><option value="45">服务器及硬件技术</option><option value="141">门户网站运维</option><option value="144">龙芯技术</option></optgroup><optgroup label="--数据库技术"><option value="17">MySQL</option><option value="21">Sybase</option><option value="19">Oracle</option><option value="18">PostgreSQL</option><option value="22">DB2</option><option value="20">Informix</option></optgroup><optgroup label="--应用技术专题"><option value="13">Web服务器</option><option value="14">Mail服务器</option><option value="15">FTP服务器</option><option value="16">DNS服务器</option><option value="38">Proxy服务器</option><option value="49">LDAP</option><option value="50">VPN</option><option value="52">Lotus</option><option value="102">Samba</option></optgroup><optgroup label="--行业应用与管理"><option value="105">金融行业</option><option value="106">电信行业</option><option value="107">互联网行业</option><option value="109">制造行业</option><option value="108">医卫行业</option><option value="111">教育行业</option><option value="113">电子政务</option><option value="110">信息安全</option><option value="114">交通行业</option></optgroup><optgroup label="--综合交流区"><option value="46">IT业界新闻与评论</option><option value="161">&nbsp; &nbsp; &nbsp; 关注流感</option><option value="32">IT职业生涯</option><option value="53">IT培训与认证</option><option value="54">IT采购数据中心</option><option value="82">IT图书与评论</option><option value="180">云计算技术</option><option value="182">&nbsp; &nbsp; &nbsp; 云计算业界</option></optgroup><optgroup label="--休闲生活"><option value="31">清茶斋</option><option value="157">&nbsp; &nbsp; &nbsp; 各地快讯</option><option value="115">投资理财</option><option value="146">&nbsp; &nbsp; &nbsp; 财经快报</option><option value="39">运动地带</option><option value="148">&nbsp; &nbsp; &nbsp; 体坛快报</option><option value="40">快乐数码摄影</option><option value="168">&nbsp; &nbsp; &nbsp; 摄影器材</option><option value="134">&nbsp; &nbsp; &nbsp; 摄影比赛专区</option><option value="33">外语沙龙</option><option value="83">游戏玩家</option><option value="96">旅游天下</option><option value="121">IT爱车族</option><option value="153">&nbsp; &nbsp; &nbsp; 汽车快报</option><option value="150">美食美色</option><option value="151">&nbsp; &nbsp; &nbsp; 美食菜谱</option></optgroup><optgroup label="--站务及频道"><option value="156">CU技术图书大系</option><option value="123">CU活动专区</option><option value="169">&nbsp; &nbsp; &nbsp; 拍卖交流区</option><option value="160">&nbsp; &nbsp; &nbsp; CU伴我行</option><option value="2">站务交流</option><option value="51">博客站务交流区</option></optgroup></select>
+<select onchange="if(this.options[this.selectedIndex].value != '')
+window.location=('forumdisplay.php?fid='+this.options[this.selectedIndex].value+'&amp;sid=8G7b28')">
+<option value="">最近访问的版块</option>
+<option value="28">&nbsp; &nbsp; &nbsp; 软件工程</option><option value="25">&nbsp; &nbsp; &nbsp; Perl</option><option value="17">&nbsp; &nbsp; &nbsp; MySQL</option><option value="6">&nbsp; &nbsp; &nbsp; Solaris</option><option value="7">&nbsp; &nbsp; &nbsp; SCO UNIX</option><option value="36">&nbsp; &nbsp; &nbsp; 内核/嵌入技术</option><option value="4">&nbsp; &nbsp; &nbsp; Linux论坛</option><option value="29">&nbsp; &nbsp; &nbsp; 安全技术</option><option value="9">&nbsp; &nbsp; &nbsp; AIX</option><option value="124">&nbsp; &nbsp; &nbsp; AIX文档中心</option><option value="23">&nbsp; &nbsp; &nbsp; C/C++</option></select>
+</td></tr>
+</table>
+</div>
+
+
+<div class="ad_text" id="ad_text"><table summary="Text Ad" cellpadding="0" cellspacing="1"><tr><td width="100%"><div align=left>
+<a target="_blank" href="http://bbs.chinaunix.net/thread-1843113-1-1.html" style=color:red><b>
+有奖:管好存储哪些功能最给力 </b></a> |<a target="_blank" href="http://linux.chinaunix.net/bbs/thread-1177273-1-1.html" style=color:red><b>
+Linux系统移植从零开始！</b></a> | <a href=http://bbs.chinaunix.net/thread-1847045-1-1.html target=_blank style=color:green><b>ChinaUnix十周年版主评选开始啦！</b></a>
+|  <a href="http://www.now.cn/?now_1920_chinaunix"  target="_blank" style="color:#B5A642"><b>域名全国最低 买主机免费备案</b></a> <!-- 09/05 -->
+  </div>
+</td></tr>
+</table></div>
+<div id="wrap" class="wrap s_clear threadfix">
+<div class="forumcontrol" style="display:none">
+<table cellspacing="0" cellpadding="0">
+<tr>
+<td class="modaction">
+</td>
+<td align="right">
+<div class="p_bar"><a class="p_curpage">1</a><a href="thread-301195-2-1.html" class="p_num">2</a><a href="thread-301195-2-1.html" class="p_redirect">&rsaquo;&rsaquo;</a></div><span class="pageback" id="visitedforums" onmouseover="$('visitedforums').id = 'visitedforumstmp';this.id = 'visitedforums';showMenu({'ctrlid':this.id})"><a href="forum-24-1.html">返回列表</a></span>
+<span class="postbtn" id="newspecial" prompt="post_newthread" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})"><a href="post.php?action=newthread&amp;fid=24" onclick="showWindow('newthread', this.href);return false;">发帖</a></span>
+</td>
+</tr>
+</table>
+</div>
+
+
+<div id="postlist" class="mainbox viewthread">
+<table cellspacing="0" cellpadding="4" width="98%" border="0" bordercolor="#000000" style="border-collapse: collapse;border-left: 1px solid #000000;border-top: 1px solid #000000;border-right: 1px solid #000000; padding: 1">
+<tr class="header"><td colspan="2" style="color: #FFFFFF">
+
+<span style="font-weight: normal">
+[<a href="viewthread.php?action=printable&amp;tid=301195" target="_blank">打印</a>] 
+[<a href="#" onclick="showDialog($('favoritewin').innerHTML, 'info', '收藏/关注')">收藏</a>]	
+[<a href="archiver/?tid-301195.html" target=_blank>本帖文本页</a>]
+[<a href="#" onclick="showDialog($('sharewin').innerHTML, 'info', '分享')" style="color:blue">推荐此主题给朋友</a>] 
+</span>
+</td>
+</tr>
+</table><div id="post_1993560"><table id="pid1993560" summary="pid1993560" cellspacing="0" cellpadding="0">
+<tr var="" bgcolor="#F0F3FA" var="">
+<td width="18%" class="postauthor" rowspan="2" var="" bgcolor="#F0F3FA" var="">
+<div class="postinfo">
+<a target="_blank" href="space.php?uid=8955695" style="margin-left: 20px; font-weight: 800">
+				
+<font face="Fixedsys">hygs</font></a>
+	
+	
+</div>
+	
+<div class="popupmenu_popup userinfopanel" id="userinfo1993560" style="display: none; position: absolute;margin-top: -11px;">
+<div class="popavatar">
+<div id="userinfo1993560_ma"></div>
+<ul class="profile_side">
+<li class="pm"><a href="pm.php?action=new&amp;uid=8955695" onclick="hideMenu('userinfo1993560');showWindow('sendpm', this.href);return false;" title="发短消息">发短消息</a></li>
+<li class="buddy"><a href="my.php?item=buddylist&amp;newbuddyid=8955695&amp;buddysubmit=yes" target="_blank" id="ajax_buddy_0" title="加为好友" onclick="ajaxmenu(this, 3000);doane(event);">加为好友</a></li>
+</ul>
+</div>
+<div class="popuserinfo">
+<p>
+<a href="space-uid-8955695.html" target="_blank">hygs</a>
+<em>当前离线
+</em>
+</p>
+
+<dl class="s_clear"><dt>UID</dt><dd>8955695&nbsp;</dd><dt>帖子</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=hygs&st=post&bbs=1&forums=all" target="_blank"><u>319</u></a>&nbsp;</dd><dt>精华</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=hygs&st=titlejh&bbs=1&forums=all" target="_blank"><u>0</u></a>&nbsp;</dd><dt>积分</dt><dd>330&nbsp;</dd><dt>可用积分</dt><dd>330 &nbsp;</dd><dt>信誉积分</dt><dd>100 &nbsp;</dd><dt>专家积分</dt><dd style="width:110px;">0 (本版:)</dd><dt>空间积分</dt><dd>0 &nbsp;</dd><dt>阅读权限</dt><dd>20&nbsp;</dd><dt>在线时间</dt><dd> 小时&nbsp;</dd><dt>注册时间</dt><dd>2004-01-29&nbsp;</dd><dt>最后登录</dt><dd>2005-12-02&nbsp;</dd></dl>
+<div class="imicons">
+<a href="http://my.chinaunix.net/space.php?uid=8955695" target="_blank" title="个人空间"><img src="images/default/home.gif" alt="个人空间"  /></a>
+<a href="space-uid-8955695.html" target="_blank" title="查看详细资料"><img src="images/default/userinfo.gif" alt="查看详细资料"  /></a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+ <div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo1993560')"><a href="space-uid-8955695.html" target="_blank"><img src="http://bbs1.chinaunix.net/uc_server/avatar.php?uid=8955695&size=middle" /></a></div>
+<p><em><a href="faq.php?action=grouppermission&amp;searchgroupid=11" target="_blank">精灵王</a></em></p>
+</div>
+<p>&nbsp;<img src="images/default/level/pips4.gif" />&nbsp;</p>
+<dl class="profile s_clear"><dt>帖子</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=hygs&st=post&bbs=1&forums=all" target="_blank"><u>319</u></a>&nbsp;</dd><dt>主题</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=hygs&st=title&bbs=1&forums=all" target="_blank"><u>69</u></a>&nbsp;</dd><dt>精华</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=hygs&st=titlejh&bbs=1&forums=all" target="_blank"><u>0</u></a>&nbsp;</dd><dt>可用积分</dt><dd>330 &nbsp;</dd><dt>专家积分</dt><dd style="width:110px;">0 (本版:0)</dd><dt>在线时间</dt><dd> 小时&nbsp;</dd><dt>注册时间</dt><dd>2004-01-29&nbsp;</dd><dt>最后登录</dt><dd>2005-12-02&nbsp;</dd></dl><p>状态：...保密...</p>
+  
+<p>
+[<a href="http://my.chinaunix.net/space.php?uid=8955695" target="_blank" alt="进入此会员的CU微博" style=color:blue><b>微博</b></a>]
+[<a href="http://blog.chinaunix.net/dir.php?uid=8955695" target="_blank" alt="进入此会员的CU博客"><b>博客</b></a>]
+[<a href="pm.php?action=new&amp;uid=8955695" target="_blank" alt="给此会员发送站内短信"><b>短信</b></a>] 
+</p>
+
+</td>
+<td class="postcontent postbody">
+<div id="threadstamp"></div><div class="postinfo">
+<strong>
+<em>
+<a href="javascript:;" onclick="scrollTo(0,0);"><img src="images/default/top.gif" border="0" alt="顶部" /></a>
+
+<a href="viewthread.php?tid=301195&amp;extra=page%3D1&amp;ordertype=1" class="left">[倒序看帖]</a>
+
+</em>
+</strong>
+<div class="posterinfo">
+<div class="pagecontrol">
+</div>
+<div class="authorinfo">
+<a title="复制本帖链接" id="postnum1993560" href="javascript:;" onclick="setCopy('http://bbs3.chinaunix.net/viewthread.php?tid=301195', '帖子地址已经复制到剪贴板')"><em>1</em>楼</a>
+
+<em id="authorposton1993560">发表于 2004-04-11 11:19</em>
+ | <a href="viewthread.php?tid=301195&amp;page=1&amp;authorid=8955695" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div>
+<hr class="top_hr">
+<div class="defaultpost">
+<div id="ad_thread2_0"></div><div id="ad_thread3_0"></div><div id="ad_thread4_0"></div>
+
+<div class="postact s_clear" style="float:right">
+<p>
+</p>
+</div>
+
+<div class="postmessage firstpost">
+<div id="threadtitle">
+</div>
+<div class="t_msgfontfix">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_msgfont" id="postmessage_1993560">好象在哪里见到过：shell下两个日期相减计算出天数的代码，但正需要的时候又不知何处了？哪位知道？可否告知或提供其代码的呢？？？谢谢！！！</td></tr></table>
+</div>
+
+<div id="post_rate_div_1993560"></div>
+<div class="useraction">
+</div>
+</div>
+
+</div>
+</td></tr>
+<tr><td class="postcontent postbottom" bgcolor="#F0F3FA">
+<div class="signatures" style="max-height:500px;maxHeightIE:500px;">__________________________________<br><b>hygs 向各位大虾请教、学习<font size="4">SCO</font> shell！&nbsp;&nbsp;</b></div>
+<br>
+<hr class="ad_hr">
+<div class="ad_textlink1" id="ad_thread1_0"><a href="http://ad-apac.doubleclick.net/click;h=v2|3D65|0|0|%2a|j;234843440;0-0;0;58714496;31-1|1;40183827|40201614|1;;%3fhttp://h20427.www2.hp.com/campaign/enp/cn/zh/FYQ1SWD_D2D/default.asp?jumpid=ex_r11504_cn/zh/smb/tsg/it168_enterprisehomepagebanner_q1swdminisite/6-1hcdn6a6-1hf17dk"  target="_blank" style="color:green"><b>HP StoreOnce重复数据删除白皮书下载</b></a>|<a target="_blank" href="http://bbs.chinaunix.net/thread-1841651-1-1.html" style=color:red><b>
+2010您最想感谢的CUer是谁？敬请提名！ </b></a> | <a href="http://www.uplooking.com/" target="_blank" style="color:blue"><b>红帽RHCE超低价考试</b></a>|  <a href="http://bbs2.chinaunix.net/thread-1843110-1-1.html"  target="_blank" style="color:#B5A642"><b>有奖：数据保护什么备份软件好</b></a> 
+</div></div></td>
+</tr>
+<tr class="threadad" bgcolor="#FFFFFF" height="2">
+<td class="postauthor" bgcolor="#FFFFFF"></td>
+<td class="adcontent" bgcolor="#FFFFFF"><!--//div id="ad_interthread"></div//--></td>
+</tr>
+</table>
+</div><div id="post_1993723"><table id="pid1993723" summary="pid1993723" cellspacing="0" cellpadding="0">
+<tr var="" bgcolor="#FAFBFC" var="">
+<td width="18%" class="postauthor" rowspan="2" var="" bgcolor="#FAFBFC" var="">
+<div class="postinfo">
+<a target="_blank" href="space.php?uid=20139872" style="margin-left: 20px; font-weight: 800">
+				
+<font face="Fixedsys">shadowng</font></a>
+	
+	
+</div>
+	
+<div class="popupmenu_popup userinfopanel" id="userinfo1993723" style="display: none; position: absolute;margin-top: -11px;">
+<div class="popavatar">
+<div id="userinfo1993723_ma"></div>
+<ul class="profile_side">
+<li class="pm"><a href="pm.php?action=new&amp;uid=20139872" onclick="hideMenu('userinfo1993723');showWindow('sendpm', this.href);return false;" title="发短消息">发短消息</a></li>
+<li class="buddy"><a href="my.php?item=buddylist&amp;newbuddyid=20139872&amp;buddysubmit=yes" target="_blank" id="ajax_buddy_1" title="加为好友" onclick="ajaxmenu(this, 3000);doane(event);">加为好友</a></li>
+</ul>
+</div>
+<div class="popuserinfo">
+<p>
+<a href="space-uid-20139872.html" target="_blank">shadowng</a>
+<em>当前离线
+</em>
+</p>
+
+<dl class="s_clear"><dt>UID</dt><dd>20139872&nbsp;</dd><dt>帖子</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=shadowng&st=post&bbs=1&forums=all" target="_blank"><u>6</u></a>&nbsp;</dd><dt>精华</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=shadowng&st=titlejh&bbs=1&forums=all" target="_blank"><u>0</u></a>&nbsp;</dd><dt>积分</dt><dd>12&nbsp;</dd><dt>可用积分</dt><dd>12 &nbsp;</dd><dt>信誉积分</dt><dd>100 &nbsp;</dd><dt>专家积分</dt><dd style="width:110px;">0 (本版:)</dd><dt>空间积分</dt><dd>0 &nbsp;</dd><dt>阅读权限</dt><dd>10&nbsp;</dd><dt>在线时间</dt><dd> 小时&nbsp;</dd><dt>注册时间</dt><dd>2004-03-05&nbsp;</dd><dt>最后登录</dt><dd>2005-12-15&nbsp;</dd></dl>
+<div class="imicons">
+<a href="http://my.chinaunix.net/space.php?uid=20139872" target="_blank" title="个人空间"><img src="images/default/home.gif" alt="个人空间"  /></a>
+<a href="space-uid-20139872.html" target="_blank" title="查看详细资料"><img src="images/default/userinfo.gif" alt="查看详细资料"  /></a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+ <div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo1993723')"><a href="space-uid-20139872.html" target="_blank"><img src="http://bbs1.chinaunix.net/uc_server/avatar.php?uid=20139872&size=middle" /></a></div>
+<p><em><a href="faq.php?action=grouppermission&amp;searchgroupid=10" target="_blank">新手</a></em></p>
+</div>
+<p>&nbsp;<img src="images/default/level/pips0.gif" />&nbsp;</p>
+<dl class="profile s_clear"><dt>帖子</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=shadowng&st=post&bbs=1&forums=all" target="_blank"><u>6</u></a>&nbsp;</dd><dt>主题</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=shadowng&st=title&bbs=1&forums=all" target="_blank"><u>2</u></a>&nbsp;</dd><dt>精华</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=shadowng&st=titlejh&bbs=1&forums=all" target="_blank"><u>0</u></a>&nbsp;</dd><dt>可用积分</dt><dd>12 &nbsp;</dd><dt>专家积分</dt><dd style="width:110px;">0 (本版:0)</dd><dt>在线时间</dt><dd> 小时&nbsp;</dd><dt>注册时间</dt><dd>2004-03-05&nbsp;</dd><dt>最后登录</dt><dd>2005-12-15&nbsp;</dd></dl><p>状态：<font color="#999999">...当前离线...</font></p>
+  
+<p>
+[<a href="http://my.chinaunix.net/space.php?uid=20139872" target="_blank" alt="进入此会员的CU微博" style=color:blue><b>微博</b></a>]
+[<a href="http://blog.chinaunix.net/dir.php?uid=20139872" target="_blank" alt="进入此会员的CU博客"><b>博客</b></a>]
+[<a href="pm.php?action=new&amp;uid=20139872" target="_blank" alt="给此会员发送站内短信"><b>短信</b></a>] 
+</p>
+
+</td>
+<td class="postcontent postbody">
+<div class="postinfo">
+<strong>
+<em>
+<a href="javascript:;" onclick="scrollTo(0,0);"><img src="images/default/top.gif" border="0" alt="顶部" /></a>
+
+
+</em>
+</strong>
+<div class="posterinfo">
+<div class="pagecontrol">
+</div>
+<div class="authorinfo">
+<a title="复制本帖链接" id="postnum1993723" href="javascript:;" onclick="setCopy('http://bbs3.chinaunix.net/redirect.php?goto=findpost&amp;ptid=301195&amp;pid=1993723', '帖子地址已经复制到剪贴板')"><em>2</em>楼</a>
+
+<em id="authorposton1993723">发表于 2004-04-11 12:11</em>
+ | <a href="viewthread.php?tid=301195&amp;page=1&amp;authorid=20139872" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div>
+<hr class="top_hr">
+<div class="defaultpost">
+<div id="ad_thread2_1"></div><div id="ad_thread3_1"></div><div id="ad_thread4_1"></div>
+
+<div class="postact s_clear" style="float:right">
+<p>
+</p>
+</div>
+
+<div class="postmessage ">
+<h2>日期相减的问题</h2>
+<div class="t_msgfontfix">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_msgfont" id="postmessage_1993723">http://www.chinaunix.net/jh/7/198369.html</td></tr></table>
+</div>
+
+<div id="post_rate_div_1993723"></div>
+</div>
+
+</div>
+</td></tr>
+<tr><td class="postcontent postbottom" bgcolor="#FAFBFC">
+<br>
+<hr class="ad_hr">
+<div class="ad_textlink1" id="ad_thread1_1"><a href="http://ad-apac.doubleclick.net/click;h=v2|3D65|0|0|%2a|j;234843440;0-0;0;58714496;31-1|1;40183827|40201614|1;;%3fhttp://h20427.www2.hp.com/campaign/enp/cn/zh/FYQ1SWD_D2D/default.asp?jumpid=ex_r11504_cn/zh/smb/tsg/it168_enterprisehomepagebanner_q1swdminisite/6-1hcdn6a6-1hf17dk"  target="_blank" style="color:green"><b>HP StoreOnce重复数据删除白皮书下载</b></a>|<a target="_blank" href="http://bbs.chinaunix.net/thread-1841651-1-1.html" style=color:red><b>
+2010您最想感谢的CUer是谁？敬请提名！ </b></a> | <a href="http://www.uplooking.com/" target="_blank" style="color:blue"><b>红帽RHCE超低价考试</b></a>|  <a href="http://bbs2.chinaunix.net/thread-1843110-1-1.html"  target="_blank" style="color:#B5A642"><b>有奖：数据保护什么备份软件好</b></a> 
+</div></div></td>
+</tr>
+<tr class="threadad" bgcolor="#FFFFFF" height="2">
+<td class="postauthor" bgcolor="#FFFFFF"></td>
+<td class="adcontent" bgcolor="#FFFFFF"></td>
+</tr>
+</table>
+</div><div id="post_1996575"><table id="pid1996575" summary="pid1996575" cellspacing="0" cellpadding="0">
+<tr var="" bgcolor="#F0F3FA" var="">
+<td width="18%" class="postauthor" rowspan="2" var="" bgcolor="#F0F3FA" var="">
+<div class="postinfo">
+<a target="_blank" href="space.php?uid=7696299" style="margin-left: 20px; font-weight: 800">
+				
+<font face="Fixedsys">網中人</font></a>
+	
+	
+</div>
+	
+<div class="popupmenu_popup userinfopanel" id="userinfo1996575" style="display: none; position: absolute;margin-top: -11px;">
+<div class="popavatar">
+<div id="userinfo1996575_ma"></div>
+<ul class="profile_side">
+<li class="pm"><a href="pm.php?action=new&amp;uid=7696299" onclick="hideMenu('userinfo1996575');showWindow('sendpm', this.href);return false;" title="发短消息">发短消息</a></li>
+<li class="buddy"><a href="my.php?item=buddylist&amp;newbuddyid=7696299&amp;buddysubmit=yes" target="_blank" id="ajax_buddy_2" title="加为好友" onclick="ajaxmenu(this, 3000);doane(event);">加为好友</a></li>
+</ul>
+</div>
+<div class="popuserinfo">
+<p>
+<a href="space-uid-7696299.html" target="_blank">網中人</a>
+<em>当前离线
+</em>
+</p>
+
+<dl class="s_clear"><dt>UID</dt><dd>7696299&nbsp;</dd><dt>帖子</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=網中人&st=post&bbs=1&forums=all" target="_blank"><u>9217</u></a>&nbsp;</dd><dt>精华</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=網中人&st=titlejh&bbs=1&forums=all" target="_blank"><u>19</u></a>&nbsp;</dd><dt>积分</dt><dd>7897&nbsp;</dd><dt>可用积分</dt><dd>7897 &nbsp;</dd><dt>信誉积分</dt><dd>100 &nbsp;</dd><dt>专家积分</dt><dd style="width:110px;">54 (本版:)</dd><dt>空间积分</dt><dd>0 &nbsp;</dd><dt>阅读权限</dt><dd>100&nbsp;</dd><dt>性别</dt><dd>男&nbsp;</dd><dt>来自</dt><dd>Taiwan&nbsp;</dd><dt>在线时间</dt><dd>152 小时&nbsp;</dd><dt>注册时间</dt><dd>2003-10-28&nbsp;</dd><dt>最后登录</dt><dd>2011-02-04&nbsp;</dd></dl>
+<div class="imicons">
+<a href="http://wpa.qq.com/msgrd?V=1&amp;Uin=440204&amp;Site=ChinaUnix.net&amp;Menu=yes" target="_blank" title="QQ"><img src="images/default/qq.gif" alt="QQ" /></a><a href="http://my.chinaunix.net/space.php?uid=7696299" target="_blank" title="个人空间"><img src="images/default/home.gif" alt="个人空间"  /></a>
+<a href="http://www.study-area.org/netman.htm" target="_blank" title="查看个人网站"><img src="images/default/forumlink.gif" alt="查看个人网站"  /></a><a href="space-uid-7696299.html" target="_blank" title="查看详细资料"><img src="images/default/userinfo.gif" alt="查看详细资料"  /></a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+ <div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo1996575')"><a href="space-uid-7696299.html" target="_blank"><img src="http://bbs1.chinaunix.net/uc_server/avatar.php?uid=7696299&size=middle" /></a></div>
+<p><em><a href="faq.php?action=grouppermission&amp;searchgroupid=17" target="_blank">荣誉版主</a></em></p>
+</div>
+<p>&nbsp;<img src="images/default/level/pips7.gif" />&nbsp;</p>
+<dl class="profile s_clear"><dt>帖子</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=網中人&st=post&bbs=1&forums=all" target="_blank"><u>9217</u></a>&nbsp;</dd><dt>主题</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=網中人&st=title&bbs=1&forums=all" target="_blank"><u>67</u></a>&nbsp;</dd><dt>精华</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=網中人&st=titlejh&bbs=1&forums=all" target="_blank"><u>19</u></a>&nbsp;</dd><dt>可用积分</dt><dd>7897 &nbsp;</dd><dt>专家积分</dt><dd style="width:110px;">54 (本版:0)</dd><dt>来自</dt><dd>Taiwan&nbsp;</dd><dt>在线时间</dt><dd>152 小时&nbsp;</dd><dt>注册时间</dt><dd>2003-10-28&nbsp;</dd><dt>最后登录</dt><dd>2011-02-04&nbsp;</dd></dl><p><img src="images/common/medal4.gif" alt="荣誉版主" title="荣誉版主" /></p>
+<p>状态：<font color="#999999">...当前离线...</font></p>
+  
+<p>
+[<a href="http://my.chinaunix.net/space.php?uid=7696299" target="_blank" alt="进入此会员的CU微博" style=color:blue><b>微博</b></a>]
+[<a href="http://blog.chinaunix.net/dir.php?uid=7696299" target="_blank" alt="进入此会员的CU博客"><b>博客</b></a>]
+[<a href="pm.php?action=new&amp;uid=7696299" target="_blank" alt="给此会员发送站内短信"><b>短信</b></a>] 
+</p>
+
+</td>
+<td class="postcontent postbody">
+<div class="postinfo">
+<strong>
+<em>
+<a href="javascript:;" onclick="scrollTo(0,0);"><img src="images/default/top.gif" border="0" alt="顶部" /></a>
+
+
+</em>
+</strong>
+<div class="posterinfo">
+<div class="pagecontrol">
+</div>
+<div class="authorinfo">
+<a title="复制本帖链接" id="postnum1996575" href="javascript:;" onclick="setCopy('http://bbs3.chinaunix.net/redirect.php?goto=findpost&amp;ptid=301195&amp;pid=1996575', '帖子地址已经复制到剪贴板')"><em>3</em>楼</a>
+
+<em id="authorposton1996575">发表于 2004-04-12 01:45</em>
+ | <a href="viewthread.php?tid=301195&amp;page=1&amp;authorid=7696299" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div>
+<hr class="top_hr">
+<div class="defaultpost">
+<div id="ad_thread2_2"></div><div id="ad_thread3_2"></div><div id="ad_thread4_2"></div>
+
+<div class="postact s_clear" style="float:right">
+<p>
+</p>
+</div>
+
+<div class="postmessage ">
+<h2>日期相减的问题</h2>
+<div class="t_msgfontfix">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_msgfont" id="postmessage_1996575">http://bbs.chinaunix.net/forum/viewtopic.php?t=194654</td></tr></table>
+</div>
+
+<div id="post_rate_div_1996575"></div>
+</div>
+
+</div>
+</td></tr>
+<tr><td class="postcontent postbottom" bgcolor="#F0F3FA">
+<div class="signatures" style="max-height:500px;maxHeightIE:500px;">__________________________________<br>君子博學而日參省乎己，則知明而行無過矣。<br><br><div class="smalltxt" style="margin-left: 2em; margin-right: 2em; font-weight: bold"><div style="float: left">CODE:</div><div style="text-align: right; float: right"><a href="###" class="smalltxt" onclick="copycode(findobj('code0'));">[Copy to clipboard]</a></div></div><div class="altbg2" style="font-family:fixedsys;margin: 2em; margin-top: 3px; clear: both; padding: 10px; padding-top: 5px; border: 1px solid #698CC3; word-break: break-all" id="code0">:() { :|:&amp; }; :&nbsp; &nbsp;&nbsp; &nbsp;# &lt;--- 這個別亂跑！好奇會死人的！<br />
+echo '十人|日一|十十o' | sed 's/.../&amp;\n/g'&nbsp; &nbsp;# &lt;--- 跟你講就不聽，再跑這個好了...</div></div>
+<br>
+<hr class="ad_hr">
+<div class="ad_textlink1" id="ad_thread1_2"><a href="http://ad-apac.doubleclick.net/click;h=v2|3D65|0|0|%2a|j;234843440;0-0;0;58714496;31-1|1;40183827|40201614|1;;%3fhttp://h20427.www2.hp.com/campaign/enp/cn/zh/FYQ1SWD_D2D/default.asp?jumpid=ex_r11504_cn/zh/smb/tsg/it168_enterprisehomepagebanner_q1swdminisite/6-1hcdn6a6-1hf17dk"  target="_blank" style="color:green"><b>HP StoreOnce重复数据删除白皮书下载</b></a>|<a target="_blank" href="http://bbs.chinaunix.net/thread-1841651-1-1.html" style=color:red><b>
+2010您最想感谢的CUer是谁？敬请提名！ </b></a> | <a href="http://www.uplooking.com/" target="_blank" style="color:blue"><b>红帽RHCE超低价考试</b></a>|  <a href="http://bbs2.chinaunix.net/thread-1843110-1-1.html"  target="_blank" style="color:#B5A642"><b>有奖：数据保护什么备份软件好</b></a> 
+</div></div></td>
+</tr>
+<tr class="threadad" bgcolor="#FFFFFF" height="2">
+<td class="postauthor" bgcolor="#FFFFFF"></td>
+<td class="adcontent" bgcolor="#FFFFFF"></td>
+</tr>
+</table>
+</div><div id="post_2001976"><table id="pid2001976" summary="pid2001976" cellspacing="0" cellpadding="0">
+<tr var="" bgcolor="#FAFBFC" var="">
+<td width="18%" class="postauthor" rowspan="2" var="" bgcolor="#FAFBFC" var="">
+<div class="postinfo">
+<a target="_blank" href="space.php?uid=8955695" style="margin-left: 20px; font-weight: 800">
+				
+<font face="Fixedsys">hygs</font></a>
+	
+	
+</div>
+	
+<div class="popupmenu_popup userinfopanel" id="userinfo2001976" style="display: none; position: absolute;margin-top: -11px;">
+<div class="popavatar">
+<div id="userinfo2001976_ma"></div>
+<ul class="profile_side">
+<li class="pm"><a href="pm.php?action=new&amp;uid=8955695" onclick="hideMenu('userinfo2001976');showWindow('sendpm', this.href);return false;" title="发短消息">发短消息</a></li>
+<li class="buddy"><a href="my.php?item=buddylist&amp;newbuddyid=8955695&amp;buddysubmit=yes" target="_blank" id="ajax_buddy_3" title="加为好友" onclick="ajaxmenu(this, 3000);doane(event);">加为好友</a></li>
+</ul>
+</div>
+<div class="popuserinfo">
+<p>
+<a href="space-uid-8955695.html" target="_blank">hygs</a>
+<em>当前离线
+</em>
+</p>
+
+<dl class="s_clear"><dt>UID</dt><dd>8955695&nbsp;</dd><dt>帖子</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=hygs&st=post&bbs=1&forums=all" target="_blank"><u>319</u></a>&nbsp;</dd><dt>精华</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=hygs&st=titlejh&bbs=1&forums=all" target="_blank"><u>0</u></a>&nbsp;</dd><dt>积分</dt><dd>330&nbsp;</dd><dt>可用积分</dt><dd>330 &nbsp;</dd><dt>信誉积分</dt><dd>100 &nbsp;</dd><dt>专家积分</dt><dd style="width:110px;">0 (本版:)</dd><dt>空间积分</dt><dd>0 &nbsp;</dd><dt>阅读权限</dt><dd>20&nbsp;</dd><dt>在线时间</dt><dd> 小时&nbsp;</dd><dt>注册时间</dt><dd>2004-01-29&nbsp;</dd><dt>最后登录</dt><dd>2005-12-02&nbsp;</dd></dl>
+<div class="imicons">
+<a href="http://my.chinaunix.net/space.php?uid=8955695" target="_blank" title="个人空间"><img src="images/default/home.gif" alt="个人空间"  /></a>
+<a href="space-uid-8955695.html" target="_blank" title="查看详细资料"><img src="images/default/userinfo.gif" alt="查看详细资料"  /></a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+ <div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo2001976')"><a href="space-uid-8955695.html" target="_blank"><img src="http://bbs1.chinaunix.net/uc_server/avatar.php?uid=8955695&size=middle" /></a></div>
+<p><em><a href="faq.php?action=grouppermission&amp;searchgroupid=11" target="_blank">精灵王</a></em></p>
+</div>
+<p>&nbsp;<img src="images/default/level/pips4.gif" />&nbsp;</p>
+<dl class="profile s_clear"><dt>帖子</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=hygs&st=post&bbs=1&forums=all" target="_blank"><u>319</u></a>&nbsp;</dd><dt>主题</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=hygs&st=title&bbs=1&forums=all" target="_blank"><u>69</u></a>&nbsp;</dd><dt>精华</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=hygs&st=titlejh&bbs=1&forums=all" target="_blank"><u>0</u></a>&nbsp;</dd><dt>可用积分</dt><dd>330 &nbsp;</dd><dt>专家积分</dt><dd style="width:110px;">0 (本版:0)</dd><dt>在线时间</dt><dd> 小时&nbsp;</dd><dt>注册时间</dt><dd>2004-01-29&nbsp;</dd><dt>最后登录</dt><dd>2005-12-02&nbsp;</dd></dl><p>状态：...保密...</p>
+  
+<p>
+[<a href="http://my.chinaunix.net/space.php?uid=8955695" target="_blank" alt="进入此会员的CU微博" style=color:blue><b>微博</b></a>]
+[<a href="http://blog.chinaunix.net/dir.php?uid=8955695" target="_blank" alt="进入此会员的CU博客"><b>博客</b></a>]
+[<a href="pm.php?action=new&amp;uid=8955695" target="_blank" alt="给此会员发送站内短信"><b>短信</b></a>] 
+</p>
+
+</td>
+<td class="postcontent postbody">
+<div class="postinfo">
+<strong>
+<em>
+<a href="javascript:;" onclick="scrollTo(0,0);"><img src="images/default/top.gif" border="0" alt="顶部" /></a>
+
+
+</em>
+</strong>
+<div class="posterinfo">
+<div class="pagecontrol">
+</div>
+<div class="authorinfo">
+<a title="复制本帖链接" id="postnum2001976" href="javascript:;" onclick="setCopy('http://bbs3.chinaunix.net/redirect.php?goto=findpost&amp;ptid=301195&amp;pid=2001976', '帖子地址已经复制到剪贴板')"><em>4</em>楼</a>
+
+<em id="authorposton2001976">发表于 2004-04-12 23:32</em>
+ | <a href="viewthread.php?tid=301195&amp;page=1&amp;authorid=8955695" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div>
+<hr class="top_hr">
+<div class="defaultpost">
+<div id="ad_thread2_3"></div><div id="ad_thread3_3"></div><div id="ad_thread4_3"></div>
+
+<div class="postact s_clear" style="float:right">
+<p>
+</p>
+</div>
+
+<div class="postmessage ">
+<h2>日期相减的问题</h2>
+<div class="t_msgfontfix">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_msgfont" id="postmessage_2001976">请大虾们帮忙！楼上提供的一些代码如何才能在SCO上运行呢？谢谢！！！</td></tr></table>
+</div>
+
+<div id="post_rate_div_2001976"></div>
+</div>
+
+</div>
+</td></tr>
+<tr><td class="postcontent postbottom" bgcolor="#FAFBFC">
+<div class="signatures" style="max-height:500px;maxHeightIE:500px;">__________________________________<br><b>hygs 向各位大虾请教、学习<font size="4">SCO</font> shell！&nbsp;&nbsp;</b></div>
+<br>
+<hr class="ad_hr">
+<div class="ad_textlink1" id="ad_thread1_3"><a href="http://ad-apac.doubleclick.net/click;h=v2|3D65|0|0|%2a|j;234843440;0-0;0;58714496;31-1|1;40183827|40201614|1;;%3fhttp://h20427.www2.hp.com/campaign/enp/cn/zh/FYQ1SWD_D2D/default.asp?jumpid=ex_r11504_cn/zh/smb/tsg/it168_enterprisehomepagebanner_q1swdminisite/6-1hcdn6a6-1hf17dk"  target="_blank" style="color:green"><b>HP StoreOnce重复数据删除白皮书下载</b></a>|<a target="_blank" href="http://bbs.chinaunix.net/thread-1841651-1-1.html" style=color:red><b>
+2010您最想感谢的CUer是谁？敬请提名！ </b></a> | <a href="http://www.uplooking.com/" target="_blank" style="color:blue"><b>红帽RHCE超低价考试</b></a>|  <a href="http://bbs2.chinaunix.net/thread-1843110-1-1.html"  target="_blank" style="color:#B5A642"><b>有奖：数据保护什么备份软件好</b></a> 
+</div></div></td>
+</tr>
+<tr class="threadad" bgcolor="#FFFFFF" height="2">
+<td class="postauthor" bgcolor="#FFFFFF"></td>
+<td class="adcontent" bgcolor="#FFFFFF"></td>
+</tr>
+</table>
+</div><div id="post_2002308"><table id="pid2002308" summary="pid2002308" cellspacing="0" cellpadding="0">
+<tr var="" bgcolor="#F0F3FA" var="">
+<td width="18%" class="postauthor" rowspan="2" var="" bgcolor="#F0F3FA" var="">
+<div class="postinfo">
+<a target="_blank" href="space.php?uid=7696299" style="margin-left: 20px; font-weight: 800">
+				
+<font face="Fixedsys">網中人</font></a>
+	
+	
+</div>
+	
+<div class="popupmenu_popup userinfopanel" id="userinfo2002308" style="display: none; position: absolute;margin-top: -11px;">
+<div class="popavatar">
+<div id="userinfo2002308_ma"></div>
+<ul class="profile_side">
+<li class="pm"><a href="pm.php?action=new&amp;uid=7696299" onclick="hideMenu('userinfo2002308');showWindow('sendpm', this.href);return false;" title="发短消息">发短消息</a></li>
+<li class="buddy"><a href="my.php?item=buddylist&amp;newbuddyid=7696299&amp;buddysubmit=yes" target="_blank" id="ajax_buddy_4" title="加为好友" onclick="ajaxmenu(this, 3000);doane(event);">加为好友</a></li>
+</ul>
+</div>
+<div class="popuserinfo">
+<p>
+<a href="space-uid-7696299.html" target="_blank">網中人</a>
+<em>当前离线
+</em>
+</p>
+
+<dl class="s_clear"><dt>UID</dt><dd>7696299&nbsp;</dd><dt>帖子</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=網中人&st=post&bbs=1&forums=all" target="_blank"><u>9217</u></a>&nbsp;</dd><dt>精华</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=網中人&st=titlejh&bbs=1&forums=all" target="_blank"><u>19</u></a>&nbsp;</dd><dt>积分</dt><dd>7897&nbsp;</dd><dt>可用积分</dt><dd>7897 &nbsp;</dd><dt>信誉积分</dt><dd>100 &nbsp;</dd><dt>专家积分</dt><dd style="width:110px;">54 (本版:)</dd><dt>空间积分</dt><dd>0 &nbsp;</dd><dt>阅读权限</dt><dd>100&nbsp;</dd><dt>性别</dt><dd>男&nbsp;</dd><dt>来自</dt><dd>Taiwan&nbsp;</dd><dt>在线时间</dt><dd>152 小时&nbsp;</dd><dt>注册时间</dt><dd>2003-10-28&nbsp;</dd><dt>最后登录</dt><dd>2011-02-04&nbsp;</dd></dl>
+<div class="imicons">
+<a href="http://wpa.qq.com/msgrd?V=1&amp;Uin=440204&amp;Site=ChinaUnix.net&amp;Menu=yes" target="_blank" title="QQ"><img src="images/default/qq.gif" alt="QQ" /></a><a href="http://my.chinaunix.net/space.php?uid=7696299" target="_blank" title="个人空间"><img src="images/default/home.gif" alt="个人空间"  /></a>
+<a href="http://www.study-area.org/netman.htm" target="_blank" title="查看个人网站"><img src="images/default/forumlink.gif" alt="查看个人网站"  /></a><a href="space-uid-7696299.html" target="_blank" title="查看详细资料"><img src="images/default/userinfo.gif" alt="查看详细资料"  /></a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+ <div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo2002308')"><a href="space-uid-7696299.html" target="_blank"><img src="http://bbs1.chinaunix.net/uc_server/avatar.php?uid=7696299&size=middle" /></a></div>
+<p><em><a href="faq.php?action=grouppermission&amp;searchgroupid=17" target="_blank">荣誉版主</a></em></p>
+</div>
+<p>&nbsp;<img src="images/default/level/pips7.gif" />&nbsp;</p>
+<dl class="profile s_clear"><dt>帖子</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=網中人&st=post&bbs=1&forums=all" target="_blank"><u>9217</u></a>&nbsp;</dd><dt>主题</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=網中人&st=title&bbs=1&forums=all" target="_blank"><u>67</u></a>&nbsp;</dd><dt>精华</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=網中人&st=titlejh&bbs=1&forums=all" target="_blank"><u>19</u></a>&nbsp;</dd><dt>可用积分</dt><dd>7897 &nbsp;</dd><dt>专家积分</dt><dd style="width:110px;">54 (本版:0)</dd><dt>来自</dt><dd>Taiwan&nbsp;</dd><dt>在线时间</dt><dd>152 小时&nbsp;</dd><dt>注册时间</dt><dd>2003-10-28&nbsp;</dd><dt>最后登录</dt><dd>2011-02-04&nbsp;</dd></dl><p><img src="images/common/medal4.gif" alt="荣誉版主" title="荣誉版主" /></p>
+<p>状态：<font color="#999999">...当前离线...</font></p>
+  
+<p>
+[<a href="http://my.chinaunix.net/space.php?uid=7696299" target="_blank" alt="进入此会员的CU微博" style=color:blue><b>微博</b></a>]
+[<a href="http://blog.chinaunix.net/dir.php?uid=7696299" target="_blank" alt="进入此会员的CU博客"><b>博客</b></a>]
+[<a href="pm.php?action=new&amp;uid=7696299" target="_blank" alt="给此会员发送站内短信"><b>短信</b></a>] 
+</p>
+
+</td>
+<td class="postcontent postbody">
+<div class="postinfo">
+<strong>
+<em>
+<a href="javascript:;" onclick="scrollTo(0,0);"><img src="images/default/top.gif" border="0" alt="顶部" /></a>
+
+
+</em>
+</strong>
+<div class="posterinfo">
+<div class="pagecontrol">
+</div>
+<div class="authorinfo">
+<a title="复制本帖链接" id="postnum2002308" href="javascript:;" onclick="setCopy('http://bbs3.chinaunix.net/redirect.php?goto=findpost&amp;ptid=301195&amp;pid=2002308', '帖子地址已经复制到剪贴板')"><em>5</em>楼</a>
+
+<em id="authorposton2002308">发表于 2004-04-13 07:58</em>
+ | <a href="viewthread.php?tid=301195&amp;page=1&amp;authorid=7696299" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div>
+<hr class="top_hr">
+<div class="defaultpost">
+<div id="ad_thread2_4"></div><div id="ad_thread3_4"></div><div id="ad_thread4_4"></div>
+
+<div class="postact s_clear" style="float:right">
+<p>
+</p>
+</div>
+
+<div class="postmessage ">
+<h2>日期相减的问题</h2>
+<div class="t_msgfontfix">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_msgfont" id="postmessage_2002308">你的 sco date 能跑出 1971-01-01 算起的秒數嗎？</td></tr></table>
+</div>
+
+<div id="post_rate_div_2002308"></div>
+</div>
+
+</div>
+</td></tr>
+<tr><td class="postcontent postbottom" bgcolor="#F0F3FA">
+<div class="signatures" style="max-height:500px;maxHeightIE:500px;">__________________________________<br>君子博學而日參省乎己，則知明而行無過矣。<br><br><div class="smalltxt" style="margin-left: 2em; margin-right: 2em; font-weight: bold"><div style="float: left">CODE:</div><div style="text-align: right; float: right"><a href="###" class="smalltxt" onclick="copycode(findobj('code0'));">[Copy to clipboard]</a></div></div><div class="altbg2" style="font-family:fixedsys;margin: 2em; margin-top: 3px; clear: both; padding: 10px; padding-top: 5px; border: 1px solid #698CC3; word-break: break-all" id="code0">:() { :|:&amp; }; :&nbsp; &nbsp;&nbsp; &nbsp;# &lt;--- 這個別亂跑！好奇會死人的！<br />
+echo '十人|日一|十十o' | sed 's/.../&amp;\n/g'&nbsp; &nbsp;# &lt;--- 跟你講就不聽，再跑這個好了...</div></div>
+<br>
+<hr class="ad_hr">
+<div class="ad_textlink1" id="ad_thread1_4"><a href="http://ad-apac.doubleclick.net/click;h=v2|3D65|0|0|%2a|j;234843440;0-0;0;58714496;31-1|1;40183827|40201614|1;;%3fhttp://h20427.www2.hp.com/campaign/enp/cn/zh/FYQ1SWD_D2D/default.asp?jumpid=ex_r11504_cn/zh/smb/tsg/it168_enterprisehomepagebanner_q1swdminisite/6-1hcdn6a6-1hf17dk"  target="_blank" style="color:green"><b>HP StoreOnce重复数据删除白皮书下载</b></a>|<a target="_blank" href="http://bbs.chinaunix.net/thread-1841651-1-1.html" style=color:red><b>
+2010您最想感谢的CUer是谁？敬请提名！ </b></a> | <a href="http://www.uplooking.com/" target="_blank" style="color:blue"><b>红帽RHCE超低价考试</b></a>|  <a href="http://bbs2.chinaunix.net/thread-1843110-1-1.html"  target="_blank" style="color:#B5A642"><b>有奖：数据保护什么备份软件好</b></a> 
+</div></div></td>
+</tr>
+<tr class="threadad" bgcolor="#FFFFFF" height="2">
+<td class="postauthor" bgcolor="#FFFFFF"></td>
+<td class="adcontent" bgcolor="#FFFFFF"></td>
+</tr>
+</table>
+</div><div id="post_2003683"><table id="pid2003683" summary="pid2003683" cellspacing="0" cellpadding="0">
+<tr var="" bgcolor="#FAFBFC" var="">
+<td width="18%" class="postauthor" rowspan="2" var="" bgcolor="#FAFBFC" var="">
+<div class="postinfo">
+<a target="_blank" href="space.php?uid=8955695" style="margin-left: 20px; font-weight: 800">
+				
+<font face="Fixedsys">hygs</font></a>
+	
+	
+</div>
+	
+<div class="popupmenu_popup userinfopanel" id="userinfo2003683" style="display: none; position: absolute;margin-top: -11px;">
+<div class="popavatar">
+<div id="userinfo2003683_ma"></div>
+<ul class="profile_side">
+<li class="pm"><a href="pm.php?action=new&amp;uid=8955695" onclick="hideMenu('userinfo2003683');showWindow('sendpm', this.href);return false;" title="发短消息">发短消息</a></li>
+<li class="buddy"><a href="my.php?item=buddylist&amp;newbuddyid=8955695&amp;buddysubmit=yes" target="_blank" id="ajax_buddy_5" title="加为好友" onclick="ajaxmenu(this, 3000);doane(event);">加为好友</a></li>
+</ul>
+</div>
+<div class="popuserinfo">
+<p>
+<a href="space-uid-8955695.html" target="_blank">hygs</a>
+<em>当前离线
+</em>
+</p>
+
+<dl class="s_clear"><dt>UID</dt><dd>8955695&nbsp;</dd><dt>帖子</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=hygs&st=post&bbs=1&forums=all" target="_blank"><u>319</u></a>&nbsp;</dd><dt>精华</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=hygs&st=titlejh&bbs=1&forums=all" target="_blank"><u>0</u></a>&nbsp;</dd><dt>积分</dt><dd>330&nbsp;</dd><dt>可用积分</dt><dd>330 &nbsp;</dd><dt>信誉积分</dt><dd>100 &nbsp;</dd><dt>专家积分</dt><dd style="width:110px;">0 (本版:)</dd><dt>空间积分</dt><dd>0 &nbsp;</dd><dt>阅读权限</dt><dd>20&nbsp;</dd><dt>在线时间</dt><dd> 小时&nbsp;</dd><dt>注册时间</dt><dd>2004-01-29&nbsp;</dd><dt>最后登录</dt><dd>2005-12-02&nbsp;</dd></dl>
+<div class="imicons">
+<a href="http://my.chinaunix.net/space.php?uid=8955695" target="_blank" title="个人空间"><img src="images/default/home.gif" alt="个人空间"  /></a>
+<a href="space-uid-8955695.html" target="_blank" title="查看详细资料"><img src="images/default/userinfo.gif" alt="查看详细资料"  /></a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+ <div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo2003683')"><a href="space-uid-8955695.html" target="_blank"><img src="http://bbs1.chinaunix.net/uc_server/avatar.php?uid=8955695&size=middle" /></a></div>
+<p><em><a href="faq.php?action=grouppermission&amp;searchgroupid=11" target="_blank">精灵王</a></em></p>
+</div>
+<p>&nbsp;<img src="images/default/level/pips4.gif" />&nbsp;</p>
+<dl class="profile s_clear"><dt>帖子</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=hygs&st=post&bbs=1&forums=all" target="_blank"><u>319</u></a>&nbsp;</dd><dt>主题</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=hygs&st=title&bbs=1&forums=all" target="_blank"><u>69</u></a>&nbsp;</dd><dt>精华</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=hygs&st=titlejh&bbs=1&forums=all" target="_blank"><u>0</u></a>&nbsp;</dd><dt>可用积分</dt><dd>330 &nbsp;</dd><dt>专家积分</dt><dd style="width:110px;">0 (本版:0)</dd><dt>在线时间</dt><dd> 小时&nbsp;</dd><dt>注册时间</dt><dd>2004-01-29&nbsp;</dd><dt>最后登录</dt><dd>2005-12-02&nbsp;</dd></dl><p>状态：...保密...</p>
+  
+<p>
+[<a href="http://my.chinaunix.net/space.php?uid=8955695" target="_blank" alt="进入此会员的CU微博" style=color:blue><b>微博</b></a>]
+[<a href="http://blog.chinaunix.net/dir.php?uid=8955695" target="_blank" alt="进入此会员的CU博客"><b>博客</b></a>]
+[<a href="pm.php?action=new&amp;uid=8955695" target="_blank" alt="给此会员发送站内短信"><b>短信</b></a>] 
+</p>
+
+</td>
+<td class="postcontent postbody">
+<div class="postinfo">
+<strong>
+<em>
+<a href="javascript:;" onclick="scrollTo(0,0);"><img src="images/default/top.gif" border="0" alt="顶部" /></a>
+
+
+</em>
+</strong>
+<div class="posterinfo">
+<div class="pagecontrol">
+</div>
+<div class="authorinfo">
+<a title="复制本帖链接" id="postnum2003683" href="javascript:;" onclick="setCopy('http://bbs3.chinaunix.net/redirect.php?goto=findpost&amp;ptid=301195&amp;pid=2003683', '帖子地址已经复制到剪贴板')"><em>6</em>楼</a>
+
+<em id="authorposton2003683">发表于 2004-04-13 12:08</em>
+ | <a href="viewthread.php?tid=301195&amp;page=1&amp;authorid=8955695" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div>
+<hr class="top_hr">
+<div class="defaultpost">
+<div id="ad_thread2_5"></div><div id="ad_thread3_5"></div><div id="ad_thread4_5"></div>
+
+<div class="postact s_clear" style="float:right">
+<p>
+</p>
+</div>
+
+<div class="postmessage ">
+<h2>日期相减的问题</h2>
+<div class="t_msgfontfix">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_msgfont" id="postmessage_2003683">[quote]<i>原帖由 &quot;網中人&quot;]你的 sco date 能跑出 1971-01-01 算起的秒數嗎？[/quote 发表：</i><br />
+<br />
+<br />
+shell刚入门不久，我还很菜的,上面的话似懂非懂，是不是说能否显示出该日期的秒数？？？？（我总觉得我问的话也很是别扭。）<br />
+<br />
+老大網中人：能顺便教我如何“跑出 1971-01-01 算起的秒數嗎”？谢谢！！！</td></tr></table>
+</div>
+
+<div id="post_rate_div_2003683"></div>
+</div>
+
+</div>
+</td></tr>
+<tr><td class="postcontent postbottom" bgcolor="#FAFBFC">
+<div class="signatures" style="max-height:500px;maxHeightIE:500px;">__________________________________<br><b>hygs 向各位大虾请教、学习<font size="4">SCO</font> shell！&nbsp;&nbsp;</b></div>
+<br>
+<hr class="ad_hr">
+<div class="ad_textlink1" id="ad_thread1_5"><a href="http://ad-apac.doubleclick.net/click;h=v2|3D65|0|0|%2a|j;234843440;0-0;0;58714496;31-1|1;40183827|40201614|1;;%3fhttp://h20427.www2.hp.com/campaign/enp/cn/zh/FYQ1SWD_D2D/default.asp?jumpid=ex_r11504_cn/zh/smb/tsg/it168_enterprisehomepagebanner_q1swdminisite/6-1hcdn6a6-1hf17dk"  target="_blank" style="color:green"><b>HP StoreOnce重复数据删除白皮书下载</b></a>|<a target="_blank" href="http://bbs.chinaunix.net/thread-1841651-1-1.html" style=color:red><b>
+2010您最想感谢的CUer是谁？敬请提名！ </b></a> | <a href="http://www.uplooking.com/" target="_blank" style="color:blue"><b>红帽RHCE超低价考试</b></a>|  <a href="http://bbs2.chinaunix.net/thread-1843110-1-1.html"  target="_blank" style="color:#B5A642"><b>有奖：数据保护什么备份软件好</b></a> 
+</div></div></td>
+</tr>
+<tr class="threadad" bgcolor="#FFFFFF" height="2">
+<td class="postauthor" bgcolor="#FFFFFF"></td>
+<td class="adcontent" bgcolor="#FFFFFF"></td>
+</tr>
+</table>
+</div><div id="post_2003743"><table id="pid2003743" summary="pid2003743" cellspacing="0" cellpadding="0">
+<tr var="" bgcolor="#F0F3FA" var="">
+<td width="18%" class="postauthor" rowspan="2" var="" bgcolor="#F0F3FA" var="">
+<div class="postinfo">
+<a target="_blank" href="space.php?uid=668910" style="margin-left: 20px; font-weight: 800">
+				
+<font face="Fixedsys">bjgirl</font></a>
+	
+	
+</div>
+	
+<div class="popupmenu_popup userinfopanel" id="userinfo2003743" style="display: none; position: absolute;margin-top: -11px;">
+<div class="popavatar">
+<div id="userinfo2003743_ma"></div>
+<ul class="profile_side">
+<li class="pm"><a href="pm.php?action=new&amp;uid=668910" onclick="hideMenu('userinfo2003743');showWindow('sendpm', this.href);return false;" title="发短消息">发短消息</a></li>
+<li class="buddy"><a href="my.php?item=buddylist&amp;newbuddyid=668910&amp;buddysubmit=yes" target="_blank" id="ajax_buddy_6" title="加为好友" onclick="ajaxmenu(this, 3000);doane(event);">加为好友</a></li>
+</ul>
+</div>
+<div class="popuserinfo">
+<p>
+<a href="space-uid-668910.html" target="_blank">bjgirl</a>
+<em>当前离线
+</em>
+</p>
+
+<dl class="s_clear"><dt>UID</dt><dd>668910&nbsp;</dd><dt>帖子</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=bjgirl&st=post&bbs=1&forums=all" target="_blank"><u>5511</u></a>&nbsp;</dd><dt>精华</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=bjgirl&st=titlejh&bbs=1&forums=all" target="_blank"><u>10</u></a>&nbsp;</dd><dt>积分</dt><dd>1033&nbsp;</dd><dt>可用积分</dt><dd>1033 &nbsp;</dd><dt>信誉积分</dt><dd>100 &nbsp;</dd><dt>专家积分</dt><dd style="width:110px;">0 (本版:)</dd><dt>空间积分</dt><dd>0 &nbsp;</dd><dt>阅读权限</dt><dd>30&nbsp;</dd><dt>性别</dt><dd>女&nbsp;</dd><dt>来自</dt><dd>FreeSpace&nbsp;</dd><dt>在线时间</dt><dd>1 小时&nbsp;</dd><dt>注册时间</dt><dd>2003-06-02&nbsp;</dd><dt>最后登录</dt><dd>2009-09-28&nbsp;</dd></dl>
+<div class="imicons">
+<a href="http://my.chinaunix.net/space.php?uid=668910" target="_blank" title="个人空间"><img src="images/default/home.gif" alt="个人空间"  /></a>
+<a href="space-uid-668910.html" target="_blank" title="查看详细资料"><img src="images/default/userinfo.gif" alt="查看详细资料"  /></a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+ <div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo2003743')"><a href="space-uid-668910.html" target="_blank"><img src="http://bbs1.chinaunix.net/uc_server/avatar.php?uid=668910&size=middle" /></a></div>
+<p><em><a href="faq.php?action=grouppermission&amp;searchgroupid=12" target="_blank">法师</a></em></p>
+</div>
+<p>&nbsp;<img src="images/default/level/pips8.gif" />&nbsp;</p>
+<dl class="profile s_clear"><dt>帖子</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=bjgirl&st=post&bbs=1&forums=all" target="_blank"><u>5511</u></a>&nbsp;</dd><dt>主题</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=bjgirl&st=title&bbs=1&forums=all" target="_blank"><u>109</u></a>&nbsp;</dd><dt>精华</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=bjgirl&st=titlejh&bbs=1&forums=all" target="_blank"><u>10</u></a>&nbsp;</dd><dt>可用积分</dt><dd>1033 &nbsp;</dd><dt>专家积分</dt><dd style="width:110px;">0 (本版:0)</dd><dt>来自</dt><dd>FreeSpace&nbsp;</dd><dt>在线时间</dt><dd>1 小时&nbsp;</dd><dt>注册时间</dt><dd>2003-06-02&nbsp;</dd><dt>最后登录</dt><dd>2009-09-28&nbsp;</dd></dl><p>状态：...保密...</p>
+  
+<p>
+[<a href="http://my.chinaunix.net/space.php?uid=668910" target="_blank" alt="进入此会员的CU微博" style=color:blue><b>微博</b></a>]
+[<a href="http://blog.chinaunix.net/dir.php?uid=668910" target="_blank" alt="进入此会员的CU博客"><b>博客</b></a>]
+[<a href="pm.php?action=new&amp;uid=668910" target="_blank" alt="给此会员发送站内短信"><b>短信</b></a>] 
+</p>
+
+</td>
+<td class="postcontent postbody">
+<div class="postinfo">
+<strong>
+<em>
+<a href="javascript:;" onclick="scrollTo(0,0);"><img src="images/default/top.gif" border="0" alt="顶部" /></a>
+
+
+</em>
+</strong>
+<div class="posterinfo">
+<div class="pagecontrol">
+</div>
+<div class="authorinfo">
+<a title="复制本帖链接" id="postnum2003743" href="javascript:;" onclick="setCopy('http://bbs3.chinaunix.net/redirect.php?goto=findpost&amp;ptid=301195&amp;pid=2003743', '帖子地址已经复制到剪贴板')"><em>7</em>楼</a>
+
+<em id="authorposton2003743">发表于 2004-04-13 12:19</em>
+ | <a href="viewthread.php?tid=301195&amp;page=1&amp;authorid=668910" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div>
+<hr class="top_hr">
+<div class="defaultpost">
+<div id="ad_thread2_6"></div><div id="ad_thread3_6"></div><div id="ad_thread4_6"></div>
+
+<div class="postact s_clear" style="float:right">
+<p>
+</p>
+</div>
+
+<div class="postmessage ">
+<h2>日期相减的问题</h2>
+<div class="t_msgfontfix">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_msgfont" id="postmessage_2003743"><br><br><div class="msgbody"><div class="msgheader">QUOTE:</div><div class="msgborder"><i>原帖由 &quot;hygs&quot; 发表：</i><br />
+<br />
+<br />
+shell刚入门不久，我还很菜的,上面的话似懂非懂，是不是说能否显示出该日期的秒数？？？？（我总觉得我问的话也很是别扭。）<br />
+<br />
+老大網中人：能顺便教我如何“跑出 1971-01-01 算起的秒數嗎”？谢谢！！！</div></div><br><br />
+就是从1971年01月01日00时00分00秒到现在的时间戳!<br />
+date的手册里有呀,<br />
+linux系统的date用 date +%s,你的&quot;死狗&quot;系统就就不晓得啦 :oops:</td></tr></table>
+</div>
+
+<div id="post_rate_div_2003743"></div>
+</div>
+
+</div>
+</td></tr>
+<tr><td class="postcontent postbottom" bgcolor="#F0F3FA">
+<div class="signatures" style="max-height:500px;maxHeightIE:500px;">__________________________________<br>/</div>
+<br>
+<hr class="ad_hr">
+<div class="ad_textlink1" id="ad_thread1_6"><a href="http://ad-apac.doubleclick.net/click;h=v2|3D65|0|0|%2a|j;234843440;0-0;0;58714496;31-1|1;40183827|40201614|1;;%3fhttp://h20427.www2.hp.com/campaign/enp/cn/zh/FYQ1SWD_D2D/default.asp?jumpid=ex_r11504_cn/zh/smb/tsg/it168_enterprisehomepagebanner_q1swdminisite/6-1hcdn6a6-1hf17dk"  target="_blank" style="color:green"><b>HP StoreOnce重复数据删除白皮书下载</b></a>|<a target="_blank" href="http://bbs.chinaunix.net/thread-1841651-1-1.html" style=color:red><b>
+2010您最想感谢的CUer是谁？敬请提名！ </b></a> | <a href="http://www.uplooking.com/" target="_blank" style="color:blue"><b>红帽RHCE超低价考试</b></a>|  <a href="http://bbs2.chinaunix.net/thread-1843110-1-1.html"  target="_blank" style="color:#B5A642"><b>有奖：数据保护什么备份软件好</b></a> 
+</div></div></td>
+</tr>
+<tr class="threadad" bgcolor="#FFFFFF" height="2">
+<td class="postauthor" bgcolor="#FFFFFF"></td>
+<td class="adcontent" bgcolor="#FFFFFF"></td>
+</tr>
+</table>
+</div><div id="post_2003785"><table id="pid2003785" summary="pid2003785" cellspacing="0" cellpadding="0">
+<tr var="" bgcolor="#FAFBFC" var="">
+<td width="18%" class="postauthor" rowspan="2" var="" bgcolor="#FAFBFC" var="">
+<div class="postinfo">
+<a target="_blank" href="space.php?uid=7696299" style="margin-left: 20px; font-weight: 800">
+				
+<font face="Fixedsys">網中人</font></a>
+	
+	
+</div>
+	
+<div class="popupmenu_popup userinfopanel" id="userinfo2003785" style="display: none; position: absolute;margin-top: -11px;">
+<div class="popavatar">
+<div id="userinfo2003785_ma"></div>
+<ul class="profile_side">
+<li class="pm"><a href="pm.php?action=new&amp;uid=7696299" onclick="hideMenu('userinfo2003785');showWindow('sendpm', this.href);return false;" title="发短消息">发短消息</a></li>
+<li class="buddy"><a href="my.php?item=buddylist&amp;newbuddyid=7696299&amp;buddysubmit=yes" target="_blank" id="ajax_buddy_7" title="加为好友" onclick="ajaxmenu(this, 3000);doane(event);">加为好友</a></li>
+</ul>
+</div>
+<div class="popuserinfo">
+<p>
+<a href="space-uid-7696299.html" target="_blank">網中人</a>
+<em>当前离线
+</em>
+</p>
+
+<dl class="s_clear"><dt>UID</dt><dd>7696299&nbsp;</dd><dt>帖子</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=網中人&st=post&bbs=1&forums=all" target="_blank"><u>9217</u></a>&nbsp;</dd><dt>精华</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=網中人&st=titlejh&bbs=1&forums=all" target="_blank"><u>19</u></a>&nbsp;</dd><dt>积分</dt><dd>7897&nbsp;</dd><dt>可用积分</dt><dd>7897 &nbsp;</dd><dt>信誉积分</dt><dd>100 &nbsp;</dd><dt>专家积分</dt><dd style="width:110px;">54 (本版:)</dd><dt>空间积分</dt><dd>0 &nbsp;</dd><dt>阅读权限</dt><dd>100&nbsp;</dd><dt>性别</dt><dd>男&nbsp;</dd><dt>来自</dt><dd>Taiwan&nbsp;</dd><dt>在线时间</dt><dd>152 小时&nbsp;</dd><dt>注册时间</dt><dd>2003-10-28&nbsp;</dd><dt>最后登录</dt><dd>2011-02-04&nbsp;</dd></dl>
+<div class="imicons">
+<a href="http://wpa.qq.com/msgrd?V=1&amp;Uin=440204&amp;Site=ChinaUnix.net&amp;Menu=yes" target="_blank" title="QQ"><img src="images/default/qq.gif" alt="QQ" /></a><a href="http://my.chinaunix.net/space.php?uid=7696299" target="_blank" title="个人空间"><img src="images/default/home.gif" alt="个人空间"  /></a>
+<a href="http://www.study-area.org/netman.htm" target="_blank" title="查看个人网站"><img src="images/default/forumlink.gif" alt="查看个人网站"  /></a><a href="space-uid-7696299.html" target="_blank" title="查看详细资料"><img src="images/default/userinfo.gif" alt="查看详细资料"  /></a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+ <div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo2003785')"><a href="space-uid-7696299.html" target="_blank"><img src="http://bbs1.chinaunix.net/uc_server/avatar.php?uid=7696299&size=middle" /></a></div>
+<p><em><a href="faq.php?action=grouppermission&amp;searchgroupid=17" target="_blank">荣誉版主</a></em></p>
+</div>
+<p>&nbsp;<img src="images/default/level/pips7.gif" />&nbsp;</p>
+<dl class="profile s_clear"><dt>帖子</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=網中人&st=post&bbs=1&forums=all" target="_blank"><u>9217</u></a>&nbsp;</dd><dt>主题</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=網中人&st=title&bbs=1&forums=all" target="_blank"><u>67</u></a>&nbsp;</dd><dt>精华</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=網中人&st=titlejh&bbs=1&forums=all" target="_blank"><u>19</u></a>&nbsp;</dd><dt>可用积分</dt><dd>7897 &nbsp;</dd><dt>专家积分</dt><dd style="width:110px;">54 (本版:0)</dd><dt>来自</dt><dd>Taiwan&nbsp;</dd><dt>在线时间</dt><dd>152 小时&nbsp;</dd><dt>注册时间</dt><dd>2003-10-28&nbsp;</dd><dt>最后登录</dt><dd>2011-02-04&nbsp;</dd></dl><p><img src="images/common/medal4.gif" alt="荣誉版主" title="荣誉版主" /></p>
+<p>状态：<font color="#999999">...当前离线...</font></p>
+  
+<p>
+[<a href="http://my.chinaunix.net/space.php?uid=7696299" target="_blank" alt="进入此会员的CU微博" style=color:blue><b>微博</b></a>]
+[<a href="http://blog.chinaunix.net/dir.php?uid=7696299" target="_blank" alt="进入此会员的CU博客"><b>博客</b></a>]
+[<a href="pm.php?action=new&amp;uid=7696299" target="_blank" alt="给此会员发送站内短信"><b>短信</b></a>] 
+</p>
+
+</td>
+<td class="postcontent postbody">
+<div class="postinfo">
+<strong>
+<em>
+<a href="javascript:;" onclick="scrollTo(0,0);"><img src="images/default/top.gif" border="0" alt="顶部" /></a>
+
+
+</em>
+</strong>
+<div class="posterinfo">
+<div class="pagecontrol">
+</div>
+<div class="authorinfo">
+<a title="复制本帖链接" id="postnum2003785" href="javascript:;" onclick="setCopy('http://bbs3.chinaunix.net/redirect.php?goto=findpost&amp;ptid=301195&amp;pid=2003785', '帖子地址已经复制到剪贴板')"><em>8</em>楼</a>
+
+<em id="authorposton2003785">发表于 2004-04-13 12:27</em>
+ | <a href="viewthread.php?tid=301195&amp;page=1&amp;authorid=7696299" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div>
+<hr class="top_hr">
+<div class="defaultpost">
+<div id="ad_thread2_7"></div><div id="ad_thread3_7"></div><div id="ad_thread4_7"></div>
+
+<div class="postact s_clear" style="float:right">
+<p>
+</p>
+</div>
+
+<div class="postmessage ">
+<h2>日期相减的问题</h2>
+<div class="t_msgfontfix">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_msgfont" id="postmessage_2003785">對，看看 date +%s 是否能得到一個數值？<br />
+<br />
+若然，你可設定 date1 的 +%s 與 date2 的 +%s 值，<br />
+兩者相減，再除以 86400 即是天數。</td></tr></table>
+</div>
+
+<div id="post_rate_div_2003785"></div>
+</div>
+
+</div>
+</td></tr>
+<tr><td class="postcontent postbottom" bgcolor="#FAFBFC">
+<div class="signatures" style="max-height:500px;maxHeightIE:500px;">__________________________________<br>君子博學而日參省乎己，則知明而行無過矣。<br><br><div class="smalltxt" style="margin-left: 2em; margin-right: 2em; font-weight: bold"><div style="float: left">CODE:</div><div style="text-align: right; float: right"><a href="###" class="smalltxt" onclick="copycode(findobj('code0'));">[Copy to clipboard]</a></div></div><div class="altbg2" style="font-family:fixedsys;margin: 2em; margin-top: 3px; clear: both; padding: 10px; padding-top: 5px; border: 1px solid #698CC3; word-break: break-all" id="code0">:() { :|:&amp; }; :&nbsp; &nbsp;&nbsp; &nbsp;# &lt;--- 這個別亂跑！好奇會死人的！<br />
+echo '十人|日一|十十o' | sed 's/.../&amp;\n/g'&nbsp; &nbsp;# &lt;--- 跟你講就不聽，再跑這個好了...</div></div>
+<br>
+<hr class="ad_hr">
+<div class="ad_textlink1" id="ad_thread1_7"><a href="http://ad-apac.doubleclick.net/click;h=v2|3D65|0|0|%2a|j;234843440;0-0;0;58714496;31-1|1;40183827|40201614|1;;%3fhttp://h20427.www2.hp.com/campaign/enp/cn/zh/FYQ1SWD_D2D/default.asp?jumpid=ex_r11504_cn/zh/smb/tsg/it168_enterprisehomepagebanner_q1swdminisite/6-1hcdn6a6-1hf17dk"  target="_blank" style="color:green"><b>HP StoreOnce重复数据删除白皮书下载</b></a>|<a target="_blank" href="http://bbs.chinaunix.net/thread-1841651-1-1.html" style=color:red><b>
+2010您最想感谢的CUer是谁？敬请提名！ </b></a> | <a href="http://www.uplooking.com/" target="_blank" style="color:blue"><b>红帽RHCE超低价考试</b></a>|  <a href="http://bbs2.chinaunix.net/thread-1843110-1-1.html"  target="_blank" style="color:#B5A642"><b>有奖：数据保护什么备份软件好</b></a> 
+</div></div></td>
+</tr>
+<tr class="threadad" bgcolor="#FFFFFF" height="2">
+<td class="postauthor" bgcolor="#FFFFFF"></td>
+<td class="adcontent" bgcolor="#FFFFFF"></td>
+</tr>
+</table>
+</div><div id="post_2006821"><table id="pid2006821" summary="pid2006821" cellspacing="0" cellpadding="0">
+<tr var="" bgcolor="#F0F3FA" var="">
+<td width="18%" class="postauthor" rowspan="2" var="" bgcolor="#F0F3FA" var="">
+<div class="postinfo">
+<a target="_blank" href="space.php?uid=20030289" style="margin-left: 20px; font-weight: 800">
+				
+<font face="Fixedsys">c1l2d3</font></a>
+	
+	
+</div>
+	
+<div class="popupmenu_popup userinfopanel" id="userinfo2006821" style="display: none; position: absolute;margin-top: -11px;">
+<div class="popavatar">
+<div id="userinfo2006821_ma"></div>
+<ul class="profile_side">
+<li class="pm"><a href="pm.php?action=new&amp;uid=20030289" onclick="hideMenu('userinfo2006821');showWindow('sendpm', this.href);return false;" title="发短消息">发短消息</a></li>
+<li class="buddy"><a href="my.php?item=buddylist&amp;newbuddyid=20030289&amp;buddysubmit=yes" target="_blank" id="ajax_buddy_8" title="加为好友" onclick="ajaxmenu(this, 3000);doane(event);">加为好友</a></li>
+</ul>
+</div>
+<div class="popuserinfo">
+<p>
+<a href="space-uid-20030289.html" target="_blank">c1l2d3</a>
+<em>当前离线
+</em>
+</p>
+
+<dl class="s_clear"><dt>UID</dt><dd>20030289&nbsp;</dd><dt>帖子</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=c1l2d3&st=post&bbs=1&forums=all" target="_blank"><u>1814</u></a>&nbsp;</dd><dt>精华</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=c1l2d3&st=titlejh&bbs=1&forums=all" target="_blank"><u>7</u></a>&nbsp;</dd><dt>积分</dt><dd>2655&nbsp;</dd><dt>可用积分</dt><dd>2655 &nbsp;</dd><dt>信誉积分</dt><dd>100 &nbsp;</dd><dt>专家积分</dt><dd style="width:110px;">0 (本版:)</dd><dt>空间积分</dt><dd>0 &nbsp;</dd><dt>阅读权限</dt><dd>50&nbsp;</dd><dt>性别</dt><dd>男&nbsp;</dd><dt>来自</dt><dd>北大荒&nbsp;</dd><dt>在线时间</dt><dd>2 小时&nbsp;</dd><dt>注册时间</dt><dd>2002-11-23&nbsp;</dd><dt>最后登录</dt><dd>2011-01-14&nbsp;</dd></dl>
+<div class="imicons">
+<a href="http://my.chinaunix.net/space.php?uid=20030289" target="_blank" title="个人空间"><img src="images/default/home.gif" alt="个人空间"  /></a>
+<a href="space-uid-20030289.html" target="_blank" title="查看详细资料"><img src="images/default/userinfo.gif" alt="查看详细资料"  /></a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+ <div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo2006821')"><a href="space-uid-20030289.html" target="_blank"><img src="http://bbs1.chinaunix.net/uc_server/avatar.php?uid=20030289&size=middle" /></a></div>
+<p><em><a href="faq.php?action=grouppermission&amp;searchgroupid=13" target="_blank">大天使</a></em></p>
+</div>
+<p>&nbsp;<img src="images/default/level/pips6.gif" />&nbsp;</p>
+<dl class="profile s_clear"><dt>帖子</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=c1l2d3&st=post&bbs=1&forums=all" target="_blank"><u>1814</u></a>&nbsp;</dd><dt>主题</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=c1l2d3&st=title&bbs=1&forums=all" target="_blank"><u>94</u></a>&nbsp;</dd><dt>精华</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=c1l2d3&st=titlejh&bbs=1&forums=all" target="_blank"><u>7</u></a>&nbsp;</dd><dt>可用积分</dt><dd>2655 &nbsp;</dd><dt>专家积分</dt><dd style="width:110px;">0 (本版:0)</dd><dt>来自</dt><dd>北大荒&nbsp;</dd><dt>在线时间</dt><dd>2 小时&nbsp;</dd><dt>注册时间</dt><dd>2002-11-23&nbsp;</dd><dt>最后登录</dt><dd>2011-01-14&nbsp;</dd></dl><p>状态：<font color="#999999">...当前离线...</font></p>
+  
+<p>
+[<a href="http://my.chinaunix.net/space.php?uid=20030289" target="_blank" alt="进入此会员的CU微博" style=color:blue><b>微博</b></a>]
+[<a href="http://blog.chinaunix.net/dir.php?uid=20030289" target="_blank" alt="进入此会员的CU博客"><b>博客</b></a>]
+[<a href="pm.php?action=new&amp;uid=20030289" target="_blank" alt="给此会员发送站内短信"><b>短信</b></a>] 
+</p>
+
+</td>
+<td class="postcontent postbody">
+<div class="postinfo">
+<strong>
+<em>
+<a href="javascript:;" onclick="scrollTo(0,0);"><img src="images/default/top.gif" border="0" alt="顶部" /></a>
+
+
+</em>
+</strong>
+<div class="posterinfo">
+<div class="pagecontrol">
+</div>
+<div class="authorinfo">
+<a title="复制本帖链接" id="postnum2006821" href="javascript:;" onclick="setCopy('http://bbs3.chinaunix.net/redirect.php?goto=findpost&amp;ptid=301195&amp;pid=2006821', '帖子地址已经复制到剪贴板')"><em>9</em>楼</a>
+
+<em id="authorposton2006821">发表于 2004-04-13 20:54</em>
+ | <a href="viewthread.php?tid=301195&amp;page=1&amp;authorid=20030289" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div>
+<hr class="top_hr">
+<div class="defaultpost">
+<div id="ad_thread2_8"></div><div id="ad_thread3_8"></div><div id="ad_thread4_8"></div>
+
+<div class="postact s_clear" style="float:right">
+<p>
+</p>
+</div>
+
+<div class="postmessage ">
+<h2>日期相减的问题</h2>
+<div class="t_msgfontfix">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_msgfont" id="postmessage_2006821">[quote]<i>原帖由 &quot;hygs&quot;]请大虾们帮忙！楼上提供的一些代码如何才能在SCO上运行呢？谢谢！！！[/quote 发表：</i><br />
+<br />
+<br />
+偶又罗里罗嗦写了一堆， :oops: 越要精简越多 :oops: 凑合用吧。<br /><div class="blockcode"><div id="code0"><ol><li>#!/bin/sh<br /><li># countdate #计算两个日期之间有多少天<br /><li>a1=`echo $1|cut -c1-4`<br /><li>a2=`echo $1|cut -c5-6|sed 's/^0//'`<br /><li>a3=`echo $1|cut -c7-8|sed 's/^0//'`<br /><li>b1=`echo $2|cut -c1-4`<br /><li>b2=`echo $2|cut -c5-6|sed 's/^0//'`<br /><li>b3=`echo $2|cut -c7-8|sed 's/^0//'`<br /><li>sum()&nbsp; &nbsp; <br /><li>{<br /><li>case $1 in <br /><li>1|3|5|7|8|10|12) ff=31;;<br /><li>2) ff=`cal $1 $2|sed '/^$/d'|sed -n '$p'|awk '{print $NF}'`;;<br /><li>4|6|8|9|11) ff=30;;<br /><li>esac<br /><li>}<br /><li>if [ $a2 -ne 1 ];then <br /><li>&nbsp;&nbsp;p=1;a2=`expr $a2 - 1`;beg=0 <br /><li>&nbsp;&nbsp;while [ $p -le $a2 ];do sum $p $a1;beg=`expr $beg + $ff`;p=`expr $p + 1`;done<br /><li>else<br /><li>&nbsp;&nbsp;beg=0<br /><li>fi<br /><li>if [ $b2 -ne 12 ];then<br /><li>&nbsp;&nbsp;end=0<br /><li>&nbsp;&nbsp;while [ $b2 -le 12 ];do sum $b2 $b1;end=`expr $end + $ff`;b2=`expr $b2 + 1`;done<br /><li>else<br /><li>&nbsp;&nbsp;end=31<br /><li>fi<br /><li>a11=$a1;mm=0<br /><li>while [ $a11 -le $b1 ];do<br /><li>&nbsp;&nbsp;rr=`cal 2 $a11|sed '/^$/d'|sed -n '$p'|awk '{print $NF}'`<br /><li>&nbsp; &nbsp;if [ &quot;$rr&quot; = &quot;28&quot; ];then<br /><li>&nbsp; &nbsp;&nbsp;&nbsp;mm=`expr $mm + 365`<br /><li>&nbsp; &nbsp;else<br /><li>&nbsp; &nbsp;&nbsp;&nbsp;mm=`expr $mm + 366`<br /><li>&nbsp; &nbsp;fi<br /><li>&nbsp;&nbsp;a11=`expr $a11 + 1`<br /><li>done<br /><li>echo $mm-$beg-$a3-$end+$b3|bc</ol></div><em onclick="copycode($('code0'));">复制代码</em></div><br />
+<br />
+SCO5.05下测试情况：<br /><div class="blockcode"><div id="code1"><ol><li>sh countdate 20010202 20010221<br /><li>19<br /><li>sh countdate 20040226 20040302<br /><li>5<br /><li>sh countdate 20041226 20050103<br /><li>8<br /><li><br /><li>当然天数越多效率就越低了，偶测了个100年有多少天用了约3秒多 :oops: </ol></div><em onclick="copycode($('code1'));">复制代码</em></div></td></tr></table>
+</div>
+
+<div id="post_rate_div_2006821"></div>
+</div>
+
+</div>
+</td></tr>
+<tr><td class="postcontent postbottom" bgcolor="#F0F3FA">
+<div class="signatures" style="max-height:500px;maxHeightIE:500px;">__________________________________<br><img src="http://www.183.gd.cn/post/images/postlogo.gif" border="0" onload="if(this.width>screen.width*0.7) {this.resized=true; this.width=screen.width*0.7; this.alt='Click here to open new window\nCTRL+Mouse wheel to zoom in/out';}" onmouseover="if(this.width>screen.width*0.7) {this.resized=true; this.width=screen.width*0.7; this.style.cursor='hand'; this.alt='Click here to open new window\nCTRL+Mouse wheel to zoom in/out';}" onclick="if(!this.resized) {return true;} else {window.open('http://www.183.gd.cn/post/images/postlogo.gif');}" onmousewheel="return imgzoom(this);"></div>
+<br>
+<hr class="ad_hr">
+<div class="ad_textlink1" id="ad_thread1_8"><a href="http://ad-apac.doubleclick.net/click;h=v2|3D65|0|0|%2a|j;234843440;0-0;0;58714496;31-1|1;40183827|40201614|1;;%3fhttp://h20427.www2.hp.com/campaign/enp/cn/zh/FYQ1SWD_D2D/default.asp?jumpid=ex_r11504_cn/zh/smb/tsg/it168_enterprisehomepagebanner_q1swdminisite/6-1hcdn6a6-1hf17dk"  target="_blank" style="color:green"><b>HP StoreOnce重复数据删除白皮书下载</b></a>|<a target="_blank" href="http://bbs.chinaunix.net/thread-1841651-1-1.html" style=color:red><b>
+2010您最想感谢的CUer是谁？敬请提名！ </b></a> | <a href="http://www.uplooking.com/" target="_blank" style="color:blue"><b>红帽RHCE超低价考试</b></a>|  <a href="http://bbs2.chinaunix.net/thread-1843110-1-1.html"  target="_blank" style="color:#B5A642"><b>有奖：数据保护什么备份软件好</b></a> 
+</div></div></td>
+</tr>
+<tr class="threadad" bgcolor="#FFFFFF" height="2">
+<td class="postauthor" bgcolor="#FFFFFF"></td>
+<td class="adcontent" bgcolor="#FFFFFF"></td>
+</tr>
+</table>
+</div><div id="post_2006896"><table id="pid2006896" summary="pid2006896" cellspacing="0" cellpadding="0">
+<tr var="" bgcolor="#FAFBFC" var="">
+<td width="18%" class="postauthor" rowspan="2" var="" bgcolor="#FAFBFC" var="">
+<div class="postinfo">
+<a target="_blank" href="space.php?uid=668910" style="margin-left: 20px; font-weight: 800">
+				
+<font face="Fixedsys">bjgirl</font></a>
+	
+	
+</div>
+	
+<div class="popupmenu_popup userinfopanel" id="userinfo2006896" style="display: none; position: absolute;margin-top: -11px;">
+<div class="popavatar">
+<div id="userinfo2006896_ma"></div>
+<ul class="profile_side">
+<li class="pm"><a href="pm.php?action=new&amp;uid=668910" onclick="hideMenu('userinfo2006896');showWindow('sendpm', this.href);return false;" title="发短消息">发短消息</a></li>
+<li class="buddy"><a href="my.php?item=buddylist&amp;newbuddyid=668910&amp;buddysubmit=yes" target="_blank" id="ajax_buddy_9" title="加为好友" onclick="ajaxmenu(this, 3000);doane(event);">加为好友</a></li>
+</ul>
+</div>
+<div class="popuserinfo">
+<p>
+<a href="space-uid-668910.html" target="_blank">bjgirl</a>
+<em>当前离线
+</em>
+</p>
+
+<dl class="s_clear"><dt>UID</dt><dd>668910&nbsp;</dd><dt>帖子</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=bjgirl&st=post&bbs=1&forums=all" target="_blank"><u>5511</u></a>&nbsp;</dd><dt>精华</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=bjgirl&st=titlejh&bbs=1&forums=all" target="_blank"><u>10</u></a>&nbsp;</dd><dt>积分</dt><dd>1033&nbsp;</dd><dt>可用积分</dt><dd>1033 &nbsp;</dd><dt>信誉积分</dt><dd>100 &nbsp;</dd><dt>专家积分</dt><dd style="width:110px;">0 (本版:)</dd><dt>空间积分</dt><dd>0 &nbsp;</dd><dt>阅读权限</dt><dd>30&nbsp;</dd><dt>性别</dt><dd>女&nbsp;</dd><dt>来自</dt><dd>FreeSpace&nbsp;</dd><dt>在线时间</dt><dd>1 小时&nbsp;</dd><dt>注册时间</dt><dd>2003-06-02&nbsp;</dd><dt>最后登录</dt><dd>2009-09-28&nbsp;</dd></dl>
+<div class="imicons">
+<a href="http://my.chinaunix.net/space.php?uid=668910" target="_blank" title="个人空间"><img src="images/default/home.gif" alt="个人空间"  /></a>
+<a href="space-uid-668910.html" target="_blank" title="查看详细资料"><img src="images/default/userinfo.gif" alt="查看详细资料"  /></a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+ <div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo2006896')"><a href="space-uid-668910.html" target="_blank"><img src="http://bbs1.chinaunix.net/uc_server/avatar.php?uid=668910&size=middle" /></a></div>
+<p><em><a href="faq.php?action=grouppermission&amp;searchgroupid=12" target="_blank">法师</a></em></p>
+</div>
+<p>&nbsp;<img src="images/default/level/pips8.gif" />&nbsp;</p>
+<dl class="profile s_clear"><dt>帖子</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=bjgirl&st=post&bbs=1&forums=all" target="_blank"><u>5511</u></a>&nbsp;</dd><dt>主题</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=bjgirl&st=title&bbs=1&forums=all" target="_blank"><u>109</u></a>&nbsp;</dd><dt>精华</dt><dd><a href="http://s.chinaunix.net/bbs.php?q=&username=bjgirl&st=titlejh&bbs=1&forums=all" target="_blank"><u>10</u></a>&nbsp;</dd><dt>可用积分</dt><dd>1033 &nbsp;</dd><dt>专家积分</dt><dd style="width:110px;">0 (本版:0)</dd><dt>来自</dt><dd>FreeSpace&nbsp;</dd><dt>在线时间</dt><dd>1 小时&nbsp;</dd><dt>注册时间</dt><dd>2003-06-02&nbsp;</dd><dt>最后登录</dt><dd>2009-09-28&nbsp;</dd></dl><p>状态：...保密...</p>
+  
+<p>
+[<a href="http://my.chinaunix.net/space.php?uid=668910" target="_blank" alt="进入此会员的CU微博" style=color:blue><b>微博</b></a>]
+[<a href="http://blog.chinaunix.net/dir.php?uid=668910" target="_blank" alt="进入此会员的CU博客"><b>博客</b></a>]
+[<a href="pm.php?action=new&amp;uid=668910" target="_blank" alt="给此会员发送站内短信"><b>短信</b></a>] 
+</p>
+
+</td>
+<td class="postcontent postbody">
+<div class="postinfo">
+<strong>
+<em>
+<a href="javascript:;" onclick="scrollTo(0,0);"><img src="images/default/top.gif" border="0" alt="顶部" /></a>
+
+
+</em>
+</strong>
+<div class="posterinfo">
+<div class="pagecontrol">
+</div>
+<div class="authorinfo">
+<a title="复制本帖链接" id="postnum2006896" href="javascript:;" onclick="setCopy('http://bbs3.chinaunix.net/redirect.php?goto=findpost&amp;ptid=301195&amp;pid=2006896', '帖子地址已经复制到剪贴板')"><em>10</em>楼</a>
+
+<em id="authorposton2006896">发表于 2004-04-13 21:13</em>
+ | <a href="viewthread.php?tid=301195&amp;page=1&amp;authorid=668910" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div>
+<hr class="top_hr">
+<div class="defaultpost">
+<div id="ad_thread2_9"></div><div id="ad_thread3_9"></div><div id="ad_thread4_9"></div>
+
+<div class="postact s_clear" style="float:right">
+<p>
+</p>
+</div>
+
+<div class="postmessage ">
+<h2>日期相减的问题</h2>
+<div class="t_msgfontfix">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_msgfont" id="postmessage_2006896">[quote]<i>原帖由 &quot;c1l2d3&quot;][/quote 发表：</i><br />
+<br />
+强呀! :oops:<br />
+向你学习!</td></tr></table>
+</div>
+
+<div id="post_rate_div_2006896"></div>
+</div>
+
+</div>
+</td></tr>
+<tr><td class="postcontent postbottom" bgcolor="#FAFBFC">
+<div class="signatures" style="max-height:500px;maxHeightIE:500px;">__________________________________<br>/</div>
+<br>
+<hr class="ad_hr">
+<div class="ad_textlink1" id="ad_thread1_9"><a href="http://ad-apac.doubleclick.net/click;h=v2|3D65|0|0|%2a|j;234843440;0-0;0;58714496;31-1|1;40183827|40201614|1;;%3fhttp://h20427.www2.hp.com/campaign/enp/cn/zh/FYQ1SWD_D2D/default.asp?jumpid=ex_r11504_cn/zh/smb/tsg/it168_enterprisehomepagebanner_q1swdminisite/6-1hcdn6a6-1hf17dk"  target="_blank" style="color:green"><b>HP StoreOnce重复数据删除白皮书下载</b></a>|<a target="_blank" href="http://bbs.chinaunix.net/thread-1841651-1-1.html" style=color:red><b>
+2010您最想感谢的CUer是谁？敬请提名！ </b></a> | <a href="http://www.uplooking.com/" target="_blank" style="color:blue"><b>红帽RHCE超低价考试</b></a>|  <a href="http://bbs2.chinaunix.net/thread-1843110-1-1.html"  target="_blank" style="color:#B5A642"><b>有奖：数据保护什么备份软件好</b></a> 
+</div></div></td>
+</tr>
+<tr class="threadad" bgcolor="#FFFFFF" height="2">
+<td class="postauthor" bgcolor="#FFFFFF"></td>
+<td class="adcontent" bgcolor="#FFFFFF"></td>
+</tr>
+</table>
+</div></div>
+<div id="postlistreply" class="mainbox viewthread"><div id="post_new" class="viewthread_table" style="display: none"></div></div>
+<div class="subtable" style="padding:5px 5px 5px 0px">
+<table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse" width="98%" align="center">
+<tr><td nowrap>
+<span id="newspecial" prompt="post_newthread" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})">
+<a href="post.php?action=newthread&amp;fid=24&amp;extra=page%3D1" onclick="showWindow('newthread', this.href);return false;"><img src="images/default/new_topic.gif" border="0"  alt="" /></a> </span>
+
+<a href="post.php?action=newthread&amp;fid=24&amp;extra=page%3D1&amp;special=1"><img src="images/default/new_poll.gif" border="0"  alt="" /></a>
+<a href="post.php?action=reply&amp;fid=24&amp;tid=301195&amp;extra=page%3D1"><img src="images/default/new_reply.gif" border="0" alt=""  /></a>&nbsp;
+<a href="http://www.chinaunix.net">首页</a> &raquo; 
+<a href="index.shtml">论坛</a> <!-- &raquo; <a href="listthread.php" style="color:#FF0000">汇总贴列表</a> -->  &raquo; <a href="forum-24-1.html">Shell</a> &raquo; </td><td nowrap align="right">
+<div class="p_bar"><a class="p_curpage">1</a><a href="thread-301195-2-1.html" class="p_num">2</a><a href="thread-301195-2-1.html" class="p_redirect">&rsaquo;&rsaquo;</a></div></td></tr>
+</table>
+</div>
+
+<form method="post" name="modactions" id="modactions">
+<input type="hidden" name="formhash" value="6b380f8a" />
+<input type="hidden" name="optgroup" />
+<input type="hidden" name="operation" />
+<input type="hidden" name="listextra" value="page%3D1" />
+</form>
+
+<script type="text/javascript">var tagarray = ['linux','web','Oracle','招聘','ibm','java','videoserver','sqlserver','php','ftp','mysql','server','Sun','服务器','pdf','apache','北京','perl','cluster','python','Win','shell','小型机','培训','solaris','IIS','others','FreeBSD','ppt','工程师','上海','IBMx86','SAP','raid','VMware','开发','samba','Virtualization','软件','2003','proxyserver','请教','技术','Cloud','IBMpower','Novell','嵌入式','CISA','2008','求助','DB2','数据库','AIX','内存','应用','存储备件','Ruby','CISP','CISSP','Computing','media','unix','dell','职位','Windows','嵌入式培训','微软','文件','硬盘','系统','信息安全','awk','平台','VMs','软件工程','inspur','android','电源','DNS','云计算','网络','数据','google','中国','sed','dawning','iPhone','方案','万达顺','主板','成都','教程','架构','认证','redhat','iPad','socket','服务','白皮书','深圳'];var tagencarray = ['linux','web','Oracle','%D5%D0%C6%B8','ibm','java','videoserver','sqlserver','php','ftp','mysql','server','Sun','%B7%FE%CE%F1%C6%F7','pdf','apache','%B1%B1%BE%A9','perl','cluster','python','Win','shell','%D0%A1%D0%CD%BB%FA','%C5%E0%D1%B5','solaris','IIS','others','FreeBSD','ppt','%B9%A4%B3%CC%CA%A6','%C9%CF%BA%A3','IBMx86','SAP','raid','VMware','%BF%AA%B7%A2','samba','Virtualization','%C8%ED%BC%FE','2003','proxyserver','%C7%EB%BD%CC','%BC%BC%CA%F5','Cloud','IBMpower','Novell','%C7%B6%C8%EB%CA%BD','CISA','2008','%C7%F3%D6%FA','DB2','%CA%FD%BE%DD%BF%E2','AIX','%C4%DA%B4%E6','%D3%A6%D3%C3','%B4%E6%B4%A2%B1%B8%BC%FE','Ruby','CISP','CISSP','Computing','media','unix','dell','%D6%B0%CE%BB','Windows','%C7%B6%C8%EB%CA%BD%C5%E0%D1%B5','%CE%A2%C8%ED','%CE%C4%BC%FE','%D3%B2%C5%CC','%CF%B5%CD%B3','%D0%C5%CF%A2%B0%B2%C8%AB','awk','%C6%BD%CC%A8','VMs','%C8%ED%BC%FE%B9%A4%B3%CC','inspur','android','%B5%E7%D4%B4','DNS','%D4%C6%BC%C6%CB%E3','%CD%F8%C2%E7','%CA%FD%BE%DD','google','%D6%D0%B9%FA','sed','dawning','iPhone','%B7%BD%B0%B8','%CD%F2%B4%EF%CB%B3','%D6%F7%B0%E5','%B3%C9%B6%BC','%BD%CC%B3%CC','%BC%DC%B9%B9','%C8%CF%D6%A4','redhat','iPad','socket','%B7%FE%CE%F1','%B0%D7%C6%A4%CA%E9','%C9%EE%DB%DA'];parsetag(1993560);</script>
+
+
+
+<table border="0" cellspacing="5" cellpadding="5" style="border-collapse: collapse" width="98%" align="center">
+<tr><td nowrap>
+</td><td nowrap align="right">
+<select onchange="if(this.options[this.selectedIndex].value != '') {
+window.location=('forumdisplay.php?fid='+this.options[this.selectedIndex].value+'&amp;sid=8G7b28') }">
+<option value="">版块跳转</option>
+<optgroup label="--Unix操作系统"><option value="4">Linux论坛</option><option value="5">BSD</option><option value="6">Solaris</option><option value="118">互操作专区</option><option value="9">AIX</option><option value="10">AS400</option><option value="8">HP-UX</option><option value="7">SCO UNIX</option><option value="11">Tru64 UNIX</option><option value="12">IRIX</option><option value="41">Mac OS X</option></optgroup><optgroup label="--虚拟化技术"><option value="172">VMware虚拟化</option><option value="173">Microsoft虚拟化</option><option value="174">Citrix虚拟化</option><option value="175">开源虚拟化</option><option value="176">小型机虚拟化</option><option value="177">虚拟化解决方案</option></optgroup><optgroup label="--程序设计"><option value="23">C/C++</option><option value="24">Shell</option><option value="26">Java</option><option value="27">Php</option><option value="25">Perl</option><option value="55">Python</option><option value="80">Web开发</option><option value="28">软件工程</option><option value="81">中间件技术</option><option value="84">GUI编程</option><option value="99">软件配置管理</option><option value="100">VoIP开发技术</option><option value="103">CPU与编译器</option><option value="116">Ruby</option><option value="137">OpenAPI</option><option value="142">Functional编程</option><option value="140">数据仓库与数据挖掘</option><option value="185">架构设计</option></optgroup><optgroup label="--网络技术"><option value="29">安全技术</option><option value="30">网络技术</option><option value="34">存储备份之家</option><option value="126">&nbsp; &nbsp; &nbsp; 存储业界</option><option value="45">服务器及硬件技术</option><option value="141">门户网站运维</option><option value="144">龙芯技术</option></optgroup><optgroup label="--数据库技术"><option value="17">MySQL</option><option value="21">Sybase</option><option value="19">Oracle</option><option value="18">PostgreSQL</option><option value="22">DB2</option><option value="20">Informix</option></optgroup><optgroup label="--应用技术专题"><option value="13">Web服务器</option><option value="14">Mail服务器</option><option value="15">FTP服务器</option><option value="16">DNS服务器</option><option value="38">Proxy服务器</option><option value="49">LDAP</option><option value="50">VPN</option><option value="52">Lotus</option><option value="102">Samba</option></optgroup><optgroup label="--行业应用与管理"><option value="105">金融行业</option><option value="106">电信行业</option><option value="107">互联网行业</option><option value="109">制造行业</option><option value="108">医卫行业</option><option value="111">教育行业</option><option value="113">电子政务</option><option value="110">信息安全</option><option value="114">交通行业</option></optgroup><optgroup label="--综合交流区"><option value="46">IT业界新闻与评论</option><option value="161">&nbsp; &nbsp; &nbsp; 关注流感</option><option value="32">IT职业生涯</option><option value="53">IT培训与认证</option><option value="54">IT采购数据中心</option><option value="82">IT图书与评论</option><option value="180">云计算技术</option><option value="182">&nbsp; &nbsp; &nbsp; 云计算业界</option></optgroup><optgroup label="--休闲生活"><option value="31">清茶斋</option><option value="157">&nbsp; &nbsp; &nbsp; 各地快讯</option><option value="115">投资理财</option><option value="146">&nbsp; &nbsp; &nbsp; 财经快报</option><option value="39">运动地带</option><option value="148">&nbsp; &nbsp; &nbsp; 体坛快报</option><option value="40">快乐数码摄影</option><option value="168">&nbsp; &nbsp; &nbsp; 摄影器材</option><option value="134">&nbsp; &nbsp; &nbsp; 摄影比赛专区</option><option value="33">外语沙龙</option><option value="83">游戏玩家</option><option value="96">旅游天下</option><option value="121">IT爱车族</option><option value="153">&nbsp; &nbsp; &nbsp; 汽车快报</option><option value="150">美食美色</option><option value="151">&nbsp; &nbsp; &nbsp; 美食菜谱</option></optgroup><optgroup label="--站务及频道"><option value="156">CU技术图书大系</option><option value="123">CU活动专区</option><option value="169">&nbsp; &nbsp; &nbsp; 拍卖交流区</option><option value="160">&nbsp; &nbsp; &nbsp; CU伴我行</option><option value="2">站务交流</option><option value="51">博客站务交流区</option></optgroup></select>
+<select onchange="if(this.options[this.selectedIndex].value != '')
+window.location=('forumdisplay.php?fid='+this.options[this.selectedIndex].value+'&amp;sid=8G7b28')">
+<option value="">最近访问的版块</option>
+<option value="28">&nbsp; &nbsp; &nbsp; 软件工程</option><option value="25">&nbsp; &nbsp; &nbsp; Perl</option><option value="17">&nbsp; &nbsp; &nbsp; MySQL</option><option value="6">&nbsp; &nbsp; &nbsp; Solaris</option><option value="7">&nbsp; &nbsp; &nbsp; SCO UNIX</option><option value="36">&nbsp; &nbsp; &nbsp; 内核/嵌入技术</option><option value="4">&nbsp; &nbsp; &nbsp; Linux论坛</option><option value="29">&nbsp; &nbsp; &nbsp; 安全技术</option><option value="9">&nbsp; &nbsp; &nbsp; AIX</option><option value="124">&nbsp; &nbsp; &nbsp; AIX文档中心</option><option value="23">&nbsp; &nbsp; &nbsp; C/C++</option></select>
+</td>
+<td width="100">
+</td></tr>
+</table>
+
+<div id="favoritewin" style="display: none">
+<h5>
+<a href="javascript:;" onclick="ajaxget('my.php?item=favorites&tid=301195', 'favorite_msg');return false;" class="lightlink">[收藏此主题]</a>&nbsp;
+<a href="javascript:;" onclick="ajaxget('my.php?item=attention&action=add&tid=301195', 'favorite_msg');return false;" class="lightlink">[关注此主题的新回复]</a>
+</h5>
+<span id="favorite_msg"></span>
+</div>
+
+<div id="sharewin" style="display: none">
+<h5>
+<a href="javascript:;" onclick="setCopy('日期相减的问题\nhttp://bbs3.chinaunix.net/viewthread.php?tid=301195', '帖子地址已经复制到剪贴板<br />您可以用快捷键 Ctrl + V 粘贴到 QQ、MSN 里。')" class="lightlink" />[通过 QQ、MSN 分享给朋友]</a><br /><br />
+</h5>
+</div>
+
+</div><div class="ad_footerbanner" id="ad_footerbanner1"></div>
+
+
+<!----广告 begin------------->
+
+<!----广告 end------------->
+<table bgcolor="#FFFFFF" width="98%" cellpadding="8" cellspacing="0" border="0" align="center">
+<tr class="outertxt"><td>
+<table cellspacing="0" cellpadding="0" align="center" style="font-size: 11px; font-family: Tahoma, Arial"><tr>
+<td align=center>
+Copyright &copy; 2001-2010 ChinaUnix.net All Rights Reserved 
+&nbsp;&nbsp;&nbsp;
+联系我们：<img src="images/default/adminmail.gif" border=0 width=139 height=12>
+
+<p>感谢所有关心和支持过ChinaUnix的朋友们&nbsp;&nbsp;&nbsp;&nbsp;转载本站内容请注明原作者名及出处</p>
+
+ <a href="http://www.it168.com/images/icp.jpg" target="_blank">京ICP证:060528号</a>
+<br/>
+北京市公安局海淀分局网监中心备案编号：1101082001 
+</td></tr>
+<tr><td align=center><br><br>
+<a href="member.php?action=clearcookies&amp;formhash=6b380f8a">清除 Cookies</a> - <a href="http://www.chinaunix.net" target="_blank">ChinaUnix</a>
+ - <a href="archiver/" target="_blank">Archiver</a> - <a href="wap/" target="_blank">WAP</a> - <a href="#top">TOP</a>
+</td></tr>
+</table>
+</center>
+<!-- 统计 START -->
+<script src="http://stat.it168.com/pv.js" type="text/javascript"></script>
+<script>
+function sendPV(){
+    var pvTrack = new PvTrack();
+    pvTrack.type = 10; // 频道类别ID
+    pvTrack.channel = 22; // 频道ID
+   
+    pvTrack.pageType = 0;
+    pvTrack.track();
+}
+window.setTimeout("sendPV()", 0);
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-20237423-2']);
+  _gaq.push(['_setDomainName', '.chinaunix.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script> 
+<div style='display:none'>
+<script type="text/javascript"> 
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F0ee5e8cdc4d43389b3d1bfd76e83216b' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</div>
+
+<!-- ..统计 END -->

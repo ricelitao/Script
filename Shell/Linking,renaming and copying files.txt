@@ -1,0 +1,27 @@
+1.Finding the (Hard) Links to a File
+% ls -li /usr/bin/at(ls's -a option for listing "dot files.".-i option lists the i-number for each entry in the directory,
+see the first column,the third column has the link count)
+ 8041 -r-sr-xr-x  4  root   wheel   19540   Apr 21   2001    /usr/bin/at*
+ There are four links,and /usr/bin/at is one of four names for inode 8041.You can find the full names of the other three
+ links  by using find.
+ The simplest way is to figure out the filesystem on which /usr/bin/at lives by using df:
+ % df /usr/bin/at
+ Filesystem  1K-blocks  Used     Avail    Capacity   Mounted on
+ /dev/ad0s1f   3360437  1644024  1447579  53%        /usr
+ Then start your find at the top of that filesystem,and usr -xdev to tell it not to search into other filesystems:
+ % find /usr -xdev -inum 8041 -print
+ 
+ 2.Hard links 和 soft links 的区别
+ 硬链接文件和原文件指向同样的数据，两者就像科隆一样，inode号也相同，当删除原文件时，硬链接文件仍然存在有效。
+ （rm对Hard links的操作只是减少了它的“link count”，只有当link count为0时，才删除原文件）
+ 但硬链接文件不同于文件的复制。应该说硬链接文件的产生只是原文件所在目录文件的内容发生改变，原文件的数据并没有得到复制，
+ 而复制文件，磁盘上有两份数据。简单说，硬链接就是一个类似于别名的概念。当原来的名字没有了，别名照样可以使用。
+
+软连接也叫符号连接，他只是对源文件在新的位置建立一个“快捷（借用一下wondows常用词）”，所以，当源文件删除时，
+符号连接的文件将成为无源之水->仅仅剩下个文件名了，当然删除这个连接，也不会影响到源文件，但对连接文件的使用、
+引用都是直接调用源文件的。
+
+3.Creating and Removing Links
+ln filename linkname  ...To create a hard link
+ln -s filename linkname  ...To create a symbolic link
+ 
