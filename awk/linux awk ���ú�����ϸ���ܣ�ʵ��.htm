@@ -1,0 +1,1159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>linux awk 内置函数详细介绍（实例） - 沉于思考，默默学习！ - 博客园</title>
+<meta name="keywords" content="linux,awk,内置函数详细介绍,实例" />
+<link type="text/css" rel="stylesheet" href="http://www.cnblogs.com/css/common.css"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="http://www.cnblogs.com/Skins/Cogitation/style.css"/>
+<link type="text/css" rel="stylesheet" href="http://www.cnblogs.com/css/common2.css"/>
+<link type="text/css" rel="stylesheet" href="http://common.cnblogs.com/css/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="http://common.cnblogs.com/css/shThemeDefault.css"/>
+<link type="text/css" rel="stylesheet" href="http://www.cnblogs.com/chengmo/customcss.aspx?id=71819"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/chengmo/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/chengmo/rsd.xml"/> 
+<script src="http://common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script src="/script/common.js" type="text/javascript"></script>
+<script src="http://common.cnblogs.com/script/jquery.json-2.2.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://common.cnblogs.com/script/shCore.js"></script>
+<script type="text/javascript" src="http://common.cnblogs.com/script/shLanguage.js"></script>
+</head>
+<body>
+    <form name="Form1" method="post" action="1845913.html" id="Form1">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="
+__VIEWSTATE" value="" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+        
+<div id="top">
+	
+<div>
+	<table>
+		<tr>
+			<td class="HeaderTitles">
+				<h1 class="HeaderTitle"><a id="Header1_HeaderTitle" class="HeaderMainTitle" href="http://www.cnblogs.com/chengmo/">沉于思考，默默学习！</a></h1>
+				<p id="tagline">你不能预知明天，但你可以利用今天。你不能样样顺利，但你可以事事尽力!</p>
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="HeaderBar">
+	<table id="HeaderBar" class="HeaderBar" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="HeaderBarTab" nowrap>
+&nbsp;
+<a id="Header1_MyLinks1_HomeLink" href="http://www.cnblogs.com/">博客园</a>&nbsp;::
+<a id="Header1_MyLinks1_MyHomeLink" href="http://www.cnblogs.com/chengmo/">首页</a>&nbsp;::
+<a id="Header1_MyLinks1_NewPostLink" rel="nofollow" href="http://www.cnblogs.com/chengmo/admin/EditPosts.aspx?opt=1">新随笔</a>&nbsp;::
+<a id="Header1_MyLinks1_ContactLink" accesskey="9" rel="nofollow" href="http://space.cnblogs.com/msg/send/%e7%a8%8b%e9%bb%98">联系</a>&nbsp;::
+<a id="Header1_MyLinks1_Syndication" href="http://www.cnblogs.com/chengmo/rss">订阅</a>
+<a id="Header1_MyLinks1_XMLLink" class="XMLLink" href="http://www.cnblogs.com/chengmo/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" style="border-width:0px;" /></a>&nbsp;::
+<a id="Header1_MyLinks1_Admin" rel="nofollow" href="http://www.cnblogs.com/chengmo/admin/EditPosts.aspx">管理</a>&nbsp;::
+
+</td>
+			<td><img id="Header1_BlueTab" src="/skins/Cogitation/Images/BlueTabRight.gif" align="absmiddle" style="border-width:0px;" /></td>
+			<td class="HeaderBarTabBack" nowrap width="100%">
+				
+<div class="BlogStatsBar">
+	<table class="BlogStatsBar">
+		<tr>
+			<td width="100%">
+			</td>
+			<td class="BlogStatsBar" nowrap>
+				&nbsp;
+				54 
+				随笔&nbsp;::
+				0 文章
+				::
+				68 评论
+				::
+				0 引用
+			</td>
+		</tr>
+	</table>
+</div>
+
+			</td>
+		</tr>
+	</table>
+</div>
+
+</div>
+<div id="leftmenu">	
+</div>
+<div id="main">
+	
+					
+<div class="post">
+	<div class="postTitle">
+		<a id="ctl02_TitleUrl" href="http://www.cnblogs.com/chengmo/archive/2010/10/08/1845913.html">linux awk 内置函数详细介绍（实例）</a>
+	</div>
+	
+	<div class="postText">
+		<div id="cnblogs_post_body"><p>这节详细介绍awk内置函数，主要分以下3种类似：算数函数、字符串函数、其它一般函数、时间函数</p>
+<p>&nbsp;</p>
+<p id="eb6a497986mela"><strong>一、算术函数:</strong></p>
+<p>以下算术函数执行与 C 语言中名称相同的子例程相同的操作：</p>
+<table border="0" cellspacing="1" cellpadding="4" width="545" bgcolor="#666666">
+<tbody>
+<tr>
+<td bgcolor="#cccccc"><strong>函数名</strong></td>
+<td width="405" bgcolor="#cccccc"><strong>说明</strong></td>
+</tr>
+<tr>
+<td width="25%" bgcolor="#ffffff">atan2( y, x )</td>
+<td width="405" bgcolor="#ffffff">返回 y/x 的反正切。</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">cos( x )</td>
+<td width="405" bgcolor="#ffffff">返回 x 的余弦；x 是弧度。</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">sin( x )</td>
+<td width="405" bgcolor="#ffffff">返回 x 的正弦；x 是弧度。</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">exp( x )</td>
+<td width="405" bgcolor="#ffffff">返回 x 幂函数。</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">log( x )</td>
+<td width="405" bgcolor="#ffffff">返回 x 的自然对数。</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">sqrt( x )</td>
+<td width="405" bgcolor="#ffffff">返回 x 平方根。</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">int( x )</td>
+<td width="405" bgcolor="#ffffff">返回 x 的截断至整数的值。</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">rand( )</td>
+<td width="405" bgcolor="#ffffff">返回任意数字 n，其中 0 &lt;= n &lt; 1。</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">srand( [Expr] )</td>
+<td width="405" bgcolor="#ffffff">将 rand 函数的种子值设置为 Expr 参数的值，或如果省略 Expr 参数则使用某天的时间。返回先前的种子值。</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<blockquote>
+<p><strong>举例说明：</strong></p>
+<p>[chengmo@centos5 ~]$ awk 'BEGIN{OFMT="%.3f";fs=sin(1);fe=exp(10);fl=log(10);fi=int(3.1415);print fs,fe,fl,fi;}'<br />0.841 22026.466 2.303 3 </p>
+<p>&nbsp;</p>
+<p>OFMT 设置输出数据格式是保留3位小数</p>
+<p><strong>获得随机数：</strong></p>
+<p>[chengmo@centos5 ~]$ awk 'BEGIN{srand();fr=int(100*rand());print fr;}'<br />78<br />[chengmo@centos5 ~]$ awk 'BEGIN{srand();fr=int(100*rand());print fr;}'<br />31<br />[chengmo@centos5 ~]$ awk 'BEGIN{srand();fr=int(100*rand());print fr;}' </p>
+<p>41 </p>
+<p>&nbsp;</p>
+</blockquote>
+<p>&nbsp;</p>
+<h5 id="a171c1272">二、字符串函数是：</h5>
+<table border="0" cellspacing="1" cellpadding="4" width="464" bgcolor="#666666">
+<tbody>
+<tr>
+<td width="163" bgcolor="#cccccc"><strong>函数</strong></td>
+<td width="296" bgcolor="#cccccc"><strong>说明</strong></td>
+</tr>
+<tr>
+<td width="163" bgcolor="#ffffff">gsub( Ere, Repl, [ In ] )</td>
+<td width="296" bgcolor="#ffffff">除了正则表达式所有具体值被替代这点，它和 sub 函数完全一样地执行，。</td>
+</tr>
+<tr>
+<td width="163" bgcolor="#ffffff">sub( Ere, Repl, [ In ] )</td>
+<td width="296" bgcolor="#ffffff">用 Repl 参数指定的字符串替换 In 参数指定的字符串中的由 Ere 参数指定的扩展正则表达式的第一个具体值。sub 函数返回替换的数量。出现在 Repl 参数指定的字符串中的 &amp;（和符号）由 In 参数指定的与 Ere 参数的指定的扩展正则表达式匹配的字符串替换。如果未指定 In 参数，缺省值是整个记录（$0 记录变量）。</td>
+</tr>
+<tr>
+<td width="163" bgcolor="#ffffff">index( String1, String2 )</td>
+<td width="296" bgcolor="#ffffff">在由 String1 参数指定的字符串（其中有出现 String2 指定的参数）中，返回位置，从 1 开始编号。如果 String2 参数不在 String1 参数中出现，则返回 0（零）。</td>
+</tr>
+<tr>
+<td width="163" bgcolor="#ffffff">length [(String)]</td>
+<td width="296" bgcolor="#ffffff">返回 String 参数指定的字符串的长度（字符形式）。如果未给出 String 参数，则返回整个记录的长度（$0 记录变量）。</td>
+</tr>
+<tr>
+<td width="163" bgcolor="#ffffff">blength [(String)]</td>
+<td width="296" bgcolor="#ffffff">返回 String 参数指定的字符串的长度（以字节为单位）。如果未给出 String 参数，则返回整个记录的长度（$0 记录变量）。</td>
+</tr>
+<tr>
+<td width="163" bgcolor="#ffffff">substr( String, M, [ N ] )</td>
+<td width="296" bgcolor="#ffffff">返回具有 N 参数指定的字符数量子串。子串从 String 参数指定的字符串取得，其字符以 M 参数指定的位置开始。M 参数指定为将 String 参数中的第一个字符作为编号 1。如果未指定 N 参数，则子串的长度将是 M 参数指定的位置到 String 参数的末尾 的长度。</td>
+</tr>
+<tr>
+<td width="163" bgcolor="#ffffff">match( String, Ere )</td>
+<td width="296" bgcolor="#ffffff">在 String 参数指定的字符串（Ere 参数指定的扩展正则表达式出现在其中）中返回位置（字符形式），从 1 开始编号，或如果 Ere 参数不出现，则返回 0（零）。RSTART 特殊变量设置为返回值。RLENGTH 特殊变量设置为匹配的字符串的长度，或如果未找到任何匹配，则设置为 -1（负一）。</td>
+</tr>
+<tr>
+<td width="163" bgcolor="#ffffff">split( String, A, [Ere] )</td>
+<td width="296" bgcolor="#ffffff">将 String 参数指定的参数分割为数组元素 A[1], A[2], . . ., A[n]，并返回 n 变量的值。此分隔可以通过 Ere 参数指定的扩展正则表达式进行，或用当前字段分隔符（FS 特殊变量）来进行（如果没有给出 Ere 参数）。除非上下文指明特定的元素还应具有一个数字值，否则 A 数组中的元素用字符串值来创建。</td>
+</tr>
+<tr>
+<td width="163" bgcolor="#ffffff">tolower( String )</td>
+<td width="296" bgcolor="#ffffff">返回 String 参数指定的字符串，字符串中每个大写字符将更改为小写。大写和小写的映射由当前语言环境的 LC_CTYPE 范畴定义。</td>
+</tr>
+<tr>
+<td width="163" bgcolor="#ffffff">toupper( String )</td>
+<td width="296" bgcolor="#ffffff">返回 String 参数指定的字符串，字符串中每个小写字符将更改为大写。大写和小写的映射由当前语言环境的 LC_CTYPE 范畴定义。</td>
+</tr>
+<tr>
+<td width="163" bgcolor="#ffffff">sprintf(Format, Expr, Expr, . . . )</td>
+<td width="296" bgcolor="#ffffff">根据 Format 参数指定的 <a href="http://www.cnblogs.com/chengmo/admin/zh_CN/libs/basetrf1/printf.htm#a8zed0gaco">printf</a> 子例程格式字符串来格式化 Expr 参数指定的表达式并返回最后生成的字符串。</td>
+</tr>
+</tbody>
+</table>
+<h5 id="a171c127f">Ere都可以是正则表达式</h5>
+<p>&nbsp;</p>
+<blockquote>
+<p><strong>gsub,sub使用</strong></p>
+<p>[chengmo@centos5 ~]$ awk 'BEGIN{info="this is a test2010test!";gsub(/[0-9]+/,"!",info);print info}'&nbsp;&nbsp; <br />this is a test!test! </p>
+<p>&nbsp;</p>
+<p>在 info中查找满足正则表达式，/[0-9]+/ 用&rdquo;&rdquo;替换，并且替换后的值，赋值给info 未给info值，默认是$0</p>
+<p>&nbsp;</p>
+<p><strong>查找字符串（index使用）</strong></p>
+<p>[wangsl@centos5 ~]$ awk 'BEGIN{info="this is a test2010test!";print index(info,"test")?"ok":"no found";}'&nbsp;&nbsp;&nbsp; <br />ok </p>
+<p>未找到，返回0</p>
+<p>&nbsp;</p>
+<p><strong>正则表达式匹配查找(match使用）</strong></p>
+<p>[wangsl@centos5 ~]$ awk 'BEGIN{info="this is a test2010test!";print match(info,/[0-9]+/)?"ok":"no found";}'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br />ok </p>
+<p>&nbsp;</p>
+<p><strong>截取字符串(substr使用）</strong></p>
+<p>[wangsl@centos5 ~]$ awk 'BEGIN{info="this is a test2010test!";print substr(info,4,10);}'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br />s is a tes </p>
+<p>从第 4个 字符开始，截取10个长度字符串</p>
+<p>&nbsp;</p>
+<p><strong>字符串分割（split使用）</strong></p>
+<p>[chengmo@centos5 ~]$ awk 'BEGIN{info="this is a test";split(info,tA," ");print length(tA);for(k in tA){print k,tA[k];}}'<br />4<br />4 test<br />1 this<br />2 is<br />3 a </p>
+<p>&nbsp;</p>
+<p>分割info,动态创建数组tA,这里比较有意思，awk for &hellip;in 循环，是一个无序的循环。 并不是从数组下标1&hellip;n ，因此使用时候需要注意。</p>
+<p>&nbsp;</p>
+<p><strong>格式化字符串输出（sprintf使用）</strong></p>
+<p><span style="color: #0000ff;">格式化字符串格式：</span></p>
+<p>其中格式化字符串包括两部分内容: 一部分是正常字符, 这些字符将按原样输出; 另一部分是格式化规定字符, 以"%"开始, 后跟一个或几个规定字符,用来确定输出内容格式。 </p>
+<p>&nbsp;</p>
+<table border="0" cellspacing="1" cellpadding="4" width="361" bgcolor="#666666">
+<tbody>
+<tr>
+<td width="87" bgcolor="#cccccc"><strong>格式符</strong></td>
+<td width="269" bgcolor="#cccccc"><strong>说明</strong></td>
+</tr>
+<tr>
+<td width="87" bgcolor="#ffffff">%d</td>
+<td width="269" bgcolor="#ffffff">十进制有符号整数 </td>
+</tr>
+<tr>
+<td width="87" bgcolor="#ffffff">%u</td>
+<td width="269" bgcolor="#ffffff">十进制无符号整数 </td>
+</tr>
+<tr>
+<td width="87" bgcolor="#ffffff">%f</td>
+<td width="269" bgcolor="#ffffff">浮点数 </td>
+</tr>
+<tr>
+<td width="87" bgcolor="#ffffff">%s</td>
+<td width="269" bgcolor="#ffffff">字符串 </td>
+</tr>
+<tr>
+<td width="87" bgcolor="#ffffff">%c</td>
+<td width="269" bgcolor="#ffffff">单个字符 </td>
+</tr>
+<tr>
+<td width="87" bgcolor="#ffffff">%p</td>
+<td width="269" bgcolor="#ffffff">指针的值 </td>
+</tr>
+<tr>
+<td width="87" bgcolor="#ffffff">%e</td>
+<td width="269" bgcolor="#ffffff">指数形式的浮点数 </td>
+</tr>
+<tr>
+<td width="87" bgcolor="#ffffff">%x</td>
+<td width="269" bgcolor="#ffffff">%X 无符号以十六进制表示的整数 </td>
+</tr>
+<tr>
+<td width="87" bgcolor="#ffffff">%o</td>
+<td width="269" bgcolor="#ffffff">无符号以八进制表示的整数 </td>
+</tr>
+<tr>
+<td width="87" bgcolor="#ffffff">%g</td>
+<td width="269" bgcolor="#ffffff">自动选择合适的表示法 </td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<blockquote>
+<p>[chengmo@centos5 ~]$ awk 'BEGIN{n1=124.113;n2=-1.224;n3=1.2345; printf("%.2f,%.2u,%.2g,%X,%o\n",n1,n2,n3,n1,n1);}'<br />124.11,18446744073709551615,1.2,7C,174 </p>
+<p>&nbsp;</p>
+</blockquote>
+<h5>三、一般函数是：</h5>
+<table border="0" cellspacing="1" cellpadding="4" width="443" bgcolor="#666666">
+<tbody>
+<tr>
+<td bgcolor="#cccccc"><strong>函数</strong></td>
+<td width="346" bgcolor="#cccccc"><strong>说明</strong></td>
+</tr>
+<tr>
+<td width="21%" bgcolor="#ffffff">close( Expression )</td>
+<td width="346" bgcolor="#ffffff">用同一个带字符串值的 Expression 参数来关闭由 print 或 printf 语句打开的或调用 getline 函数打开的文件或管道。如果文件或管道成功关闭，则返回 0；其它情况下返回非零值。如果打算写一个文件，并稍后在同一个程序中读取文件，则 close 语句是必需的。</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">system(Command )</td>
+<td width="346" bgcolor="#ffffff">执行 Command 参数指定的命令，并返回退出状态。等同于 <a href="http://www.cnblogs.com/chengmo/admin/zh_CN/libs/basetrf2/system.htm#a181929c">system</a> 子例程。</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">Expression | getline [ Variable ]</td>
+<td width="346" bgcolor="#ffffff">从来自 Expression 参数指定的命令的输出中通过管道传送的流中读取一个输入记录，并将该记录的值指定给 Variable 参数指定的变量。如果当前未打开将 Expression 参数的值作为其命令名称的流，则创建流。创建的流等同于调用 <a href="http://www.cnblogs.com/chengmo/admin/zh_CN/libs/basetrf1/popen.htm#sk62b0shad">popen</a> 子例程，此时 Command 参数取 Expression 参数的值且 Mode 参数设置为一个是 r 的值。只要流保留打开且 Expression 参数求得同一个字符串，则对 getline 函数的每次后续调用读取另一个记录。如果未指定 Variable 参数，则 $0 记录变量和 NF 特殊变量设置为从流读取的记录。</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">getline [ Variable ] &lt; Expression</td>
+<td width="346" bgcolor="#ffffff">从 Expression 参数指定的文件读取输入的下一个记录，并将 Variable 参数指定的变量设置为该记录的值。只要流保留打开且 Expression 参数对同一个字符串求值，则对 getline 函数的每次后续调用读取另一个记录。如果未指定 Variable 参数，则 $0 记录变量和 NF 特殊变量设置为从流读取的记录。</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">getline [ Variable ]</td>
+<td width="346" bgcolor="#ffffff">将 Variable 参数指定的变量设置为从当前输入文件读取的下一个输入记录。如果未指定 Variable 参数，则 $0 记录变量设置为该记录的值，还将设置 NF、NR 和 FNR 特殊变量。</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<blockquote>
+<p><span style="color: #000000;"><strong>打开外部文件（close用法）</strong></span></p>
+<p>[chengmo@centos5 ~]$ awk 'BEGIN{while("cat /etc/passwd"|getline){print $0;};close("/etc/passwd");}'<br />root:x:0:0:root:/root:/bin/bash<br />bin:x:1:1:bin:/bin:/sbin/nologin<br />daemon:x:2:2:daemon:/sbin:/sbin/nologin </p>
+<p>&nbsp;</p>
+<p><strong>逐行读取外部文件(getline使用方法）</strong></p>
+<p>[chengmo@centos5 ~]$ awk 'BEGIN{while(getline &lt; "/etc/passwd"){print $0;};close("/etc/passwd");}'<br />root:x:0:0:root:/root:/bin/bash<br />bin:x:1:1:bin:/bin:/sbin/nologin<br />daemon:x:2:2:daemon:/sbin:/sbin/nologin </p>
+<p>&nbsp; </p>
+<p>[chengmo@centos5 ~]$ awk 'BEGIN{print "Enter your name:";getline name;print name;}'<br />Enter your name:<br />chengmo<br />chengmo </p>
+<p><strong>&nbsp;</strong>&nbsp;</p>
+<p><strong>调用外部应用程序(system使用方法）</strong></p>
+<p>[chengmo@centos5 ~]$ awk 'BEGIN{b=system("ls -al");print b;}'<br />total 42092<br />drwxr-xr-x 14 chengmo chengmo&nbsp;&nbsp;&nbsp;&nbsp; 4096 09-30 17:47 .<br />drwxr-xr-x 95 root&nbsp;&nbsp; root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4096 10-08 14:01 .. </p>
+<p>&nbsp;</p>
+<p>b返回值，是执行结果。</p>
+</blockquote>
+<p>&nbsp; </p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong>四、时间函数</strong></p>
+<p><strong>&nbsp;</strong></p>
+<table border="0" cellspacing="1" cellpadding="4" width="443" bgcolor="#666666">
+<tbody>
+<tr>
+<td width="250" bgcolor="#cccccc"><strong>函数名</strong></td>
+<td width="188" bgcolor="#cccccc"><strong>说明</strong></td>
+</tr>
+<tr>
+<td width="250" bgcolor="#ffffff">mktime( YYYY MM DD HH MM SS[ DST])</td>
+<td width="188" bgcolor="#ffffff">生成时间格式</td>
+</tr>
+<tr>
+<td width="250" bgcolor="#ffffff">strftime([format [, timestamp]])</td>
+<td width="188" bgcolor="#ffffff">格式化时间输出，将时间戳转为时间字符串 <br />具体格式，见下表.</td>
+</tr>
+<tr>
+<td width="250" bgcolor="#ffffff">systime()</td>
+<td width="188" bgcolor="#ffffff">得到时间戳,返回从1970年1月1日开始到当前时间(不计闰年)的整秒数</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<blockquote>
+<p><span style="color: #000000;"><strong>创建指定时间(mktime使用）</strong></span></p>
+<p>[chengmo@centos5 ~]$ awk 'BEGIN{tstamp=mktime("2001 01 01 12 12 12");print strftime("%c",tstamp);}'<br />2001年01月01日 星期一 12时12分12秒 </p>
+<p>&nbsp;</p>
+<p>[chengmo@centos5 ~]$ awk 'BEGIN{tstamp1=mktime("2001 01 01 12 12 12");tstamp2=mktime("2001 02 01 0 0 0");print tstamp2-tstamp1;}'<br />2634468 </p>
+<p>求2个时间段中间时间差,介绍了strftime使用方法 </p>
+<p>&nbsp; </p>
+<p>[chengmo@centos5 ~]$ awk 'BEGIN{tstamp1=mktime("2001 01 01 12 12 12");tstamp2=systime();print tstamp2-tstamp1;}' <br />308201392 </p>
+<p>&nbsp;</p>
+<p><strong>strftime日期和时间格式说明符</strong></p>
+<table border="0" cellspacing="1" cellpadding="4" summary="日期和时间格式说明符" bgcolor="#666666">
+<thead>
+<tr>
+<th>格式</th><th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td bgcolor="#ffffff">%a</td>
+<td bgcolor="#ffffff">星期几的缩写(Sun)</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%A</td>
+<td bgcolor="#ffffff">星期几的完整写法(Sunday)</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%b</td>
+<td bgcolor="#ffffff">月名的缩写(Oct)</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%B</td>
+<td bgcolor="#ffffff">月名的完整写法(October)</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%c</td>
+<td bgcolor="#ffffff">本地日期和时间</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%d</td>
+<td bgcolor="#ffffff">十进制日期</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%D</td>
+<td bgcolor="#ffffff">日期 08/20/99</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%e</td>
+<td bgcolor="#ffffff">日期，如果只有一位会补上一个空格</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%H</td>
+<td bgcolor="#ffffff">用十进制表示24小时格式的小时</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%I</td>
+<td bgcolor="#ffffff">用十进制表示12小时格式的小时</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%j</td>
+<td bgcolor="#ffffff">从1月1日起一年中的第几天</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%m</td>
+<td bgcolor="#ffffff">十进制表示的月份</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%M</td>
+<td bgcolor="#ffffff">十进制表示的分钟</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%p</td>
+<td bgcolor="#ffffff">12小时表示法(AM/PM)</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%S</td>
+<td bgcolor="#ffffff">十进制表示的秒</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%U</td>
+<td bgcolor="#ffffff">十进制表示的一年中的第几个星期(星期天作为一个星期的开始)</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%w</td>
+<td bgcolor="#ffffff">十进制表示的星期几(星期天是0)</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%W</td>
+<td bgcolor="#ffffff">十进制表示的一年中的第几个星期(星期一作为一个星期的开始)</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%x</td>
+<td bgcolor="#ffffff">重新设置本地日期(08/20/99)</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%X</td>
+<td bgcolor="#ffffff">重新设置本地时间(12：00：00)</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%y</td>
+<td bgcolor="#ffffff">两位数字表示的年(99)</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%Y</td>
+<td bgcolor="#ffffff">当前月份</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%Z</td>
+<td bgcolor="#ffffff">时区(PDT)</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff">%%</td>
+<td bgcolor="#ffffff">百分号(%)</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>以上是awk常见 内置函数使用及说明，希望对大家有所帮助。</p></div>
+<script type="text/javascript">
+if ($ != jQuery) {
+	$ = jQuery.noConflict();
+}
+var isLogined = false;
+var cb_blogId = 71819;
+var cb_entryId = 1845913;
+var cb_blogApp = "chengmo";
+var cb_blogUserGuid = "eee985f0-5b74-df11-ba8f-001cf0cd104b";
+var cb_entryCreatedDate = '2010/10/8 16:01:00';
+</script>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="green_channel" style="display:none;">
+绿色通道：<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a><a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a><a id="green_channel_favorite" onclick="AddToWz(0);return false;" href="javascript:void(0);" >收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/%e7%a8%8b%e9%bb%98" target="_blank">与我联系</a>
+</div>
+<div id="digg_block">
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<div id="author_profile_detail" class="author_profile_info">
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow"></div>
+</div>
+<div id="div_digg" style="display:none;">										
+	<div class="diggit" onclick="DiggIt(cb_entryId,cb_blogId,1)"> 
+		<span class="diggnum" id="digg_count"></span>
+	</div>
+	<div class="buryit" onclick="DiggIt(cb_entryId,cb_blogId,2)"> 
+		<span class="burynum" id="bury_count"></span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips"></div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev">
+</div>
+</div>
+<script type="text/javascript">
+LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+GetPrevNextPost(cb_blogId, cb_entryCreatedDate);
+</script>
+<script type="text/javascript">
+    var blog_ad_has_shown = false;
+    try {
+        if (!$.browser.msie) {
+            if (new Date(cb_entryCreatedDate) < (new Date()).setFullYear(2009, 9, 21)) {
+                $('#cnblogs_post_body div img').each(function (i) { change_onclick(this, fix_code_collapse(this.getAttributeNode('onclick'))); });
+            }
+        } 
+    }
+    catch (e) { }
+</script>
+
+
+
+
+	</div>
+	
+	<div class="postfoot">
+		posted on 2010-10-08 16:01 <a href='http://www.cnblogs.com/chengmo/'>程默</a> 阅读(814) <a href='#commentform'>评论(0)</a>  <a href ="#" onclick="open_link('http://www.cnblogs.com/chengmo/admin/EditPosts.aspx?postid=1845913')" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(1845913);return false;">收藏</a>
+	</div>
+</div>
+<img src ="http://www.cnblogs.com/chengmo/aggbug/1845913.html?type=1&webview=1" width="1px" height="1px" alt=""/>
+
+
+<script type="text/javascript">
+    var commentAuthorHasChecked = false;
+    var commentAuthorIsValid = false;
+    var commentUrlIsValid = true;
+    var commentEmailIsValid = true;
+    var authenCodeHasChecked = false;
+    var authenCodeIsValid = true;
+    var hasLogined = false;
+    
+    function PostComment() {    
+        
+        var isValid = true;
+        
+        if($("#wrapAuthenCode").css("display")=="none"){
+            ShowAuthenCode();
+            $("#tip_AuthenCode").css("color","red");
+            $("#tip_AuthenCode").html("请输入验证码！");
+            isValid = false;
+        }
+        
+        if(!hasLogined && !commentAuthorHasChecked){
+            CheckAuthor();        
+        }                
+        if(!hasLogined && !commentAuthorIsValid){
+            isValid = false;
+        }
+                       
+        if(!authenCodeHasChecked){
+            CheckAuthenCode();            
+        }
+        if(!authenCodeIsValid){
+            isValid = false;
+        }
+        
+        if(!hasLogined && !commentUrlIsValid){            
+            isValid = false;
+        }        
+        if(!commentEmailIsValid){            
+            isValid = false;
+        }        
+        if(!CheckCommentContent()){
+            isValid = false;
+        }    
+        if(!isValid){
+            return;
+        }
+
+        var content = $("#tbCommentBody").val();
+        if(content.length>2000){
+            alert("评论内容过长！不允许发布！");
+            return;
+        }     
+        
+        if(content.indexOf("　Ｅ　　　　　　　　　Ｅ　　　　　　　　　　Ｅ　　　　　　")>=0){
+            alert("该内容不允许布！");
+            return;
+        }   
+        
+       if ($("#span_comment_posted").html()!='' && $("#span_comment_posted").html()==content){
+            alert("该评论已发表过!");
+            return;
+        }
+        
+        $("#tip_comment").html("评论提交中...");
+        $("#span_comment_posted").html(content);
+        //content = content.replace("'", "\\'");
+        var email = $("#tbCommentEmail").val();
+        var authenNum = $("#tbAuthenCode").val();
+        var authenId = $("#span_comment_test").html();
+        var comment = {};
+        comment.authenNum = authenNum;
+        comment.authenId= authenId;
+        comment.parentId = 1845913;
+        comment.blogId = 71819;
+        comment.sourceUrl = 'http://www.cnblogs.com/chengmo/archive/2010/10/08/1845913.html';
+        comment.author = $("#tbCommentAuthor").val();
+        comment.url = $("#tbCommentAuthorUrl").val();
+        comment.authenCode = $("#tbAuthenCode").val();
+        comment.email = email;
+        comment.title = 'linux awk 内置函数详细介绍（实例）';
+        comment.content = content;
+        comment.parentCommentId = $("#span_parentcomment_id").html();
+        $.ajax({
+            url: '/ws/CommentService.asmx/AddAnonymousComment',
+            data: $.toJSON(comment),
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf8",
+            success: function(data) {
+               if (data.d["IsSuccess"]) {
+                    ShowCommentMsg("感谢您的回复:)");
+                    //RereshComments2(comment.parentId);
+                    $("#tbCommentBody").val('');
+                    //$("#divCommentShow").html(data.d["ReturnData"]+content.replace(/\n/g,"<br/>")+"<br/><br/>");
+                    $("#divCommentShow").html($("#divCommentShow").html()+data.d["ReturnData"]); 
+                    $("#tip_AuthenCode").html('');
+                    RefreshAuthenCode();
+                    $("#tbAuthenCode").val("");                    
+                    CommentNotify(data.d["CommentID"]);
+                }
+                else {
+                    ShowCommentMsg(data.d["ReturnData"]);//"抱歉！评论提交失败！请与管理员联系。");
+                    $("#span_comment_posted").html(''); 
+                }
+            },
+            error: function(xhr) {
+                ShowCommentMsg("抱歉！评论提交失败！请与管理员联系。");
+                $("#span_comment_posted").html('');  
+                //alert(xhr.responseText);
+            }
+        }
+        );
+    }
+    
+    function RefreshAuthenCode(){
+        AjaxPost("/ws/CommentService.asmx/RefreshAuthenCode","{}",RefreshImg); 
+        $("#lnkRereshAuthenCode").html("<span style='color:red'>刷新中...</span>");
+        return false;
+    }
+    
+    function RefreshImg(response){
+       $("#imgAuthenCode").attr("src","/Modules/CaptchaImage/ValidCodeImage.aspx?id="+encodeURIComponent(response));
+       $("#span_comment_test").html(response);
+       $("#lnkRereshAuthenCode").html("看不清，换一个");
+    }
+    
+    function ShowAuthenCode(){
+        //if($("#wrapAuthenCode").css("display")=="none"){    
+        //    AjaxPost("/ws/CommentService.asmx/RefreshAuthenCode","{}",ShowAuthenCodeOk);
+        //}
+        $("#wrapAuthenCode").show();      
+    }
+    
+    function ShowAuthenCodeOk(response){
+         UpdateAuthenCode();
+         $("#tbAuthenCode").val("");
+         $("#wrapAuthenCode").show();
+         $("#tip_AuthenCode").html('');
+    }  
+ 
+    
+    function CheckAuthor(isOnblur){
+        commentAuthorHasChecked = true;
+        var maxLength = 30;
+        if($("#tbCommentAuthor").val().length == 0){
+            $("#tip_author").html("请输入您的昵称！");
+            commentAuthorIsValid = false;
+            return false;
+        }     
+        else if($("#tbCommentAuthor").val().length > maxLength){
+            $("#tip_author").html("昵称不允许超过" + maxLength + "个字符！");
+            commentAuthorIsValid = false;
+            return false;
+        }
+        else{
+            //if(isOnblur){
+                AjaxPost("/ws/CommentService.asmx/IsAuthorExist","{author:'"+$("#tbCommentAuthor").val()+"'}" ,OnCheckAuthorExist);
+            //}
+            //else{
+            //    $("#tip_author").html("");
+            //    commentAuthorIsValid = true;
+            //}
+            return true;
+        }
+   }
+   
+    function OnCheckAuthorExist(response){        
+        if(!response){
+            $("#tip_author").html("");
+            commentAuthorIsValid = true;
+        }
+        else{
+            $("#tip_author").html("该昵称已被使用，请更换昵称");
+            commentAuthorIsValid = false;
+        }
+   }
+   
+    function CheckUrl(){
+        var maxLength = 50;
+        var url = $("#tbCommentAuthorUrl").val();
+        
+        if(url.length == 0){
+            commentUrlIsValid = true;
+            return true;
+        }
+        else if(url.length > maxLength){
+            $("#tip_url").html("主页地址不允许超过" + maxLength + "个字符！");
+            commentUrlIsValid = false;
+            return false;
+        }
+        else if(url.indexOf("http://")!=0 || url.indexOf(".") < 0){
+            $("#tip_url").html("主页地址要以“http://”开头");
+            commentUrlIsValid = false;
+            return false;
+        }
+        else{
+            $("#tip_url").html("");
+            commentUrlIsValid = true;
+            return true;
+        }
+   }
+   
+   function CheckEmail(){
+        var email = $("#tbCommentEmail").val();
+        if(email.length>0){
+            var regExp = new RegExp("\\w+@((\\w|\-)+\\.)+[a-z]{2,3}");
+            if(!regExp.test(email)){
+                $("#tip_email").html("请输入正确的邮件地址!");
+                commentEmailIsValid = false;
+            }
+            else{
+                commentEmailIsValid = true;
+                 $("#tip_email").html("");
+            }
+        }
+        else{
+            commentEmailIsValid = true;
+            $("#tip_email").html("");  
+        }
+   }
+   
+   function CheckAuthenCode(){
+        authenCodeHasChecked = true;
+        var num = $("#tbAuthenCode").val();
+        var id = $("#span_comment_test").html();
+        $("#tip_AuthenCode").css("color","red");
+        if(num.length==0){
+             authenCodeIsValid = false;
+             $("#tip_AuthenCode").html("请输入验证码！");
+             return;
+        }
+        else if(num.length!=4){
+            authenCodeIsValid = false;
+            $("#tip_AuthenCode").html("请输入四位数字！");
+             return;
+        }
+        else if(new RegExp("(\d+)").test(num)){
+            authenCodeIsValid = false;
+            $("#tip_AuthenCode").html("请输入四位数字！");
+             return;
+        }
+        else{
+            AjaxPost("/ws/CommentService.asmx/CheckAuthenCode","{number:"+num+",id:'"+id+"'}", OnCheckAuthenCode);
+        }
+   }
+   
+   function OnCheckAuthenCode(response){
+        if(response){
+            $("#tip_AuthenCode").css("color","green");
+            $("#tip_AuthenCode").html("验证码输入正确！");
+            authenCodeIsValid = true;            
+        }
+        else{
+            $("#tip_AuthenCode").css("color","red");
+            $("#tip_AuthenCode").html("验证码输错啦！");
+            RefreshAuthenCode();
+            authenCodeIsValid = false;           
+        }
+   }
+   
+   function CheckCommentContent(){
+    if($("#tbCommentBody").val().length==0){
+        alert("请输入评论内容！");
+        return false;
+    }
+    return true;
+   }
+    
+</script>
+<div id="ctl03_comment_form" class="commentform">
+
+<script type="text/javascript">
+    try {
+        SyntaxHighlighter.all();
+        isSyntaxHighlighted = true;
+    } catch (e) { }
+</script>
+
+<div id="ctl03_divCommentPannel">
+<div id="divCommentShow"></div>
+<div id="comment_nav" style="text-align:right"><span id="span_refresh_tips"></span><a href="###" onclick="return RefreshCommentList(1845913);" name="commentform" id="lnk_RefreshComments">刷新评论列表</a>&nbsp; <a href="###" onclick="return RefreshPage();">刷新页面</a>&nbsp; <a href="#top">返回页首</a></div>
+<div id="commentform_title">发表评论 <span class="ad_commentbox_up"><a href="http://www.cnblogs.com" target="_blank">博客园首页</a>&nbsp; <a href="http://news.cnblogs.com" target="_blank">IT新闻</a>&nbsp; <a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a>&nbsp; <a href="http://job.cnblogs.com/" target="_blank">招聘</a>&nbsp; <a href="http://a4.yeshj.com/rd/34143/" target="_blank">学英语</a></span></div>
+<span id="tip_comment" style="color:Red"></span>
+<p>
+昵称：<input id="tbCommentAuthor" type="text" class="author" onfocus="ShowAuthenCode()" onblur="CheckAuthor()" /> <span id="tip_author" style="color:red"></span><a href="http://passport.cnblogs.com/login.aspx?ReturnUrl=http%3a%2f%2fwww.cnblogs.com%2fchengmo%2farchive%2f2010%2f10%2f08%2f1845913.html%3flogin%3d1%23commentform">[登录]</a>
+<a href="http://passport.cnblogs.com/register.aspx?ReturnUrl=http%3a%2f%2fwww.cnblogs.com%2fchengmo%2farchive%2f2010%2f10%2f08%2f1845913.html%23Top">[注册]</a>
+</p>
+<p>
+主页：<input id="tbCommentAuthorUrl" type="text" class="url" onfocus="ShowAuthenCode()" onblur="CheckUrl()" /> <span id="tip_url" style="color:red"></span>
+</p>
+<p>
+邮箱：<input id="tbCommentEmail" type="text" class="email" onfocus="ShowAuthenCode()" onblur="CheckEmail()"/>(仅博主可见) <span id="tip_email" style="color:red"></span>
+</p>
+<p id="wrapAuthenCode" style="display:none">
+验证码：<input id="tbAuthenCode" type="text" onblur="CheckAuthenCode()"/> <span id="tip_AuthenCode"></span><img id="imgAuthenCode" src="/Modules/CaptchaImage/ValidCodeImage.aspx?id=cyZ5YJCJYnk=" alt="验证码" align="absmiddle"/> <a href="###" onclick="return RefreshAuthenCode();" id="lnkRereshAuthenCode">看不清，换一个</a>
+</p>
+<p>
+评论内容：<span id="tip_comment_content" style="color:Red"></span><br />
+<textarea id="tbCommentBody" class="comment_textarea" onkeydown="return clt_enter(event)" onfocus="ShowAuthenCode()">
+</textarea>
+<!--
+<br /><input id="cbRememberMe" type="checkbox" />记住我的昵称和主页
+-->
+</p>
+<p>
+<input id="btn_comment_submit" type="button" class="comment_btn" value="提交" onclick="PostComment();return false;"/>
+&nbsp;&nbsp;<a href="http://passport.cnblogs.com/login.aspx?ReturnUrl=http%3a%2f%2fwww.cnblogs.com%2fchengmo%2farchive%2f2010%2f10%2f08%2f1845913.html%3flogin%3d1%23commentform">登录</a>&nbsp;&nbsp;<a href="http://passport.cnblogs.com/register.aspx?ReturnUrl=http%3a%2f%2fwww.cnblogs.com%2fchengmo%2farchive%2f2010%2f10%2f08%2f1845913.html%23Bottom">注册</a>
+</p>
+<p>
+[使用Ctrl+Enter键快速提交评论]
+</p>
+<div style="display:none">
+<span id="comment_edit_id"></span><span id="span_parentcomment_id">0</span>
+<span id="span_parent_id">1845913</span>
+<span id="span_comment_replyto"></span>
+<span id="span_comment_posted"></span>
+<span id="span_comment_test">cyZ5YJCJYnk=</span>
+</div>
+</div>
+
+
+<div class="itnews c_ad_block">
+<b>最新IT新闻</b>:<br />
+
+          ·  <a href="http://news.cnblogs.com/n/90275/" target="_blank">Facebook产品创意天才转投Quora</a><br />
+	
+          ·  <a href="http://news.cnblogs.com/n/90274/" target="_blank">新 Windows Phone 7 开发工具发布，为复制/粘贴等一月更新预热</a><br />
+	
+          ·  <a href="http://news.cnblogs.com/n/90273/" target="_blank">Facebook 7 年回顾</a><br />
+	
+          ·  <a href="http://news.cnblogs.com/n/90272/" target="_blank">iPad 如何转换人们的在线阅读时间</a><br />
+	
+          ·  <a href="http://news.cnblogs.com/n/90271/" target="_blank">甲骨文改组Java开源项目 IBM获领导权</a><br />
+	
+&raquo; <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a>
+</div>
+
+
+<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>
+<script type="text/javascript">
+    var c_enable_dfp = true;
+    if (navigator.userAgent.indexOf("Chrome/6.0.401.1") > 0) {
+        c_enable_dfp = false;
+    }
+    if (c_enable_dfp) {
+        try {
+            GS_googleAddAdSenseService("ca-pub-4210569241504288");
+            GS_googleEnableAllServices();
+        }
+        catch (e) { }
+    }
+</script>
+<script type="text/javascript">
+    if (c_enable_dfp) {
+        try {
+            GA_googleAddSlot("ca-pub-4210569241504288", "cnblogs_blogpost_bottom");
+        }
+        catch (e) { }
+    }
+</script>
+<script type="text/javascript">
+    if (c_enable_dfp) {
+        try {
+            GA_googleFetchAds();
+        } catch (e) { }
+    }
+</script>
+<div class="c_ad_block">
+<script type="text/javascript">
+    try {
+        if (c_enable_dfp) {
+
+            GA_googleFillSlot("cnblogs_blogpost_bottom");
+        }
+    }
+    catch (e) { }
+</script>
+</div>
+
+
+<div class="itnews c_ad_block" id="kb_block">
+<a href="http://kb.cnblogs.com/" target="_blank" title="程序员知识库"><b>知识库最新文章</b></a>:<br />
+<div id="kb_recent">
+
+		<a href="http://kb.cnblogs.com/page/90257/" target="_blank">访谈Brad Fitzpatrick——《编程人生》精彩样章</a><br />
+	
+		<a href="http://kb.cnblogs.com/page/90237/" target="_blank">算法学习二三事</a><br />
+	
+		<a href="http://kb.cnblogs.com/page/90166/" target="_blank">程序员怎样学数学</a><br />
+	
+		<a href="http://kb.cnblogs.com/page/90136/" target="_blank">你是海盗吗？</a><br />
+	
+		<a href="http://kb.cnblogs.com/page/89855/" target="_blank">[前端优化] 使用Combres合并对js、css文件的请求</a><br />
+	
+</div>
+</div>
+<div id="HistoryToday" class="c_ad_block">
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    });
+</script>
+<div id="site_nav_under" class="c_ad_block">
+网站导航: <a href="http://www.cnblogs.com/" target="_blank">博客园首页</a> &nbsp;<a href="http://news.cnblogs.com/" target="_blank">IT新闻</a> &nbsp;<a href="http://home.cnblogs.com/" target="_blank">我的园子</a> &nbsp;<a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a> &nbsp;<a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a> &nbsp;<a href="http://home.cnblogs.com/q/" target="_blank">博问</a> 
+</div>
+<div id="ad_under_comment2" class="c_ad_block">
+<a href="http://www.china-pub.com/static07/0908/zh_pod_090825.asp" target="_blank"><img src="http://static.cnblogs.com/images/a4/china-pub_pod.jpg" alt="" style="border:0px;"/></a><br />
+<a href="http://www.china-pub.com/itbook/" target="_blank">China-pub 计算机图书网上专卖店！6.5万品种2-8折！</a><br />
+<a href="http://www.china-pub.com/static07/0901/zh_jueba_090121.asp" target="_blank">China-Pub 计算机绝版图书按需印刷服务</a><br />
+</div>
+<div id="clear_reader_link">
+<div id="kb_link">简洁版式：<a href="http://archive.cnblogs.com/a/1845913/">linux awk 内置函数详细介绍（实例）</a></div>
+</div>
+
+
+
+
+
+</div>
+
+
+				
+</div>
+<div id="lefttemp" style="display:none">
+
+	    <table id="Calendar1_entryCal" class="Cal" cellspacing="0" cellpadding="0" title="Calendar" border="0" style="border-width:1px;border-style:solid;border-collapse:collapse;">
+	<tr><td colspan="7" style="background-color:Silver;"><table class="CalTitle" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
+		<tr><td class="CalNextPrev" style="width:15%;"><a href="javascript:__doPostBack('Calendar1$entryCal','V3896')" style="color:Black" title="Go to the previous month">&lt;</a></td><td align="center" style="width:70%;">2010年10月</td><td class="CalNextPrev" align="right" style="width:15%;"><a href="javascript:__doPostBack('Calendar1$entryCal','V3957')" style="color:Black" title="Go to the next month">&gt;</a></td></tr>
+	</table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center" style="width:14%;">26</td><td class="CalOtherMonthDay" align="center" style="width:14%;">27</td><td class="CalOtherMonthDay" align="center" style="width:14%;">28</td><td class="CalOtherMonthDay" align="center" style="width:14%;">29</td><td class="CalOtherMonthDay" align="center" style="width:14%;">30</td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/1.html"><u>1</u></a></td><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/2.html"><u>2</u></a></td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/3.html"><u>3</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/4.html"><u>4</u></a></td><td align="center" style="width:14%;">5</td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/6.html"><u>6</u></a></td><td align="center" style="width:14%;">7</td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/8.html"><u>8</u></a></td><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/9.html"><u>9</u></a></td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/10.html"><u>10</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/11.html"><u>11</u></a></td><td align="center" style="width:14%;">12</td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/13.html"><u>13</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/14.html"><u>14</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/15.html"><u>15</u></a></td><td class="CalWeekendDay" align="center" style="width:14%;">16</td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/17.html"><u>17</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/18.html"><u>18</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/19.html"><u>19</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/20.html"><u>20</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/21.html"><u>21</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/22.html"><u>22</u></a></td><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/23.html"><u>23</u></a></td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/24.html"><u>24</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/25.html"><u>25</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/26.html"><u>26</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/27.html"><u>27</u></a></td><td align="center" style="width:14%;">28</td><td align="center" style="width:14%;">29</td><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/chengmo/archive/2010/10/30.html"><u>30</u></a></td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;">31</td><td class="CalOtherMonthDay" align="center" style="width:14%;">1</td><td class="CalOtherMonthDay" align="center" style="width:14%;">2</td><td class="CalOtherMonthDay" align="center" style="width:14%;">3</td><td class="CalOtherMonthDay" align="center" style="width:14%;">4</td><td class="CalOtherMonthDay" align="center" style="width:14%;">5</td><td class="CalOtherMonthDay" align="center" style="width:14%;">6</td></tr>
+</table>
+
+		
+<h3>公告</h3>
+<div class="News">
+	<p><font color="red">本博客文章如非注明均属原创，允许转载，请务必添加原文链接</font></p>
+<p>网名:程默</p>
+<p>地址:广东&#183;深圳</p>
+<p>行业:IT(linux,服务器，安全，架构）</p>
+<p>Q　Q:8292669</p>
+<!-- FEED自动发现标记结束 -->
+<a href="http://feed.feedsky.com/chengmo" target="_blank"><img src="http://img.feedsky.com/images/icon_sub_c1s16.gif" alt="feedsky" style="margin-bottom: 3px;" border="0" vspace="2" /></a>
+<!-- Feedsky FEED发布代码结束 -->
+<div id="profile_block"><a href="http://home.cnblogs.com/u/chengmo/followers/">粉丝 - 5</a><br/><a href="http://home.cnblogs.com/u/chengmo/followees/">关注 - 0</a><br/><a href="http://home.cnblogs.com/u/chengmo/" target="_blank">我的主页</a>&nbsp; <a href="http://home.cnblogs.com/u/chengmo/detail/" target="_blank">个人资料</a><br/><a href="http://home.cnblogs.com/chengmo/ing/" target="_blank">我的闪存</a>&nbsp; <a href="http://space.cnblogs.com/msg/send/%e7%a8%8b%e9%bb%98" target="_blank">发短消息</a></div>
+</div>
+
+		
+<script type="text/javascript">
+var blogapp = 'chengmo';
+</script>
+<div class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+
+<div class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk"/>&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索"  class="btn_my_zzk"/></div>
+
+</div>
+<h3>常用链接</h3>
+<ul>
+
+		<li><a id="SingleColumn1_ctl01_rptMainLinks_ctl00_lnkLinkItem" href="http://www.cnblogs.com/chengmo/MyPosts.html">我的随笔</a></li>
+	
+		<li><a id="SingleColumn1_ctl01_rptMainLinks_ctl01_lnkLinkItem" href="http://home.cnblogs.com/chengmo/">我的空间</a></li>
+	
+		<li><a id="SingleColumn1_ctl01_rptMainLinks_ctl02_lnkLinkItem" href="http://space.cnblogs.com/msg/recent">我的短信</a></li>
+	
+		<li><a id="SingleColumn1_ctl01_rptMainLinks_ctl03_lnkLinkItem" href="http://www.cnblogs.com/chengmo/MyComments.html">我的评论</a></li>
+	
+<li><a id="itemListLink" onclick="this.blur();WarpClass('itemListLink', 'itemListLin_con');return false;" href="#">更多链接</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+		<li><a id="SingleColumn1_ctl01_repeaterLinks_ctl01_lnkLinkItem" title="我发表过评论的随笔" href="http://www.cnblogs.com/chengmo/OtherPosts.html">我的参与</a></li>
+	
+		<li><a id="SingleColumn1_ctl01_repeaterLinks_ctl02_lnkLinkItem" href="http://www.cnblogs.com/chengmo/RecentComments.html">最新评论</a></li>
+	
+		<li><a id="SingleColumn1_ctl01_repeaterLinks_ctl03_lnkLinkItem" href="http://www.cnblogs.com/chengmo/tag/">我的标签</a></li>
+	</ul>
+</div>
+
+<h3 class="catListTitle">我的标签</h3>
+<div id="MyTag">
+<ul>
+<li><a href="http://www.cnblogs.com/chengmo/tag/linux/">linux</a>(36)</li><li><a href="http://www.cnblogs.com/chengmo/tag/shell/">shell</a>(26)</li><li><a href="http://www.cnblogs.com/chengmo/tag/awk/">awk</a>(13)</li><li><a href="http://www.cnblogs.com/chengmo/tag/php/">php</a>(9)</li><li><a href="http://www.cnblogs.com/chengmo/tag/%e5%ad%97%e7%ac%a6%e9%9b%86/">字符集</a>(3)</li><li><a href="http://www.cnblogs.com/chengmo/tag/nginx/">nginx</a>(2)</li><li><a href="http://www.cnblogs.com/chengmo/tag/regex/">regex</a>(1)</li><li><a href="http://www.cnblogs.com/chengmo/tag/python/">python</a>(1)</li><li><a href="http://www.cnblogs.com/chengmo/tag/mount/">mount</a>(1)</li>
+</ul>
+</div>
+		<h3>随笔分类</h3>
+		
+				<ul>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_Link" href="http://www.cnblogs.com/chengmo/category/251322.html">linux(35)</a> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl01_RssLink" href="#" onclick="return open_link('http://www.cnblogs.com/chengmo/category/251322.html/rss');">(rss)</a></li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_Link" href="http://www.cnblogs.com/chengmo/category/251320.html">nginx(3)</a> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl02_RssLink" href="#" onclick="return open_link('http://www.cnblogs.com/chengmo/category/251320.html/rss');">(rss)</a></li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl03_Link" href="http://www.cnblogs.com/chengmo/category/251321.html">php(8)</a> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl03_RssLink" href="#" onclick="return open_link('http://www.cnblogs.com/chengmo/category/251321.html/rss');">(rss)</a></li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl04_Link" href="http://www.cnblogs.com/chengmo/category/263774.html">python(1)</a> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl04_RssLink" href="#" onclick="return open_link('http://www.cnblogs.com/chengmo/category/263774.html/rss');">(rss)</a></li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl05_Link" href="http://www.cnblogs.com/chengmo/category/251594.html">web前端(1)</a> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl05_RssLink" href="#" onclick="return open_link('http://www.cnblogs.com/chengmo/category/251594.html/rss');">(rss)</a></li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl06_Link" href="http://www.cnblogs.com/chengmo/category/265900.html">字符集(3)</a> <a id="SingleColumn1_Categories_CatList_ctl00_LinkList_ctl06_RssLink" href="#" onclick="return open_link('http://www.cnblogs.com/chengmo/category/265900.html/rss');">(rss)</a></li>
+			
+				</ul>
+			
+	
+		<h3>随笔档案</h3>
+		
+				<ul>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl01_Link" href="http://www.cnblogs.com/chengmo/archive/2011/01.html">2011年1月 (1)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl02_Link" href="http://www.cnblogs.com/chengmo/archive/2010/12.html">2010年12月 (1)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl03_Link" href="http://www.cnblogs.com/chengmo/archive/2010/10.html">2010年10月 (42)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl04_Link" href="http://www.cnblogs.com/chengmo/archive/2010/09.html">2010年9月 (3)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl05_Link" href="http://www.cnblogs.com/chengmo/archive/2010/07.html">2010年7月 (2)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_ctl01_LinkList_ctl06_Link" href="http://www.cnblogs.com/chengmo/archive/2010/06.html">2010年6月 (4)</a> </li>
+			
+				</ul>
+			
+	
+
+<H3>积分与排名</H3>
+<ul>
+	<li>
+		积分 -
+		34491
+	<li>
+		排名 -
+		2736
+	</li>
+</ul>
+
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	
+			<ul style="word-break:break-all">
+		
+			<li>
+				<a id="SingleColumn1_ctl05_TopList_ctl01_Hyperlink1" href="http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html">1. linux shell 字符串操作（长度，查找，替换）详解(2196)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl05_TopList_ctl02_Hyperlink1" href="http://www.cnblogs.com/chengmo/archive/2010/10/30/1864004.html">2. 由web程序出现乱码开始挖掘(Bom头、字符集与乱码）(2119)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl05_TopList_ctl03_Hyperlink1" href="http://www.cnblogs.com/chengmo/archive/2010/10/20/1855805.html">3. linux shell数据重定向（输入重定向与输出重定向）详细分析(1993)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl05_TopList_ctl04_Hyperlink1" href="http://www.cnblogs.com/chengmo/archive/2010/10/22/1858302.html">4. linux shell 脚本实现tcp/upd协议通讯（重定向应用）(1630)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl05_TopList_ctl05_Hyperlink1" href="http://www.cnblogs.com/chengmo/archive/2010/10/23/1858879.html">5. linux shell实现随机数多种方法（date,random,uuid)(1517)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+
+		
+</div>
+<div class="footer">
+
+<p id="footer">
+	Powered by: 
+	<br />
+	
+	<a id="Footer1_Hyperlink3" NAME="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br />
+	Copyright &copy; 程默
+</p>
+</div>
+<!--PageEndHtml Block Begin-->
+<script language="javascript" type="text/javascript" src="http://js.users.51.la/4193882.js"></script>
+<noscript><a href="http://www.51.la/?4193882" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/4193882.asp" style="border:none" /></a></noscript>
+<!--PageEndHtml Block End-->
+
+    </form> 
+    <script type="text/javascript">
+        if (!isSyntaxHighlighted) {
+            try {
+                SyntaxHighlighter.all();
+            } catch (e) { }
+        }
+    </script>
+    <script type="text/javascript" src="http://www.cnblogs.com/script/ShowHidden.js"></script>
+    
+</body>
+</html>

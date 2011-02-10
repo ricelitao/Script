@@ -1,0 +1,239 @@
+1.Patterns and Procedures
+  awk scripts consist of patterns and procedures:
+              pattern {procedure}
+  Both are optional.IF pattern is missing,{procedure} is applied to all records.
+  If {procedure} is missing,the matched record is written to the standard output.
+  
+(1)Patterns
+   pattern can be any of the following:
+              /regular expression/
+              relational expression
+              pattern-matching expression
+              BEGIN
+              END
+   A.Expression can be composed of quoted strings,numbers,operators,functions,defined variables,
+     and any of the predefined variables described later in the section "awk System Variables."
+   B.Regular expressions use the extended set of metacharacters,in addition,^ and $ can be used to
+     refer to the beginning and end of a field,respectively,rather than the beginning and end of a record.
+   C.Relational expressions use the relational operators listed in the section "Operators".
+     Comparisons can be either string or numeric,for example,$2 > $1 selects records for which the second field 
+     is greater than the first.
+   D.Pattern-matching expressions use the operators ~(match) and !~(don't match).
+   E.The BEGIN pattern lets you specify procedures that will take place before the first input record is processed.
+     (Generally,you set global variables here.)
+   F.The END pattern lets you specify procedures that will take place after the last input record is read.
+   Except for BEGIN and END,patterns can be combined with the Boolean operators || (OR),
+   && (AND) and ! (NOT).
+   
+   When awk reads an input line, it attempts to match each pattern-matching rule in a script. Only the lines matching
+   the particular pattern are the object of an action. If no action is specified, the line that matches the pattern is
+   printed(executing the print statement is the default action).
+(2)Procedures 
+   Procedure can consist of one or more commands,functions,or variable assignmens,separated by newlines or semicolons(;),
+   and contained within curly braces({}).Commands fall into four groups:
+   A.Variable or array assignments
+   B.Printing commands
+   C.Built-in functions
+   D.Control-flow commands
+   (FS:Field separator (default is whitespace)
+    NF:Number of fields in current record
+    NR:Number of the current record
+    OFS:Output field separator (default is a blank) 
+    ORS:Output record separator (default is a newline)
+    RS:Record separator (default is a newline))
+    
+split(s,a,sep): Parses string s into elements of array a using field separator sep;
+								returns number of elements. If sep is not supplied,FS is used. Array
+								splitting works the same way as field splitting.
+								
+length函数返回记录的字符数。格式如下： 
+length( string ) 
+length 
+实例： 
+$ awk '{ print length( "test" ) }' 
+$ awk '{ print length }' testfile 
+第一个实例返回test字符串的长度。 
+第二个实例返回testfile文件中第条记录的字符数。
+
+match函数返回在字符串中正则表达式位置的索引，如果找不到指定的正则表达式则返回0。
+match函数会设置内建变量RSTART为字符串中子字符串的开始位置，RLENGTH为到子字符串末尾的字符个数。
+substr可利于这些变量来截取字符串。函数格式如下：
+            match( string, regular expression )
+实例：
+            $ awk '{start=match("this is a test",/[a-z]+$/); print start}'
+            $ awk '{start=match("this is a test",/[a-z]+$/); print start, RSTART, RLENGTH }'
+第一个实例打印以连续小写字符结尾的开始位置，这里是11。
+第二个实例还打印RSTART和RLENGTH变量，这里是11(start)，11(RSTART)，4(RLENGTH)。 
+
+substr函数返回从位置1开始的子字符串，如果指定长度超过实际长度，就返回整个字符串。格式如下： 
+substr( string, starting position ) 
+substr( string, starting position, length of string ) 
+实例： 
+$ awk '{ print substr( "hello world", 7,11 ) }' 
+上例截取了world子字符串。  
+
+Here's an example using the continue statement:
+	for ( x=1; x<=NF; ++x ) {
+			if (x==3)
+						continue
+			print x, $x
+	}
+This example loops through the fields of the current input record, printing the field number and its value.
+However, we want to avoid printing the third field. The conditional statement tests the counter variable and if it is
+equal to 3, the continue statement is executed. The continue statement passes control back to the top of the loop where
+the counter variable is incremented again. It avoids executing the print statement for that iteration. The same result
+could be achieved by simple re-writing the conditional to execute print as long as x is not equal to 3. The point is 
+that you can use the continue statement to avoid hitting the bottom of the loop on a particular iteration.
+
+The next statement causes the next line of input to be read and then resumes execution at the top of the script. This 
+allows you to avoid applying other procedures on the current input line. A typical use of the next statement is to
+continue reading input from a file, ignoring the other actions in the script until that file is exhausted. The system
+variable FILENAME provides the name of the current input file. Thus, a pattern can be written:
+	FILENAME=="acronyms" {
+		action
+		next
+	}
+	{print}
+This causes the action to be performed for each line in the file acronyms. After the action is performed, the next line 
+of input is read. Control does not pass to the print statement until the input is taken from a different source.
+
+The exit statement exits the main input loop and passes control to the END rule, if there is one. If the END rule is not
+defined, or the exit statement is used in the END rule, then the script terminates. 
+
+The "#!" syntax is an alternative syntax for invoking awk from a shell script. It has the advantage of allowing you to
+specify awk parameters and filenames on the shell-script command line. You can put only one parameter on the "#!" line.
+This line is processed directly by the UNIX kernel; it is not precessed by the shell and thus cannot contain arbitrary
+shell constructs.
+
+man.split script:
+#man.split -- split up a file containing X manpages.
+BEGIN {file=0; i=0; filename=""}
+
+#First line of new manpage is ".nr X 0"
+#Last line is blank
+/^\.nr X 0/,/^$/ {
+				# this conditional collects lines until we get a filename.
+				if (file==0)
+						line[++i]=$0
+				else
+						print $0 > filename
+						
+				#this matches the line that gives us the filename
+				if ($4 == "x}") {
+								#now we have a filename
+								filename=$5
+								file=1
+								#output name to screen
+								print filename
+								#print any lines collected
+								for (x=1; x<=i; ++x) {
+											print line[x] > filename
+								}
+								i=0
+				}
+				
+				#close up and clean up for next one
+				if ($0 ~ /^$/) {
+								close(filename)
+								filename = ""
+								file=0
+								i=0
+				}
+}
+
+$cat addem
+awk '/^#/ {
+        amount=$2*$3
+        printf "%s %6.2f\n",$0,amount
+        next
+        }
+{print}' $*
+The main procedure only affects lines that match the pattern. It multiplies the second field by the third field, assigning
+the value of the variable amount. The printf conversion %f is used to print a floating-point number; "6.2" specifies a
+minimum field width of six and a precision of two. Precision is the number of digits to the right of the decimal point;
+the default for %f is six. We print the current record along with the value of the variable amount. If a line is printed
+within this procedure, the next line is read from standard input. Lines not matching the pattern are simply passed through.
+
+
+#! /bin/sh
+# addemup -- total customer orders
+awk 'BEGIN {FS = "\n"; RS = ""}
+{
+	for (i=3;i<=NF;++i) {
+	  print $i
+		sv=split($i,order," ")
+		if (sv==3){
+			title=order[1]
+			copies=order[2]
+			price=order[3]
+			amount=copies*price
+			total_vol+=copies
+			total_amt+=amount
+			vol[title]+=copies
+			amt[title]+=amount
+		} else
+			print "Incomplete Record"
+		}
+}	
+END {
+	printf "%5s\t%10s\t%6s\n\n","TITLE","COPIES SOLD","TOTAL"
+	for (title in vol)
+		printf "%5s\t%10d\t%7.2f\n", title,vol[title],amt[title]
+	printf "%s\n","------------------------------------"
+	printf "\t%s%4d\t$%7.2f\n","Total ",total_vol,total_amt
+}' $*
+
+if statement:
+if(表达式)
+	{语句1;}
+else if(表达式)
+	{语句2;}
+else
+	{语句3;}
+	
+while statement:
+awk 'BEGIN{ 
+test=100;
+total=0;
+while(i<=test)
+{
+    total+=i;
+    i++;
+}
+print total;
+}'
+
+for statement:
+awk 'BEGIN{ 
+for(k in ENVIRON)
+{
+    print k"="ENVIRON[k];
+}
+}'
+
+awk 'BEGIN{ 
+total=0;
+for(i=0;i<=100;i++)
+{
+    total+=i;
+}
+print total;
+}'
+
+do statement:
+awk 'BEGIN{ 
+total=0;
+i=0;
+do
+{
+    total+=i;
+    i++;
+}while(i<=100)
+print total;
+}'
+
+break	当 break 语句用于 while 或 for 语句时，导致退出程序循环。
+continue	当 continue 语句用于 while 或 for 语句时，使程序循环移动到下一个迭代。
+next	能能够导致读入下一个输入行，并返回到脚本的顶部。这可以避免对当前输入行执行其他的操作过程。
+exit	语句使主输入循环退出并将控制转移到END,如果END存在的话。如果没有定义END规则，或在END中应用exit语句，
+则终止脚本的执行。
